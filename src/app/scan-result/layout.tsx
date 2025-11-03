@@ -19,14 +19,14 @@ export default function VendorDetailsLayout({
             className="uppercase text-xs w-full justify-start "
             onClick={() => {}}
           >
-            <IoIosArrowBack />{" "}
+            <IoIosArrowBack />
             <span className="flex items-center justify-start">
-              Search a Vendor{" "}
+              AI Scam Detector
             </span>
           </Button>
         </div>
         <h1 className="text-2xl md:text-3xl font-semibold  leading-tight text-center">
-          Search Result{" "}
+          Scam Detector Result
         </h1>
       </div>
 
