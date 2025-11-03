@@ -1,27 +1,84 @@
+import Image from "next/image"
+
 const testimonials = [
     {
         name: "JOHN SMITH",
-        comment: "Incredibly useful - protected me from numerous scams this month"
-    }
+        avatar: "/assets/icon.png",
+        comment: "I've been using this platform for a few months now, and it has helped me avoid numerous scams. The real-time alerts are incredibly useful and reassuring."
+    },
+    // {
+    //     name: "SARAH JOHNSON",
+    //     avatar: "/assets/icon.png",
+    //     comment: "This service saved me from losing thousands of dollars. Highly recommended!"
+    // },
+    // {
+    //     name: "MIKE CHEN",
+    //     avatar: "/assets/icon.png",
+    //     comment: "The peace of mind this provides is priceless. Easy to use and very effective."
+    // },
+    // {
+    //     name: "EMMA DAVIS",
+    //     avatar: "/assets/icon.png",
+    //     comment: "Caught a phishing attempt I would have fallen for. This tool is essential!"
+    // },
+    // {
+    //     name: "ALEX MARTINEZ",
+    //     avatar: "/assets/icon.png",
+    //     comment: "Simple, effective, and has protected my business multiple times already."
+    // }
 ]
 
 export function TestimonialsSection() {
     return (
-        <section className="py-16 px-6 bg-gray-50">
-            <div className="max-w-6xl mx-auto">
-                <h2 className="text-3xl font-bold text-center mb-4">Customer Testimonials</h2>
-                <p className="text-center text-gray-600 mb-12">
+        <section className="py-16 px-6 ">
+            <div className="max-w-7xl mx-auto text-center">
+                <h1 className="text-3xl md:text-4xl lg:text-6xl font-semibold text-indigo">
+                    Customer Testimonials
+                </h1>
+                <p className="text-base md:text-lg text-indigo mx-auto leading-relaxed mb-6 max-w-2xl">
                     Real experiences shared by our valued community members.
                 </p>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {testimonials.map((testimonial, index) => (
-                        <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-                            <div className="text-4xl mb-4">⭐</div>
-                            <p className="text-gray-700 mb-4">{testimonial.comment}</p>
-                            <p className="font-semibold text-gray-900">{testimonial.name}</p>
+                        <div key={index} className="bg-gradient-to-b from-white/60 to-[#e1eafd]/60 p-6 rounded-lg shadow-[0px_4px_12px_0px_#E0E8F7AD] border border-white">
+                            <div className="flex  items-center gap-3 mb-4">
+                                <div className="relative w-10 h-10">
+                                    <Image
+                                        src={testimonial.avatar}
+                                        alt={`${testimonial.name} avatar`}
+                                        fill
+                                        className="rounded-full object-cover"
+                                    />
+                                </div>
+                                <p className="font-semibold text-indigo md:text-lg">{testimonial.name}</p>
+                            </div>
+                            <div className="flex  mb-4 gap-1">
+                                {[...Array(5)].map((_, starIndex) => (
+                                    <Image
+                                        key={starIndex}
+                                        src="/assets/vector.svg"
+                                        alt="Star rating"
+                                        width={24}
+                                        height={24}
+                                        className="w-6 h-6"
+                                    />
+                                ))}
+                            </div>
+                            <p className="text-gray text-sm md:text-base mb-4 italic text-start">"{testimonial.comment}"</p>
+
                         </div>
                     ))}
+
+                </div>
+                <div className="relative w-full h-3 my-8">
+                    <Image
+                        src="/assets/swiper.svg"
+                        alt="Swiper"
+                        fill
+                        className="object-contain"
+                        priority
+                    />
                 </div>
             </div>
         </section>

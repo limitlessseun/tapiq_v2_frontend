@@ -2,26 +2,15 @@ export function CommunityImpact() {
     return (
         <section className="py-16 px-6">
             <div className="max-w-6xl mx-auto text-center">
-                <h2 className="text-3xl font-bold mb-6">Building Trust Together</h2>
-                <p className="text-lg text-gray-600 mb-8 max-w-3xl mx-auto">
+                <h1 className="text-3xl md:text-4xl lg:text-6xl font-semibold text-indigo mb-4">
+                    Building Trust Together
+                </h1>
+                <p className="text-base md:text-lg text-indigo max-w-4xl mx-auto leading-relaxed mb-8">
                     See how our community is staying safe and protecting others from scams.
                     Our collective mission is to make the online world safer for everyone.
                 </p>
+                <p className="text-base md:text-lg text-gray mx-auto leading-relaxed text-start md:text-center">Our collective mission is to make the online space safer for everyone. Every week, we identify new scam schemes and warn users about potential threats. This month alone, our community has protected 2080 users from scams, and this is just the beginning!</p>
 
-                <div className="grid md:grid-cols-3 gap-8 mt-12">
-                    <div className="text-center">
-                        <div className="text-4xl font-bold text-blue-600 mb-2">10K+</div>
-                        <p className="text-gray-600">Scam alerts prevented</p>
-                    </div>
-                    <div className="text-center">
-                        <div className="text-4xl font-bold text-green-600 mb-2">50K+</div>
-                        <p className="text-gray-600">Users protected from scams</p>
-                    </div>
-                    <div className="text-center">
-                        <div className="text-4xl font-bold text-purple-600 mb-2">1M+</div>
-                        <p className="text-gray-600">Reports processed</p>
-                    </div>
-                </div>
             </div>
         </section>
     )

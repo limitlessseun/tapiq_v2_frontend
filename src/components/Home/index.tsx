@@ -5,3 +5,4 @@ export { CommunityImpact } from "./Community";
 export { CTASection } from "./CTA";
 export { ScamSpotlight } from "./ScamSpotlight";
 export { TestimonialsSection } from "./Testimonial";
+export { AboutSection } from "./About";

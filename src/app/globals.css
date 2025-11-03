@@ -9,6 +9,7 @@
   --indigo: #1D1F4D;
   --teal: #00B9AD;
   --gray: #606391;
+  --cloudwhite: #F6F9FF
 }
 
 @theme inline {
@@ -17,4 +18,20 @@
   --color-indigo: var(--indigo);
   --color-teal: var(--teal);
   --color-gray: var(--gray);
+  --color-cloudwhite: var(--cloudwhite)
+}
+
+.custom-gradient-border-y {
+  border-width: 1px 0px 1px 0px;
+  border-style: solid;
+  border-image-source: linear-gradient(233.59deg, rgba(41, 80, 171, 0) -0.04%, rgba(0, 77, 255, 0.6) 48.84%, rgba(41, 80, 171, 0) 97.72%);
+  border-image-slice: 1;
+}
+
+.complex-gradient-border {
+  border: 1px solid;
+  border-image-source:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.8) -25.96%, rgba(255, 255, 255, 0) 100%),
+    linear-gradient(270deg, rgba(255, 255, 255, 0) 12.54%, rgba(255, 255, 255, 0.8) 47.67%, rgba(255, 255, 255, 0) 82.8%);
+  border-image-slice: 1;
 }

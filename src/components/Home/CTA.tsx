@@ -2,16 +2,27 @@ import { Button } from '@/components/ui/button'
 
 export function CTASection() {
     return (
-        <section className="py-16 px-6 bg-gray-900 text-white">
-            <div className="max-w-4xl mx-auto text-center">
-                <h2 className="text-3xl font-bold mb-6">Ready To Stay Ahead Of Scammers?</h2>
-                <p className="text-lg mb-8 opacity-90">
-                    Take control of your online safety today. Stay informed, report suspicious activity,
-                    and protect yourself from fraud.
+        <section className="bg-gradient-to-br from-[#057EB7] via-[#141986] to-[#0E1264] text-white py-16 md:py-20 lg:py-24 px-6 font-manrope">
+            <div className="flex flex-col justify-center w-full text-center it">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold mb-6 md:mb-8 leading-tight capitalize">
+                    Ready to stay ahead
+                    <br />
+                    of scammers?
+                </h1>
+                <p className="text-lg md:text-xl lg:text-2xl mb-8 md:mb-10 lg:mb-12 text-secwhite leading-relaxed max-w-xl mx-auto ">
+                    Take control of your online safety today. Stay informed, report suspicious activity, and protect yourself from fraud.
                 </p>
-                <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100">
-                    SCAN A MESSAGE
-                </Button>
+                <div className='flex gap-4 flex-col md:gap-6 w-full max-w-md mx-auto md:max-w-none md:w-auto md:flex-row'>
+                    <Button
+                        className="bg-gradient-to-br from-[#575EFF] to-[#282D99] uppercase font-semibold text-base md:text-lg w-full md:w-48 py-6 md:py-7 complex-gradient-border"
+                    >
+                        Verify a Vendor
+                    </Button>
+                    <Button className="bg-transparent text-white uppercase font-semibold text-base md:text-lg w-full md:w-48 py-6 md:py-7 hover:bg-white/10 complex-gradient-border"
+                    >
+                        Scan a Message
+                    </Button>
+                </div>
             </div>
         </section>
     )
