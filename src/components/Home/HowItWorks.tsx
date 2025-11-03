@@ -1,9 +1,9 @@
 import Image from "next/image"
 import { Button } from "../ui/button"
 
-export function HowItWorks() {
+export function HowItWorks({ bg }: any) {
     return (
-        <section className="py-16 px-6 font-manrope bg-cloudwhite">
+        <section className={`py-16 px-6 font-manrope bg-cloudwhite ${bg}`}>
             <div className="w-full md:w-1/2 mx-auto">
                 <div className="w-full mx-auto text-center mb-8">
                     <h1 className="text-3xl md:text-4xl lg:text-6xl font-semibold text-indigo mb-4">
@@ -46,22 +46,22 @@ export function HowItWorks() {
                             </div>
                         </div>
                     </div>
-
-                    <div className="relative w-full h-3 my-8">
-                        <Image
-                            src="/assets/swiper.svg"
-                            alt="Swiper"
-                            fill
-                            className="object-contain"
-                            priority
-                        />
-                    </div>
-
-                    <div className="w-full">
+                    {bg ? "" :
+                        <div className="relative w-full h-3 my-8">
+                            <Image
+                                src="/assets/swiper.svg"
+                                alt="Swiper"
+                                fill
+                                className="object-contain"
+                                priority
+                            />
+                        </div>
+                    }
+                    <div className="w-full md:w-3/4 lg:w-2/3 mx-auto">
                         <Button
-                            className="bg-gradient-to-br from-[#575EFF] to-[#282D99] uppercase font-semibold text-base md:text-lg w-full px-8 py-6 complex-gradient-border text-white"
+                            className="bg-gradient-to-br from-[#575EFF] to-[#282D99] uppercase font-semibold text-base md:text-lg w-full px-8 py-6 complex-gradient-border text-white my-6"
                         >
-                            read more
+                            {bg ? "Sign up" : " read more"}
                         </Button>
                     </div>
                 </div>

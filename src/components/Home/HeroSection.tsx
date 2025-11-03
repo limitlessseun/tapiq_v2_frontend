@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 export function HeroSection() {
     return (
-        <section className="bg-gradient-to-br from-[#057EB7] via-[#141986] to-[#0E1264] text-white py-16 md:py-20 lg:py-24 px-6 font-manrope">
+        <section className=" text-white py-16 md:py-20 lg:py-24 px-6 font-manrope">
             <div className='flex flex-col gap-8 md:gap-12 lg:gap-16 md:flex-row items-center justify-between w-full max-w-7xl mx-auto'>
                 {/* Text Content */}
                 <div className="w-full md:w-1/2 text-center md:text-left">

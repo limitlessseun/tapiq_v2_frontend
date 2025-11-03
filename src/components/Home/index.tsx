@@ -6,3 +6,4 @@ export { CTASection } from "./CTA";
 export { ScamSpotlight } from "./ScamSpotlight";
 export { TestimonialsSection } from "./Testimonial";
 export { AboutSection } from "./About";
+export { ReportProcess } from "./ReportProcess";

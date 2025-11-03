@@ -20,7 +20,7 @@ const features = [
     }
 ]
 
-export function AboutSection() {
+export function AboutSection({ isImage }: any) {
     return (
         <section className="py-12 md:py-24 px-6 bg-white font-manrope">
             <div className="max-w-7xl mx-auto">
@@ -31,7 +31,19 @@ export function AboutSection() {
                     </h1>
                     <p className="text-base md:text-lg text-indigo max-w-4xl mx-auto leading-relaxed">
                         Protect yourself and others from online fraud in just a few taps
-                    </p>
+                    </p>{isImage &&
+                        <div className='w-full md:w-1/2 flex justify-center mt-8 mx-auto'>
+                            <div className='relative w-full max-w-md md:max-w-lg lg:max-w-xl mx-auto'>
+                                <Image
+                                    src={isImage}
+                                    alt="Tap Iq Hero image"
+                                    width={600}
+                                    height={400}
+                                    className="w-full h-auto object-contain"
+                                    priority
+                                />
+                            </div>
+                        </div>}
                 </div>
 
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-12'>

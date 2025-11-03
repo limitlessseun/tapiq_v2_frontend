@@ -41,32 +41,34 @@ export function TestimonialsSection() {
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {testimonials.map((testimonial, index) => (
-                        <div key={index} className="bg-gradient-to-b from-white/60 to-[#e1eafd]/60 p-6 rounded-lg shadow-[0px_4px_12px_0px_#E0E8F7AD] border border-white">
-                            <div className="flex  items-center gap-3 mb-4">
-                                <div className="relative w-10 h-10">
-                                    <Image
-                                        src={testimonial.avatar}
-                                        alt={`${testimonial.name} avatar`}
-                                        fill
-                                        className="rounded-full object-cover"
-                                    />
+                        <div className="bg-white rounded-lg shadow-[0px_4px_12px_0px_#E0E8F7AD] border border-white p-2">
+                            <div key={index} className="bg-gradient-to-b from-white/60 to-[#e1eafd]/60 p-6 ">
+                                <div className="flex  items-center gap-3 mb-4">
+                                    <div className="relative w-10 h-10">
+                                        <Image
+                                            src={testimonial.avatar}
+                                            alt={`${testimonial.name} avatar`}
+                                            fill
+                                            className="rounded-full object-cover"
+                                        />
+                                    </div>
+                                    <p className="font-semibold text-indigo md:text-lg">{testimonial.name}</p>
                                 </div>
-                                <p className="font-semibold text-indigo md:text-lg">{testimonial.name}</p>
-                            </div>
-                            <div className="flex  mb-4 gap-1">
-                                {[...Array(5)].map((_, starIndex) => (
-                                    <Image
-                                        key={starIndex}
-                                        src="/assets/vector.svg"
-                                        alt="Star rating"
-                                        width={24}
-                                        height={24}
-                                        className="w-6 h-6"
-                                    />
-                                ))}
-                            </div>
-                            <p className="text-gray text-sm md:text-base mb-4 italic text-start">"{testimonial.comment}"</p>
+                                <div className="flex  mb-4 gap-1">
+                                    {[...Array(5)].map((_, starIndex) => (
+                                        <Image
+                                            key={starIndex}
+                                            src="/assets/vector.svg"
+                                            alt="Star rating"
+                                            width={24}
+                                            height={24}
+                                            className="w-6 h-6"
+                                        />
+                                    ))}
+                                </div>
+                                <p className="text-gray text-sm md:text-base mb-4 italic text-start">"{testimonial.comment}"</p>
 
+                            </div>
                         </div>
                     ))}
 

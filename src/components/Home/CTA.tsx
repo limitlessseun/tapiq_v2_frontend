@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button'
 
 export function CTASection() {
     return (
-        <section className="bg-gradient-to-br from-[#057EB7] via-[#141986] to-[#0E1264] text-white py-16 md:py-20 lg:py-24 px-6 font-manrope">
+        <section className="bg-gradient-to-b from-[#057EB7] from-[2.1%] via-[#141986] via-[50.13%] to-[#0E1264] to-[98.16%] text-white py-16 md:py-20 lg:py-24 px-6 font-manrope">
             <div className="flex flex-col justify-center w-full text-center it">
                 <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold mb-6 md:mb-8 leading-tight capitalize">
                     Ready to stay ahead
