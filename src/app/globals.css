@@ -12,7 +12,8 @@
   --teal: #00B9AD;
   --gray: #606391;
   --cloudwhite: #F6F9FF;
-   --danger:#FF2A2E;
+  --danger: #FF2A2E;
+  --dark: #00315D;
 }
 
 @theme inline {
@@ -23,8 +24,13 @@
   --color-indigo: var(--indigo);
   --color-teal: var(--teal);
   --color-gray: var(--gray);
+<<<<<<< HEAD
   --color-danger: var(--danger);
   --color-cloudwhite: var(--cloudwhite)
+=======
+  --color-cloudwhite: var(--cloudwhite);
+  --color-dark: var(--dark);
+>>>>>>> bd3688a5dadf9ae4cbd044d407b2ab9ebe8506e8
 }
 
 .custom-gradient-border-y {
