@@ -24,13 +24,8 @@
   --color-indigo: var(--indigo);
   --color-teal: var(--teal);
   --color-gray: var(--gray);
-<<<<<<< HEAD
-  --color-danger: var(--danger);
-  --color-cloudwhite: var(--cloudwhite)
-=======
   --color-cloudwhite: var(--cloudwhite);
   --color-dark: var(--dark);
->>>>>>> bd3688a5dadf9ae4cbd044d407b2ab9ebe8506e8
 }
 
 .custom-gradient-border-y {
