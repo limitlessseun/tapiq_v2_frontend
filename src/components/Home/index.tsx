@@ -7,3 +7,6 @@ export { ScamSpotlight } from "./ScamSpotlight";
 export { TestimonialsSection } from "./Testimonial";
 export { AboutSection } from "./About";
 export { ReportProcess } from "./ReportProcess";
+export { Contact } from "./ContactUs";
+export { TermsAndPrivacy } from "./TermsCondition";
+export { RaiseDispute } from "./Dispute";

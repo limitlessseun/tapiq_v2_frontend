@@ -1,3 +1,5 @@
+import { Button } from "../ui/button";
+import Image from "next/image";
 export function ReportProcess() {
     const steps = [
         {
@@ -32,32 +34,44 @@ export function ReportProcess() {
                 </div>
 
                 {/* Process Steps */}
-                <div className="space-y-8 mb-12">
-                    {steps.map((step, index) => (
-                        <div key={index} className="flex items-start gap-6">
+                <div className="flex gap-6 md:gap-8 ">
+                    {/* Step Image */}
+                    <div className="flex-shrink-0">
+                        <Image
+                            src="/assets/step.png"
+                            alt='steps'
+                            width={20}
+                            height={408}
+                            className='w-fit min-h-[420px] h-full'
+                        />
+                    </div>
 
-                            <div className="flex-shrink-0 w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center">
-                                <span className="text-white font-bold text-lg">{step.number}</span>
+                    {/* Steps Content */}
+                    <div className="flex-1 md:space-y-6 space-y-2">
+                        {steps.map((step, index) => (
+                            <div key={index} className="flex items-start gap-4">
+                                {/* Step Text Content */}
+                                <div className="flex-1">
+                                    <h3 className="text-base md:text-lg font-medium text-dark mb-2">
+                                        <span className=" mr-2">{step.number}.</span>
+                                        {step.title}
+                                    </h3>
+                                    <p className="text-gray text-sm md:text-base leading-relaxed">
+                                        {step.description}
+                                    </p>
+                                </div>
                             </div>
-
-                            {/* Step Content */}
-                            <div className="flex-1">
-                                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                                    {step.title}
-                                </h3>
-                                <p className="text-gray-600 text-lg leading-relaxed">
-                                    {step.description}
-                                </p>
-                            </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
 
                 {/* CTA Button */}
                 <div className="text-center">
-                    <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200 shadow-lg">
-                        REPORT A SCAM
-                    </button>
+                    <Button
+                        className="bg-gradient-to-br from-[#575EFF] to-[#282D99] uppercase font-semibold text-base md:text-lg w-full px-8 py-6 complex-gradient-border text-white my-6"
+                    >
+                        report a scam
+                    </Button>
                 </div>
             </div>
         </section>
