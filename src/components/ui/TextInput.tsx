@@ -57,13 +57,12 @@ const TextInput = React.forwardRef<HTMLInputElement, TextFieldProps>(
             onChange={(e) => onChange?.(e)}
             disabled={disabled}
             className={`
-              w-full h-[47px] pr-10 bg-white!
+              w-full h-[47px] pr-10 bg-white  shadow-sm
               focus:outline-none
               disabled:cursor-not-allowed 
               placeholder:text-gray 
               focus:ring-blue-200 focus:ring-4  
               rounded-md px-3
-               
               ${error ? "border border-danger" : ""}
               ${isPasswordField ? "pr-12" : ""}
             `}

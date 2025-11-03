@@ -11,7 +11,8 @@
   --indigo: #1D1F4D;
   --teal: #00B9AD;
   --gray: #606391;
-  --cloudwhite: #F6F9FF --danger:#FF2A2E;
+  --cloudwhite: #F6F9FF;
+   --danger:#FF2A2E;
 }
 
 @theme inline {
@@ -22,6 +23,7 @@
   --color-indigo: var(--indigo);
   --color-teal: var(--teal);
   --color-gray: var(--gray);
+  --color-danger: var(--danger);
   --color-cloudwhite: var(--cloudwhite)
 }
 

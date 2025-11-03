@@ -17,7 +17,7 @@ export default function AuthLayout({
         </h1>
       </div>
 
-      <div className="flex-1 bg-cloudWhite rounded-tr-3xl rounded-tl-3xl text-black py-6 px-4">
+      <div className="flex-1 bg-cloudWhite  rounded-tr-3xl rounded-tl-3xl text-black py-6 px-4 md:py-10 md:px-10 w-full md:max-w-[700px] md:mx-auto ">
         <AuthNav />
         {children}
       </div>
