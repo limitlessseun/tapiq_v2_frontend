@@ -5,16 +5,33 @@
 
 :root {
   --white: #ffffff;
+  --cloudWhite: #F6F9FF;
+  --primary:#185CBC;
   --secwhite: #DBE5F4;
   --indigo: #1D1F4D;
   --teal: #00B9AD;
   --gray: #606391;
+  --danger:#FF2A2E;
 }
 
 @theme inline {
   --color-white: var(--white);
+  --color-cloudWhite: var(--cloudWhite);
+  --color-primary: var(--primary);
   --color-secwhite: var(--secwhite);
   --color-indigo: var(--indigo);
   --color-teal: var(--teal);
   --color-gray: var(--gray);
+  --color-danger: var(--danger);
+  
+  --animate-spin: spin 1s linear infinite;
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 }
