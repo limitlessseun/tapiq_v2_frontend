@@ -67,7 +67,7 @@ export function RaiseDispute() {
                                                         setSelectedPlatforms(prev => prev.filter(p => p !== "Instagram"));
                                                     }
                                                 }}
-                                                className="w-4 h-4 accent-[#185CBC] focus:ring-[#185CBC]"
+                                                className="w-4 h-4 accent-primary focus:ring-primary"
                                             />
                                             <span className="text-gray">Instagram</span>
                                         </label>
@@ -94,7 +94,7 @@ export function RaiseDispute() {
                                                         setSelectedPlatforms(prev => prev.filter(p => p !== platform));
                                                     }
                                                 }}
-                                                className="w-4 h-4 accent-[#185CBC] focus:ring-[#185CBC]"
+                                                className="w-4 h-4 accent-primary focus:ring-primary"
                                             />
                                             <span className="text-gray">{platform}</span>
                                         </label>
@@ -114,7 +114,7 @@ export function RaiseDispute() {
                                                         setSelectedPlatforms(prev => prev.filter(p => p !== "Website"));
                                                     }
                                                 }}
-                                                className="w-4 h-4 accent-[#185CBC] focus:ring-[#185CBC]"
+                                                className="w-4 h-4 accent-primary focus:ring-primary"
                                             />
                                             <span className="text-gray">Website</span>
                                         </label>
@@ -142,7 +142,7 @@ export function RaiseDispute() {
                                                         setSelectedPlatforms(prev => prev.filter(p => p !== "Others"));
                                                     }
                                                 }}
-                                                className="w-4 h-4  accent-[#185CBC] focus:ring-[#185CBC]"
+                                                className="w-4 h-4  accent-primary focus:ring-primary"
                                             />
                                             <span className="text-gray">Others</span>
                                         </label>
@@ -176,7 +176,7 @@ export function RaiseDispute() {
                                         value={reason}
                                         checked={disputeReason === reason}
                                         onChange={(e) => setDisputeReason(e.target.value)}
-                                        className="w-4 h-4 accent-[#185CBC] focus:ring-[#185CBC] border-gray-300"
+                                        className="w-4 h-4 accent-primary focus:ring-primary border-gray-300"
 
                                     />
                                     <span className="text-gray">{reason}</span>
@@ -271,7 +271,7 @@ export function RaiseDispute() {
                                             value="email"
                                             checked={contactMethod === "email"}
                                             onChange={(e) => setContactMethod(e.target.value)}
-                                            className="w-4 h-4 accent-[#185CBC] focus:ring-[#185CBC]"
+                                            className="w-4 h-4 accent-primary focus:ring-primary"
                                         />
                                         <span className="text-gray">Email</span>
                                     </label>

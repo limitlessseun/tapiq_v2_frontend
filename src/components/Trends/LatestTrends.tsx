@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { Button } from '../ui/button';
 
 interface TrendCard {
     id: string;
@@ -72,13 +73,18 @@ export default function LatestTrends() {
                             </p>
                             <Link
                                 href={`/trends/${card.id}`}
-                                className="inline-flex items-center underline text-[#185CBC] font-medium hover:text-[#134a9c] transition-colors"
+                                className="inline-flex items-center underline text-primary font-medium hover:text-[#134a9c] transition-colors"
                             >
                                 Read now
                             </Link>
                         </div>
                     ))}
                 </div>
+                <Button
+                    className="bg-gradient-to-br from-[#575EFF] to-[#282D99] uppercase font-semibold text-lg w-full md:w-1/3 flex justify-center mx-auto py-6 complex-gradient-border text-white mt-6"
+                >
+                    SEE MORE
+                </Button>
             </div>
         </section>
     );
