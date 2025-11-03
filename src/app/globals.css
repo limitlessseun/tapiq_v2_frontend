@@ -5,15 +5,19 @@
 
 :root {
   --white: #ffffff;
+  --cloudWhite: #F6F9FF;
+  --primary: #185CBC;
   --secwhite: #DBE5F4;
   --indigo: #1D1F4D;
   --teal: #00B9AD;
   --gray: #606391;
-  --cloudwhite: #F6F9FF
+  --cloudwhite: #F6F9FF --danger:#FF2A2E;
 }
 
 @theme inline {
   --color-white: var(--white);
+  --color-cloudWhite: var(--cloudWhite);
+  --color-primary: var(--primary);
   --color-secwhite: var(--secwhite);
   --color-indigo: var(--indigo);
   --color-teal: var(--teal);
@@ -34,4 +38,17 @@
     linear-gradient(180deg, rgba(255, 255, 255, 0.8) -25.96%, rgba(255, 255, 255, 0) 100%),
     linear-gradient(270deg, rgba(255, 255, 255, 0) 12.54%, rgba(255, 255, 255, 0.8) 47.67%, rgba(255, 255, 255, 0) 82.8%);
   border-image-slice: 1;
+  --color-danger: var(--danger);
+
+  --animate-spin: spin 1s linear infinite;
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
 }

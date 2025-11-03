@@ -23,11 +23,10 @@ export function ReportProcess() {
     ];
 
     return (
-        <section className="py-16 px-6 bg-gradient-to-br from-blue-50 to-indigo-50">
+        <section className="py-16 px-6 bg-cloudwhite">
             <div className="max-w-4xl mx-auto">
-                {/* Header */}
                 <div className="text-center mb-12">
-                    <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    <h1 className="text-3xl md:text-4xl font-semibold text-indigo mb-4">
                         What Happens After You Report?
                     </h1>
                 </div>
@@ -36,7 +35,7 @@ export function ReportProcess() {
                 <div className="space-y-8 mb-12">
                     {steps.map((step, index) => (
                         <div key={index} className="flex items-start gap-6">
-                            {/* Step Number */}
+
                             <div className="flex-shrink-0 w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center">
                                 <span className="text-white font-bold text-lg">{step.number}</span>
                             </div>
