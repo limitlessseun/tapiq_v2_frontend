@@ -1,7 +1,8 @@
 "use client";
 import { BottomNavigation, Navbar } from "@/components/Reusable";
-
-export default function AuthLayout({
+import { Button } from "@/components/ui/button";
+import { IoIosArrowBack } from "react-icons/io";
+export default function VendorDetailsLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -9,14 +10,21 @@ export default function AuthLayout({
   return (
     <main className="min-h-screen flex flex-col bg-linear-to-br from-[#057EB7] via-[#141986] to-[#0E1264] text-white  font-manrope">
       <Navbar transparent />
-
-      <div className="max-w-[90%] mx-auto text-center py-10 flex flex-col gap-6 ">
+      <div className="max-w-[90%] text-start py-4 flex flex-col mb-4 ">
+        <Button
+          variant="ghost"
+          size="lg"
+          className="uppercase text-xs w-full justify-start "
+          onClick={() => {}}
+        >
+          <IoIosArrowBack />{" "}
+          <span className="flex items-center justify-start">
+            Search a Vendor{" "}
+          </span>
+        </Button>
         <h1 className="text-2xl md:text-3xl font-semibold  leading-tight text-center">
-          Verify a Vendor
+          Search Result{" "}
         </h1>
-        <p className="text-cloudWhite font-light">
-          Check if a vendor has been flagged by others in our community.
-        </p>
       </div>
 
       <div className="flex-1 bg-cloudWhite rounded-tr-3xl rounded-tl-3xl text-black py-6 px-4 ">

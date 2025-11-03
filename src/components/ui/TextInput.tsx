@@ -5,7 +5,7 @@ import React, { useState } from "react";
 interface TextFieldProps {
   placeholder?: string;
   value?: string;
-  onChange?: (value: string) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   type?: string;
   error?: string;
   disabled?: boolean;
@@ -54,7 +54,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextFieldProps>(
             type={inputType}
             placeholder={placeholder}
             value={value}
-            onChange={(e) => onChange?.(e.target.value)}
+            onChange={(e) => onChange?.(e)}
             disabled={disabled}
             className={`
               w-full h-[47px] pr-10 bg-white!

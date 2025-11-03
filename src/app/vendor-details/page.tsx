@@ -5,10 +5,11 @@ import TextInput from "@/components/ui/TextInput";
 import SafeTips from "@/components/ui/VerifyComponent/SafeTips";
 import Status from "@/components/ui/VerifyComponent/Status";
 import VendorTable from "@/components/ui/VerifyComponent/VendorTable";
+import WhatThisMeans from "@/components/ui/VerifyComponent/WhatThisMeans";
 import AnimatedModalLayout from "@/layout/animatedModalLayout";
 import { useEffect, useState, useMemo } from "react";
 
-export default function Verify() {
+export default function VendorDetails() {
   const [searchValue, setSearchValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -61,39 +62,28 @@ export default function Verify() {
 
   return (
     <div className="space-y-4">
-      <TextInput
-        label=""
-        type="search"
-        placeholder="Enter vendor name, ID, or reports count"
-        value={searchValue}
-        onChange={handleInputChange}
+      <WhatThisMeans
+        childeren={
+          <div>
+            <h3 className="font-bold text-lg mb-4">CAUTION:Report Found!</h3>
+            <p>
+              This vendor or message has been flagged for suspicious activity.
+              Please proceed with caution.
+            </p>
+          </div>
+        }
       />
 
       <div className="flex items-center gap-2">
         <img src="/assets/tooltips.svg" className="h-5 w-5" alt="tooltip" />
-        <p className="text-sm text-gray border-l border-l-teal border-l-solid pl-2">
-          Enter a vendor name, phone number, social media handle, or unique ID
-          to search.
-        </p>
-      </div>
 
-      {isLoading && (
-        <div className="flex items-center justify-center">
-          <Loader />
+        <div className="border-l border-l-teal border-l-solid pl-2 flex flex-col  items-start">
+          <p className="text-sm text-gray ">Searched:</p>
+          <p className="text-sm font-bold text-indigo ">Quick Loans Nigeria</p>
+          <p className="text-sm text-gray ">0803-XXX-XXXX</p>
         </div>
-      )}
-
+      </div>
       <div className="flex flex-col gap-4">
-        <VendorTable data={filteredVendors} />
-
-        {/* Show search results info
-        {searchValue && (
-          <div className="text-sm text-gray-600">
-            Found {filteredVendors.length} vendor(s) matching "{searchValue}"
-          </div>
-        )} */}
-        <SafeTips vendorData={filteredVendors} />
-
         <div className="flex items-center mt-6 gap-4">
           <div className="flex-1">
             <Button
