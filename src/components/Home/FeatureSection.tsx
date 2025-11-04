@@ -25,11 +25,11 @@ const stats = [
 
 export function FeaturesSection() {
     return (
-        <section className="py-12 md:py-20 px-6 bg-cloudwhite font-manrope">
+        <section className="py-12 md:py-20 px-6 bg-cloudwhite font-satoshi">
             <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                     {stats.map((stat, index) => (
-                        <Card key={index} className="bg-white border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+                        <Card key={index} className="bg-white border-0 shadow-lg transition-all duration-300">
                             <CardContent className="p-2 md:p-8 text-center">
                                 {/* Value */}
                                 <div className="text-4xl md:text-5xl lg:text-6xl font-bold text-indigo mb-2 md:mb-4">
@@ -37,7 +37,7 @@ export function FeaturesSection() {
                                 </div>
 
                                 {/* Label */}
-                                <p className="text-sm md:text-base text-gray leading-relaxed">
+                                <p className="text-sm md:text-base text-gray leading-relaxed font-satoshi">
                                     {stat.label}
                                 </p>
                             </CardContent>

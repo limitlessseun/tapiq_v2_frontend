@@ -25,7 +25,7 @@ export function ReportProcess() {
     ];
 
     return (
-        <section className="py-16 px-6 bg-cloudwhite">
+        <section className="py-16 px-6 bg-cloudwhite font-satoshi">
             <div className="max-w-4xl mx-auto">
                 <div className="text-center mb-12">
                     <h1 className="text-3xl md:text-4xl font-semibold text-indigo mb-4">

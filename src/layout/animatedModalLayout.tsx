@@ -34,7 +34,7 @@ export default function AnimatedModalLayout({
       className="bg-gradient-to-b from-[rgba(5,126,183,0.8)] from-[2.1%]
         via-[rgba(20,25,134,0.8)] via-[50.13%] to-[rgba(14,18,100,0.8)]
         to-[98.16%] grid place-items-center p-4 modal-bg-inner-opacity-animation
-        overflow-hidden"
+        overflow-hidden "
     >
       <div
         style={{ maxWidth }}

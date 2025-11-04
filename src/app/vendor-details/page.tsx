@@ -106,7 +106,7 @@ export default function VendorDetails() {
         childeren={
           <div>
             <h3 className="font-bold text-lg mb-4">CAUTION:Report Found!</h3>
-            <p>
+            <p className="font-satoshi">
               This vendor or message has been flagged for suspicious activity.
               Please proceed with caution.
             </p>
@@ -114,7 +114,7 @@ export default function VendorDetails() {
         }
       />
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 font-satoshi">
         <img src="/assets/tooltips.svg" className="h-5 w-5" alt="tooltip" />
         <div className="border-l border-l-teal border-l-solid pl-2 flex flex-col  items-start">
           <p className="text-sm text-gray ">Searched:</p>

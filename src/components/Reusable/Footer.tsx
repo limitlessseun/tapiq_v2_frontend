@@ -6,7 +6,7 @@ export function Footer() {
             <div className="max-w-6xl mx-auto">
                 <div className="text-center ">
                     <h3 className="text-3xl md:text-4xl font-semibold text-indigo mb-4">Stay Connected</h3>
-                    <p className="text-indigo md:text-lg ">
+                    <p className="text-indigo md:text-lg font-satoshi">
                         Follow us on social media for the latest updates, scam alerts, and safety tips.
                     </p>
                     <div className="flex justify-center items-center overflow-hidden max-w-6xl w-[90%] md:w-1/2 mx-auto bg-white">

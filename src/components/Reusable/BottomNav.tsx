@@ -15,7 +15,7 @@ export function BottomNavigation() {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-gradient-to-b from-[#057EB7] from-[2.1%] via-[#141986] via-[50.13%] to-[#0E1264] to-[98.16%] border-t border-gray-200 py-3 px-6 z-50 safe-area-bottom">
+    <nav className="fixed bottom-0 left-0 right-0 bg-gradient-to-b from-[#057EB7] from-[2.1%] via-[#141986] via-[50.13%] to-[#0E1264] to-[98.16%] border-t border-gray-200 py-3 px-6 z-50 safe-area-bottom font-satoshi">
       <div className="flex justify-between items-center max-w-md mx-auto">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
@@ -29,8 +29,8 @@ export function BottomNavigation() {
             >
               <div
                 className={`w-6 h-6 relative ${isActive
-                    ? "filter brightness-0 invert"
-                    : "filter-[invert(33%)_sepia(15%)_saturate(937%)_hue-rotate(177deg)_brightness(92%)_contrast(87%)]"
+                  ? "filter brightness-0 invert"
+                  : "filter-[invert(33%)_sepia(15%)_saturate(937%)_hue-rotate(177deg)_brightness(92%)_contrast(87%)]"
                   }`}
               >
                 <Image

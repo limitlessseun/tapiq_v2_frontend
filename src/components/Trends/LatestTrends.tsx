@@ -68,12 +68,12 @@ export default function LatestTrends() {
               <h3 className="text-xl md:text-2xl font-semibold text-indigo mb-3">
                 {card.title}
               </h3>
-              <p className="text-gray md:text-lg mb-4 leading-relaxed">
+              <p className="text-gray md:text-lg mb-4 leading-relaxed font-satoshi">
                 {card.description}
               </p>
               <Link
                 href={`/trends/${card.id}`}
-                className="inline-flex items-center underline text-[#185CBC] font-medium hover:text-[#134a9c] transition-colors"
+                className="inline-flex items-center underline text-[#185CBC] font-medium hover:text-[#134a9c] transition-colors font-satoshi"
               >
                 Read now
               </Link>

@@ -9,7 +9,7 @@ export function HowItWorks({ bg }: any) {
                     <h1 className="text-3xl md:text-4xl lg:text-6xl font-semibold text-indigo mb-4">
                         How TapIQ Works
                     </h1>
-                    <p className="text-base md:text-lg text-indigo leading-relaxed">
+                    <p className="text-base md:text-lg text-indigo leading-relaxed font-satoshi">
                         Protect yourself and others from online fraud in just a few taps
                     </p>
                 </div>
@@ -30,7 +30,7 @@ export function HowItWorks({ bg }: any) {
                             {/* Text Content */}
                             <div className="mb-4  w-full">
                                 <h1 className="text-white text-2xl md:text-3xl font-semibold mb-2">01/ Report a vendor</h1>
-                                <p className="text-secwhite md:text-lg">
+                                <p className="text-secwhite md:text-lg font-satoshi">
                                     Share your experience. Add screenshots, platform, amount, and story to help others.
                                 </p>
                             </div>

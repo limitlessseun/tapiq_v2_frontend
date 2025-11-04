@@ -71,7 +71,7 @@ export default function Verify() {
 
       <div className="flex items-center gap-2">
         <img src="/assets/tooltips.svg" className="h-5 w-5" alt="tooltip" />
-        <p className="text-sm text-gray border-l border-l-teal border-l-solid pl-2">
+        <p className="text-sm text-gray border-l border-l-teal border-l-solid pl-2 font-satoshi">
           Enter a vendor name, phone number, social media handle, or unique ID
           to search.
         </p>

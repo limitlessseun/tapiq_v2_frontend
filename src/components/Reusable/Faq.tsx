@@ -34,7 +34,7 @@ export function FAQSection({ p }: any) {
       <div className="max-w-3xl mx-auto">
         <div className="mb-12">
           <h2 className="text-3xl md:text-4xl font-semibold text-center mb-4">FAQ</h2>
-          {p && <p className="text-indigo md:text-lg text-center">
+          {p && <p className="text-indigo md:text-lg text-center font-satoshi">
             {p}
           </p>}
         </div>
@@ -49,7 +49,7 @@ export function FAQSection({ p }: any) {
                 {faq.question}
 
               </AccordionTrigger>
-              <AccordionContent className="pt-4 px-4 text-gray md:text-base text-sm bg-cloudwhite rounded-b-lg">
+              <AccordionContent className="pt-4 px-4 text-gray md:text-base text-sm bg-cloudwhite rounded-b-lg font-satoshi">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>

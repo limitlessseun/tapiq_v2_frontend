@@ -29,7 +29,7 @@ export function AboutSection({ isImage }: any) {
                     <h1 className="text-3xl md:text-4xl lg:text-6xl font-semibold text-indigo">
                         About Us
                     </h1>
-                    <p className="text-base md:text-lg text-indigo max-w-4xl mx-auto leading-relaxed">
+                    <p className="text-base md:text-lg text-indigo max-w-4xl mx-auto leading-relaxed font-satoshi">
                         Protect yourself and others from online fraud in just a few taps
                     </p>{isImage &&
                         <div className='w-full md:w-1/2 flex justify-center mt-8 mx-auto'>
@@ -65,7 +65,7 @@ export function AboutSection({ isImage }: any) {
                                     <h3 className="text-lg md:text-xl font-semibold text-indigo mb-2">
                                         {feature.title}
                                     </h3>
-                                    <p className="text-gray leading-relaxed">
+                                    <p className="text-gray leading-relaxed font-satoshi">
                                         {feature.description}
                                     </p>
                                 </div>

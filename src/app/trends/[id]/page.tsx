@@ -23,7 +23,7 @@ export default function TrendDetailPage() {
                         <h2 className="text-3xl md:text-4xl lg:text-6xl font-semibold text-indigo mb-4">
                             {trend.title}
                         </h2>
-                        <p className="text-base md:text-lg text-indigo leading-relaxed">
+                        <p className="text-base md:text-lg text-indigo leading-relaxed font-satoshi">
                             {trend.description}
                         </p>
                     </div>
@@ -48,7 +48,7 @@ export default function TrendDetailPage() {
                                     <h2 className=" md:text-lg font-bold text-indigo">
                                         {section.title}
                                     </h2>
-                                    <div className="space-y-2 text-gray md:text-lg leading-relaxed">
+                                    <div className="space-y-2 text-gray md:text-lg leading-relaxed font-satoshi">
                                         {section.content.map((paragraph, pIndex) => (
                                             <p key={pIndex}>{paragraph}</p>
                                         ))}
@@ -58,7 +58,7 @@ export default function TrendDetailPage() {
                             <h2 className=" md:text-lg font-bold text-indigo mb-2">
                                 Stay Alert, Stay Safe
                             </h2>
-                            <p className='text-gray md:text-lg leading-relaxed mb-4'>{trend.conclusion}</p>
+                            <p className='text-gray md:text-lg leading-relaxed mb-4 font-satoshi'>{trend.conclusion}</p>
                         </div>
                     </div>
                 </article>

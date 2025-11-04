@@ -90,3 +90,7 @@
   font-style: normal;
   font-display: swap;
 }
+
+.font-satoshi {
+  font-family: 'satoshi', sans-serif;
+}

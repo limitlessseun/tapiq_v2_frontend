@@ -17,13 +17,13 @@ const VendorTable: React.FC<VendorTableProps> = ({ data }) => {
   return (
     <div>
       {data.length < 1 && (
-        <div className=" uppercase font-medium text-center p-6 text-primary">
+        <div className=" uppercase font-medium text-center p-6 text-primary font-satoshi">
           No Match Found - But That's Information Too!
         </div>
       )}
       {data.length > 0 && (
         <div className="p-2 rounded-lg bg-white">
-          <div className="bg-cloudWhite p-6">
+          <div className="bg-cloudWhite p-6 font-satoshi">
             {data.map((vendor) => (
               <TableItem
                 key={vendor.id}
@@ -98,7 +98,7 @@ const ReportVendorModal: React.FC<ReportVendorModalProps> = ({
         Are you sure you want to add @luxurybags_ng to your Watchlist?
       </h3>
 
-      <p className="text-gray text-sm">
+      <p className="text-gray text-sm font-satoshi">
         You won’t see any current reports, but if this vendor gets flagged in
         the future, you’ll receive real-time alerts to help you stay safe.
       </p>
@@ -127,7 +127,7 @@ const ReportVendorModal: React.FC<ReportVendorModalProps> = ({
             variant="primary"
             size="lg"
             className="uppercase text-xs w-full"
-            onClick={() => {}}
+            onClick={() => { }}
           >
             Confirm{" "}
           </Button>

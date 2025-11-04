@@ -27,7 +27,7 @@ export function RaiseDispute() {
                     <h1 className="text-3xl md:text-4xl lg:text-6xl font-semibold text-indigo mb-4">
                         Raise a Dispute
                     </h1>
-                    <p className="text-base md:text-lg text-indigo leading-relaxed">
+                    <p className="text-base md:text-lg text-indigo leading-relaxed font-satoshi">
                         Think a report about your business is false or an impersonation?
                         Tell us your side and we'll investigate.
                     </p>
@@ -48,15 +48,16 @@ export function RaiseDispute() {
                                 type="text"
                                 placeholder="Fashion Hub"
                                 value={""}
+                                className="font-satoshi"
                                 onChange={() => { }}
                             />
 
                             <div>
-                                <label className="block mb-3 text-gray font-medium">Platform*</label>
+                                <label className="block mb-3 text-gray font-medium font-satoshi">Platform*</label>
                                 <div className="bg-white p-2">
                                     {/* Instagram Checkbox with conditional input */}
                                     <div>
-                                        <label className="flex items-center gap-3 mb-2 cursor-pointer">
+                                        <label className="flex items-center gap-3 mb-2 cursor-pointer font-satoshi">
                                             <input
                                                 type="checkbox"
                                                 checked={selectedPlatforms.includes("Instagram")}
@@ -69,7 +70,7 @@ export function RaiseDispute() {
                                                 }}
                                                 className="w-4 h-4 accent-primary focus:ring-primary"
                                             />
-                                            <span className="text-gray">Instagram</span>
+                                            <span className="text-gray font-satoshi">Instagram</span>
                                         </label>
                                         {selectedPlatforms.includes("Instagram") && (
                                             <TextInput
@@ -77,13 +78,13 @@ export function RaiseDispute() {
                                                 placeholder="@username"
                                                 value={""}
                                                 onChange={() => { }}
-                                                className="mb-4"
+                                                className="mb-4 font-satoshi"
                                             />
                                         )}
                                     </div>
 
                                     {platforms.map((platform) => (
-                                        <label key={platform} className="flex items-center gap-3 mb-2  cursor-pointer ">
+                                        <label key={platform} className="flex items-center gap-3 mb-2  cursor-pointer font-satoshi ">
                                             <input
                                                 type="checkbox"
                                                 checked={selectedPlatforms.includes(platform)}
@@ -96,14 +97,14 @@ export function RaiseDispute() {
                                                 }}
                                                 className="w-4 h-4 accent-primary focus:ring-primary"
                                             />
-                                            <span className="text-gray">{platform}</span>
+                                            <span className="text-gray font-satoshi">{platform}</span>
                                         </label>
                                     ))}
 
 
                                     {/* Website Checkbox with conditional input */}
                                     <div className="mt-4">
-                                        <label className="flex items-center gap-3 mb-2 cursor-pointer">
+                                        <label className="flex items-center gap-3 mb-2 cursor-pointer font-satoshi">
                                             <input
                                                 type="checkbox"
                                                 checked={selectedPlatforms.includes("Website")}
@@ -116,7 +117,7 @@ export function RaiseDispute() {
                                                 }}
                                                 className="w-4 h-4 accent-primary focus:ring-primary"
                                             />
-                                            <span className="text-gray">Website</span>
+                                            <span className="text-gray font-satoshi">Website</span>
                                         </label>
                                         {selectedPlatforms.includes("Website") && (
                                             <TextInput
@@ -131,7 +132,7 @@ export function RaiseDispute() {
 
                                     {/* Others Checkbox with conditional input */}
                                     <div>
-                                        <label className="flex items-center gap-3 mb-2 cursor-pointer">
+                                        <label className="flex items-center gap-3 mb-2 cursor-pointer font-satoshi">
                                             <input
                                                 type="checkbox"
                                                 checked={selectedPlatforms.includes("Others")}
@@ -144,7 +145,7 @@ export function RaiseDispute() {
                                                 }}
                                                 className="w-4 h-4  accent-primary focus:ring-primary"
                                             />
-                                            <span className="text-gray">Others</span>
+                                            <span className="text-gray font-satoshi">Others</span>
                                         </label>
                                         {selectedPlatforms.includes("Others") && (
                                             <TextInput
@@ -152,6 +153,7 @@ export function RaiseDispute() {
                                                 placeholder="Enter other platform details"
                                                 value={""}
                                                 onChange={() => { }}
+                                                className="font-satoshi"
                                             />
                                         )}
                                     </div>
@@ -169,7 +171,7 @@ export function RaiseDispute() {
 
                         <div className="space-y-4 mb-6">
                             {disputeReasons.map((reason) => (
-                                <label key={reason} className="flex items-center gap-3 cursor-pointer">
+                                <label key={reason} className="flex items-center gap-3 cursor-pointer font-satoshi">
                                     <input
                                         type="radio"
                                         name="disputeReason"
@@ -179,19 +181,19 @@ export function RaiseDispute() {
                                         className="w-4 h-4 accent-primary focus:ring-primary border-gray-300"
 
                                     />
-                                    <span className="text-gray">{reason}</span>
+                                    <span className="text-gray font-satoshi">{reason}</span>
                                 </label>
                             ))}
                         </div>
 
                         <div className="mb-6">
-                            <label className="block mb-3 text-gray font-medium">Brief Description</label>
+                            <label className="block mb-3 text-gray font-medium font-satoshi">Brief Description</label>
                             <textarea
                                 className="w-full h-32 p-3 bg-white rounded-lg focus:outline-none  resize-none"
                                 placeholder="Explain what happened in your own words"
                                 maxLength={400}
                             />
-                            <div className="text-right text-sm text-gray mt-1">0/400</div>
+                            <div className="text-right text-sm text-gray mt-1 font-satoshi">0/400</div>
                         </div>
                     </div>
 
@@ -203,7 +205,7 @@ export function RaiseDispute() {
                         </h2>
 
                         <div className="mb-6">
-                            <label className="block mb-3 text-gray font-medium">
+                            <label className="block mb-3 text-gray font-medium font-satoshi">
                                 Upload Business Proof (CAC certificate, store screenshots, delivery records)
                             </label>
                             <div className="flex gap-4">
@@ -219,13 +221,13 @@ export function RaiseDispute() {
                         </div>
 
                         <div>
-                            <label className="block mb-3 text-gray font-medium">Additional Notes</label>
+                            <label className="block mb-3 text-gray font-medium font-satoshi">Additional Notes</label>
                             <textarea
                                 className="w-full h-32 p-3 bg-white rounded-lg focus:outline-none  resize-none"
                                 placeholder="Explain what happened in your own words"
                                 maxLength={400}
                             />
-                            <div className="text-right text-sm text-gray mt-1">0/400</div>
+                            <div className="text-right text-sm text-gray mt-1 font-satoshi">0/400</div>
                         </div>
                     </div>
 
@@ -243,6 +245,7 @@ export function RaiseDispute() {
                                 placeholder="Enter Full Name"
                                 value={""}
                                 onChange={() => { }}
+                                className="font-satoshi"
                             />
 
                             <TextInput
@@ -251,6 +254,7 @@ export function RaiseDispute() {
                                 placeholder="Enter Email Address"
                                 value={""}
                                 onChange={() => { }}
+                                className="font-satoshi"
                             />
 
                             <TextInput
@@ -259,10 +263,11 @@ export function RaiseDispute() {
                                 placeholder="Enter Phone Number"
                                 value={""}
                                 onChange={() => { }}
+                                className="font-satoshi"
                             />
 
                             <div>
-                                <label className="block mb-3 text-indigo ">Preferred Contact Method</label>
+                                <label className="block mb-3 text-indigo font-satoshi">Preferred Contact Method</label>
                                 <div className="flex gap-6">
                                     <label className="flex items-center gap-2 cursor-pointer">
                                         <input
@@ -273,7 +278,7 @@ export function RaiseDispute() {
                                             onChange={(e) => setContactMethod(e.target.value)}
                                             className="w-4 h-4 accent-primary focus:ring-primary"
                                         />
-                                        <span className="text-gray">Email</span>
+                                        <span className="text-gray font-satoshi">Email</span>
                                     </label>
                                     <label className="flex items-center gap-2 cursor-pointer">
                                         <input
@@ -284,7 +289,7 @@ export function RaiseDispute() {
                                             onChange={(e) => setContactMethod(e.target.value)}
                                             className="w-4 h-4  focus:ring-primary"
                                         />
-                                        <span className="text-gray">Phone</span>
+                                        <span className="text-gray font-satoshi">Phone</span>
                                     </label>
                                 </div>
                             </div>
@@ -305,7 +310,7 @@ export function RaiseDispute() {
                                     onCheckedChange={(checked) => setAgreement(checked as boolean)}
                                 />
                                 <div>
-                                    <span className="text-gray font-medium">
+                                    <span className="text-gray font-medium font-satoshi">
                                         I confirm I am authorized to represent this business
                                     </span>
                                 </div>
@@ -317,7 +322,7 @@ export function RaiseDispute() {
                                     onCheckedChange={(checked) => setAgreement(checked as boolean)}
                                 />
                                 <div>
-                                    <span className="text-gray font-medium">
+                                    <span className="text-gray font-medium font-satoshi">
                                         I understand this process may take 3-7 business days.
                                     </span>
                                 </div>

@@ -11,7 +11,7 @@ export function Contact() {
                     <h1 className="text-3xl md:text-4xl lg:text-6xl font-semibold text-indigo mb-4">
                         Contact Us
                     </h1>
-                    <p className="text-base md:text-lg text-indigo leading-relaxed">
+                    <p className="text-base md:text-lg text-indigo leading-relaxed font-satoshi">
                         Have any questions, feedback, or need assistance? Fill out the form below, and we’ll get back to you as soon as possible.
                     </p>
                 </div>
@@ -34,6 +34,7 @@ export function Contact() {
                             <TextInput
                                 label="First Name"
                                 type="text"
+                                className="font-satoshi"
                                 placeholder="Enter First Name"
                                 value={""}
                                 onChange={() => { }}
@@ -42,18 +43,19 @@ export function Contact() {
                             <TextInput
                                 label="Last Name"
                                 type="text"
+                                className="font-satoshi"
                                 placeholder="Enter Last Name"
                                 value={""}
                                 onChange={() => { }}
                             />
                             <div className="w-full">
-                                <label className="block mb-2">Message</label>
+                                <label className="block mb-2 font-satoshi">Message</label>
                                 <textarea className=" w-full h-[60px] pr-10 bg-white!
               focus:outline-none
               disabled:cursor-not-allowed 
               placeholder:text-gray 
               focus:ring-blue-200 focus:ring-4  
-              rounded-md px-3" placeholder="Your message/question"></textarea>
+              rounded-md px-3" placeholder="Your message/question font-satoshi"></textarea>
                             </div>
                             <Button
                                 className="bg-gradient-to-br from-[#575EFF] to-[#282D99] uppercase font-semibold text-base md:text-lg w-full px-8 py-6 complex-gradient-border text-white my-6"
@@ -67,7 +69,7 @@ export function Contact() {
                             <h1 className="text-3xl font-semibold text-indigo mb-4">
                                 How to Reach Us
                             </h1>
-                            <p className="text-base md:text-lg text-indigo leading-relaxed">
+                            <p className="text-base md:text-lg text-indigo leading-relaxed font-satoshi">
                                 For any inquiries, feel free to reach out to us through the following contact details:
                             </p>
                         </div>
@@ -85,7 +87,7 @@ export function Contact() {
                                 </div>
                                 <div className="flex flex-col gap-1 -ml-2">
                                     <h3 className="font-semibold text-xl md:text-2xl text-indigo ">Email</h3>
-                                    <p className="text-gray">email@example.com</p>
+                                    <p className="text-gray font-satoshi">email@example.com</p>
                                 </div>
                             </div>
                             <div className="flex items-center -my-6">
@@ -101,7 +103,7 @@ export function Contact() {
                                 </div>
                                 <div className="flex flex-col gap-1 -ml-2">
                                     <h3 className="font-semibold text-xl md:text-2xl text-indigo ">Phone</h3>
-                                    <p className="text-gray">+1 (555) 000-0000</p>
+                                    <p className="text-gray font-satoshi">+1 (555) 000-0000</p>
                                 </div>
                             </div>
                             <div className="flex items-center -my-6">
@@ -117,7 +119,7 @@ export function Contact() {
                                 </div>
                                 <div className="flex flex-col gap-1 -ml-2">
                                     <h3 className="font-semibold text-xl md:text-2xl text-indigo ">Office</h3>
-                                    <p className="text-gray">123 Sample St, Sydney NSW 2000 AU</p>
+                                    <p className="text-gray font-satoshi">123 Sample St, Sydney NSW 2000 AU</p>
                                 </div>
                             </div>
                         </div>
