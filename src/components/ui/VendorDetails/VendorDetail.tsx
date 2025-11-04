@@ -1,6 +1,11 @@
 import { AiFillInstagram } from "react-icons/ai";
+import { Button } from "../button";
 
-export default function VendorDetail() {
+interface VendorDetailProps {
+  showButton?: boolean;
+}
+
+const VendorDetail:React.FC<VendorDetailProps>=()=> {
   return (
     <div className="p-6 bg-white rounded-3xl flex flex-col gap-6">
       <div>
@@ -59,6 +64,17 @@ export default function VendorDetail() {
           <p className="text-base text-indigo ">3 hours ago </p>
         </div>
       </div>
+
+      <Button
+        variant="primary"
+        size="lg"
+        className="uppercase text-xs w-full"
+        onClick={() => {}}
+      >
+        Remove{" "}
+      </Button>
     </div>
   );
 }
+
+export default VendorDetail

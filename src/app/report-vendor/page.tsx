@@ -8,40 +8,76 @@ import TextArea from "@/components/ui/TextArea";
 import TextInput from "@/components/ui/TextInput";
 import WhatThisMeans from "@/components/ui/VerifyComponent/WhatThisMeans";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function ReportVendor() {
+  const [currentStep, setCurrentStep] = useState(1);
   return (
-    <div className="">
-      <Step3 />
+    <div>
+      <div className="flex items-center justify-center gap-2 py-4">
+        <span
+          className={`w-8 h-2 rounded-2xl ${
+            currentStep === 1 ? " bg-white" : "bg-[rgba(255,255,255,.5)]"
+          }`}
+        ></span>
+        <span
+          className={`w-8 h-2 rounded-2xl ${
+            currentStep === 2 ? " bg-white" : "bg-[rgba(255,255,255,.5)]"
+          }`}
+        ></span>
+        <span
+          className={`w-8 h-2 rounded-2xl ${
+            currentStep === 3 ? " bg-white" : "bg-[rgba(255,255,255,.5)]"
+          }`}
+        ></span>
+      </div>
+      <div className="flex-1 bg-cloudWhite rounded-tr-3xl rounded-tl-3xl text-black py-6 px-4 md:py-10 md:px-10 w-full md:max-w-[700px] md:mx-auto ">
+        {currentStep === 1 ? (
+          <Step1 />
+        ) : currentStep === 2 ? (
+          <Step2 />
+        ) : (
+          <Step3 />
+        )}
 
-      <div className="flex items-center mt-6 gap-4">
-        <div className="flex-1">
-          <Button
-            variant="outline"
-            size="lg"
-            className="uppercase text-xs w-full"
-            style={{
-              border: "1px solid",
-              borderImage: `
+        <div className="flex items-center mt-6 gap-4">
+          <div className="flex-1">
+            <Button
+              variant="outline"
+              size="lg"
+              className="uppercase text-xs w-full"
+              style={{
+                border: "1px solid",
+                borderImage: `
                   linear-gradient(180deg, rgba(255, 255, 255, 0.8) -25.96%, rgba(255, 255, 255, 0) 100%),
                   linear-gradient(270deg, rgba(255, 255, 255, 0) 12.54%, rgba(255, 255, 255, 0.8) 47.67%, rgba(255, 255, 255, 0) 82.8%)
                   1
                 `,
-            }}
-            onClick={() => {}}
-          >
-            back{" "}
-          </Button>
-        </div>
-        <div className="flex-1">
-          <Button
-            variant="primary"
-            size="lg"
-            className="uppercase text-xs w-full"
-            onClick={() => {}}
-          >
-            Next{" "}
-          </Button>
+              }}
+              onClick={() => {
+                if (currentStep > 1) {
+                  setCurrentStep(currentStep - 1);
+                }
+              }}
+            >
+              back
+            </Button>
+          </div>
+          <div className="flex-1">
+            <Button
+              variant="primary"
+              size="lg"
+              className="uppercase text-xs w-full"
+              onClick={() => {
+                console.log(currentStep);
+                if (currentStep < 3) {
+                  setCurrentStep(currentStep + 1);
+                }
+              }}
+            >
+              Next{" "}
+            </Button>
+          </div>
         </div>
       </div>
     </div>
