@@ -231,7 +231,7 @@ const Step2 = () => {
             { label: "Yes", value: "yes" },
             { label: "No", value: "no" },
           ]}
-          value={""}
+          //value={""}
           onChange={() => {}}
         />
       </div>
@@ -248,7 +248,7 @@ const Step3 = () => {
       <div className="flex flex-col gap-4">
         <TextArea
           placeholder="Explain what happened in your own words"
-          value={""}
+          //value={""}
           onChange={(e) => {}}
           rows={3}
           maxLength={400}
@@ -296,13 +296,13 @@ const Step3 = () => {
             { label: "Yes", value: "yes" },
             { label: "No", value: "no" },
           ]}
-          value={""}
+          //value={""}
           onChange={() => {}}
         />
 
         <TextArea
           placeholder="Red sneakers, size 44"
-          value={""}
+          //value={""}
           onChange={(e) => {}}
           rows={3}
           maxLength={400}

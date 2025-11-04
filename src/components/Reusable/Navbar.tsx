@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
 interface NavbarProps {
   transparent?: boolean;
@@ -11,6 +12,7 @@ interface NavbarProps {
 }
 
 export function Navbar({ transparent = false, customBg }: NavbarProps) {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -55,8 +57,9 @@ export function Navbar({ transparent = false, customBg }: NavbarProps) {
   return (
     <>
       <nav
-        className={`hidden md:block fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${getBackgroundClass()} ${isScrolled ? "shadow-lg" : ""
-          }`}
+        className={`hidden md:block fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${getBackgroundClass()} ${
+          isScrolled ? "shadow-lg" : ""
+        }`}
       >
         <div className="mx-auto px-4 md:px-24">
           <div className="flex items-center justify-between h-20">
@@ -87,7 +90,12 @@ export function Navbar({ transparent = false, customBg }: NavbarProps) {
               >
                 REPORT A VENDOR
               </Button>
-              <Button className="px-8 py-2 bg-gradient-to-br from-[#575EFF] to-[#282D99] rounded-lg text-white complex-gradient-border text-sm font-semibold hover:opacity-90 transition-opacity">
+              <Button
+                className="px-8 py-2 bg-gradient-to-br from-[#575EFF] to-[#282D99] rounded-lg text-white complex-gradient-border text-sm font-semibold hover:opacity-90 transition-opacity"
+                onClick={() => {
+                  router.push("/auth/register");
+                }}
+              >
                 SIGN UP
               </Button>
             </div>
@@ -97,8 +105,9 @@ export function Navbar({ transparent = false, customBg }: NavbarProps) {
 
       {/* Mobile Navbar - Always has gradient background */}
       <nav
-        className={`md:hidden fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${getBackgroundClass()}  ${isScrolled ? "shadow-lg" : ""
-          }`}
+        className={`md:hidden fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${getBackgroundClass()}  ${
+          isScrolled ? "shadow-lg" : ""
+        }`}
       >
         <div className="flex items-center justify-between px-6 h-20">
           <Link href="/home" className="flex items-center gap-2">
@@ -167,7 +176,12 @@ export function Navbar({ transparent = false, customBg }: NavbarProps) {
               ))}
             </div>
             <div className="mt-auto h-full px-4 flex justify-end">
-              <Button className="px-8 py-4 bg-gradient-to-br from-[#575EFF] to-[#282D99] rounded-lg text-white complex-gradient-border text-sm w-full font-semibold hover:opacity-90 transition-opacity">
+              <Button
+                className="px-8 py-4 bg-gradient-to-br from-[#575EFF] to-[#282D99] rounded-lg text-white complex-gradient-border text-sm w-full font-semibold hover:opacity-90 transition-opacity"
+                onClick={() => {
+                  router.push("/auth/register");
+                }}
+              >
                 SIGN UP
               </Button>
             </div>

@@ -9,7 +9,8 @@ import { ChevronDown } from "lucide-react";
 const faqs = [
   {
     question: "HOW CAN I VERIFY IF A VENDOR IS TRUSTWORTHY?",
-    answer: "You can verify a vendor by using the 'Verify a Vendor' tool. Enter the vendor's name or website, and our system will check for any reported scams or suspicious activity associated with them."
+    answer:
+      "You can verify a vendor by using the 'Verify a Vendor' tool. Enter the vendor's name or website, and our system will check for any reported scams or suspicious activity associated with them.",
   },
   {
     question: "HOW DO I REPORT A SUSPICIOUS VENDOR?",
@@ -43,11 +44,10 @@ export function FAQSection({ p }: any) {
             <AccordionItem
               key={index}
               value={`item-${index}`}
-              className='border-0 bg-white p-2 m-4 rounded-lg shadow-[0px_4px_12px_0px_#E0E8F7AD]'
+              className="border-0 bg-white p-2 m-4 rounded-lg shadow-[0px_4px_12px_0px_#E0E8F7AD]"
             >
               <AccordionTrigger className="text-left bg-cloudwhite rounded-lg p-4 text-indigo text-sm lg:text-base font-medium hover:no-underline [&[data-state=open]]:no-underline group">
                 {faq.question}
-
               </AccordionTrigger>
               <AccordionContent className="pt-4 px-4 text-gray md:text-base text-sm bg-cloudwhite rounded-b-lg font-satoshi">
                 {faq.answer}
@@ -57,5 +57,5 @@ export function FAQSection({ p }: any) {
         </Accordion>
       </div>
     </section>
-  )
+  );
 }

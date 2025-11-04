@@ -11,7 +11,7 @@ const AuthNav = () => {
     <div className="flex items-center w-full shadow-2xl gap-0 font-satoshi">
       {navs.map((nav) => (
         <a
-          className={`${pathname === nav.href
+          className={`cursor-pointer ${pathname === nav.href
               ? "bg-linear-to-r from-[#575EFF] to-[#282D99]  p-px"
               : ""
             }  text-transparent block flex-1 rounded-md  overflow-hidden `}
@@ -22,8 +22,8 @@ const AuthNav = () => {
         >
           <span
             className={`w-full h-full bg p-[9px]  block text-center rounded   ${pathname === nav.href
-                ? "text-sm bg-cloudWhite text-primary"
-                : "font-medium text-base text-gray bg-white"
+              ? "text-sm bg-cloudWhite text-primary"
+              : "font-medium text-base text-gray bg-white"
               } `}
           >
             {nav.text}

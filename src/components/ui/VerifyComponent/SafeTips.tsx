@@ -57,8 +57,8 @@ const SafeTips: React.FC<SafeTipsProps> = ({ vendorData }) => {
           <Status />
         </div>
       ) : (
-        <div className="font-satoshi">
-          <div className=" p-1 rounded flex flex-col gap-3">
+        <div className=" font-satoshi">
+          <div className=" p-1 rounded flex flex-col gap-3 bg-white">
             <div className=" rounded  bg-linear-to-br from-[#FFFFFF] to-[#E1EAFD]">
               <p className="text-sm text-gray flex items-center gap-2 px-2">
                 <img src="/assets/vendorCount-icon.svg" className="h-10 w-10" />

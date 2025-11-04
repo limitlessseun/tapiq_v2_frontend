@@ -2,15 +2,18 @@
 import { Button } from "@/components/ui/button";
 import CheckboxInput from "@/components/ui/Checkbox";
 import TextInput from "@/components/ui/TextInput";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
+  const router = useRouter();
+
   return (
     <div className="space-y-4 my-6">
       <TextInput
         label="First Name"
         type="text"
         placeholder="Enter First Name"
-        value={""}
+        // //value={""}
         onChange={() => { }}
       />
 
@@ -18,7 +21,7 @@ export default function Register() {
         label="Last Name"
         type="text"
         placeholder="Enter Last Name"
-        value={""}
+        // //value={""}
         onChange={() => { }}
       />
 
@@ -26,7 +29,7 @@ export default function Register() {
         label="Email Address"
         type="email"
         placeholder="user@example.com"
-        value={""}
+        // //value={""}
         onChange={() => { }}
       // error={"Please enter a valid email address"}
       />
@@ -35,7 +38,7 @@ export default function Register() {
         label="Phone Number"
         type="tel"
         placeholder="+234 ___ ___ ____"
-        value={""}
+        // //value={""}
         onChange={() => { }}
       />
 
@@ -43,7 +46,7 @@ export default function Register() {
         label="Verification Code"
         type="password"
         placeholder="**********"
-        value={""}
+        //value={""}
         onChange={() => {}}
       /> */}
 
@@ -51,7 +54,7 @@ export default function Register() {
         label="Password"
         type="password"
         placeholder="Enter your password"
-        value={""}
+        // //value={""}
         onChange={() => { }}
       // error={"Password must be at least 8 characters"}
       />
@@ -87,12 +90,18 @@ export default function Register() {
       <div>
         <p className="text-sm text-gray text-center font-satoshi">
           Already have an account?{" "}
-          <Button variant={"link"} className="px-0 underline">
+          <Button
+            variant={"link"}
+            className="px-0"
+            onClick={() => {
+              router.push("/auth/login");
+            }}
+          >
             Login
           </Button>
         </p>
       </div>
-      <div className="flex flex-col gap-2 items-start w-[70%] mx-auto font-satoshi">
+      <div className="flex flex-col gap-2 items-start lg:items-center w-[70%]  mx-auto font-satoshi">
         <div className="flex items-center space-x-2">
           <img src="/assets/check-icon.svg" className="w-5 h-5" />
           <p className="text-sm text-gray">We will never sell your data</p>

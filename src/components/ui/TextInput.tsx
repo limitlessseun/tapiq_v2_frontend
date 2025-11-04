@@ -61,10 +61,10 @@ const TextInput = React.forwardRef<HTMLInputElement, TextFieldProps>(
               focus:outline-none
               disabled:cursor-not-allowed font-satoshi placeholder:font-satoshi  
               placeholder:text-gray 
-              focus:ring-blue-200 focus:ring-4  
+             focus:ring-blue-200 focus:ring-4  
               rounded-md px-3
-              ${error ? "border border-danger" : ""}
-              ${isPasswordField ? "pr-12" : ""}
+              ${error ? "border border-danger bg-white" : "bg-white"}
+              ${isPasswordField ? "pr-12 bg-white" : "bg-white"}
             `}
             {...props}
             style={{

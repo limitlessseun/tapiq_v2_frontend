@@ -1,23 +1,23 @@
-"use client"
-import { useState } from "react"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import TextInput from "@/components/ui/TextInput"
-import CheckboxInput from "../ui/Checkbox"
+"use client";
+import { useState } from "react";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import TextInput from "@/components/ui/TextInput";
+import CheckboxInput from "../ui/Checkbox";
 
 export function RaiseDispute() {
-    const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([])
-    const [disputeReason, setDisputeReason] = useState("")
-    const [contactMethod, setContactMethod] = useState("email")
-    const [agreement, setAgreement] = useState(false)
+    const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
+    const [disputeReason, setDisputeReason] = useState("");
+    const [contactMethod, setContactMethod] = useState("email");
+    const [agreement, setAgreement] = useState(false);
 
-    const platforms = ["Facebook", "WhatsApp", "TikTok", "Twitter", "Telegram"]
+    const platforms = ["Facebook", "WhatsApp", "TikTok", "Twitter", "Telegram"];
     const disputeReasons = [
         "Someone is pretending to be my business",
         "The report is not true",
         "The issue was real but it's been fixed",
-        "Other"
-    ]
+        "Other",
+    ];
 
     return (
         <section className="py-16 px-6 bg-cloudwhite font-manrope">
@@ -338,5 +338,5 @@ export function RaiseDispute() {
                 </div>
             </div>
         </section>
-    )
+    );
 }
