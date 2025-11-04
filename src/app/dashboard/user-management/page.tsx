@@ -44,8 +44,8 @@ export default function UserManagementPage() {
                 <h1 className="text-3xl font-semibold text-indigo font-manrope">User Management</h1>
             </div>
 
-            <div className="bg-white rounded-lg p-6 font-satoshi">
-                <div className="flex gap-4 mb-6">
+            <div className="bg-white rounded-lg p-6 font-satoshi overflow-hidden">
+                <div className="flex flex-wrap lg:flex-nowrap gap-4 mb-6">
                     <div className="relative flex-1">
                         <Input
                             placeholder="Search By Full Name"
@@ -76,62 +76,62 @@ export default function UserManagementPage() {
                         </SelectContent>
                     </Select>
                 </div>
-
-                <Table>
-                    <TableHeader>
-                        <TableRow className='text-gray text-sm font-normal border-none'>
-                            <TableHead>USER ID</TableHead>
-                            <TableHead>FIRST NAME</TableHead>
-                            <TableHead>LAST NAME</TableHead>
-                            <TableHead>EMAIL</TableHead>
-                            <TableHead>PHONE</TableHead>
-                            <TableHead>REPORTS SUBMITTED</TableHead>
-                            <TableHead>SCANS USED</TableHead>
-                            <TableHead>WATCHLIST COUNT</TableHead>
-                            <TableHead>STATUS</TableHead>
-                            <TableHead className='text-center'>ACTIONS</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {users.map((user, i) => (
-                            <TableRow key={i} className={`text-gray text-sm border-none ${i % 2 === 0 ? 'bg-cloudwhite' : 'bg-white'}`}>
-                                <TableCell className="text-blue-600">{user.userId}</TableCell>
-                                <TableCell>{user.firstName}</TableCell>
-                                <TableCell>{user.lastName}</TableCell>
-                                <TableCell>{user.email}</TableCell>
-                                <TableCell>{user.phone}</TableCell>
-                                <TableCell>{user.reportsSubmitted}</TableCell>
-                                <TableCell>{user.scansUsed}</TableCell>
-                                <TableCell>{user.watchlistCount}</TableCell>
-                                <TableCell>
-                                    <p
-                                        className={
-                                            user.status === 'Active'
-                                                ? 'text-teal text-sm'
-                                                : 'text-red-700 text-sm'
-                                        }
-                                    >
-                                        {user.status}
-                                    </p>
-                                </TableCell>
-                                <TableCell>
-                                    <div className="flex gap-2 justify-center">
-                                        <Button variant="ghost" size="sm" className="text-gray">
-                                            <Eye className="h-4 w-4" />
-                                        </Button>
-                                        <Button variant="ghost" size="sm" className="text-gray">
-                                            <Edit className="h-4 w-4" />
-                                        </Button>
-                                        <Button variant="ghost" size="sm" className="text-gray">
-                                            <User className="h-4 w-4" />
-                                        </Button>
-                                    </div>
-                                </TableCell>
+                <div className="w-full overflow-x-auto noscrollbar-hidden">
+                    <Table className="min-w-[800px] w-full">
+                        <TableHeader>
+                            <TableRow className='text-gray text-sm font-normal border-none'>
+                                <TableHead>USER ID</TableHead>
+                                <TableHead>FIRST NAME</TableHead>
+                                <TableHead>LAST NAME</TableHead>
+                                <TableHead>EMAIL</TableHead>
+                                <TableHead>PHONE</TableHead>
+                                <TableHead>REPORTS SUBMITTED</TableHead>
+                                <TableHead>SCANS USED</TableHead>
+                                <TableHead>WATCHLIST COUNT</TableHead>
+                                <TableHead>STATUS</TableHead>
+                                <TableHead className='text-center'>ACTIONS</TableHead>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-
+                        </TableHeader>
+                        <TableBody>
+                            {users.map((user, i) => (
+                                <TableRow key={i} className={`text-gray text-sm border-none ${i % 2 === 0 ? 'bg-cloudwhite' : 'bg-white'}`}>
+                                    <TableCell className="text-blue-600">{user.userId}</TableCell>
+                                    <TableCell>{user.firstName}</TableCell>
+                                    <TableCell>{user.lastName}</TableCell>
+                                    <TableCell>{user.email}</TableCell>
+                                    <TableCell>{user.phone}</TableCell>
+                                    <TableCell>{user.reportsSubmitted}</TableCell>
+                                    <TableCell>{user.scansUsed}</TableCell>
+                                    <TableCell>{user.watchlistCount}</TableCell>
+                                    <TableCell>
+                                        <p
+                                            className={
+                                                user.status === 'Active'
+                                                    ? 'text-teal text-sm'
+                                                    : 'text-red-700 text-sm'
+                                            }
+                                        >
+                                            {user.status}
+                                        </p>
+                                    </TableCell>
+                                    <TableCell>
+                                        <div className="flex gap-2 justify-center">
+                                            <Button variant="ghost" size="sm" className="text-gray">
+                                                <Eye className="h-4 w-4" />
+                                            </Button>
+                                            <Button variant="ghost" size="sm" className="text-gray">
+                                                <Edit className="h-4 w-4" />
+                                            </Button>
+                                            <Button variant="ghost" size="sm" className="text-gray">
+                                                <User className="h-4 w-4" />
+                                            </Button>
+                                        </div>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </div>
                 <div className="flex justify-between items-center mt-6">
                     <p className="text-sm text-gray-500">1-10 from 100</p>
                     <div className="flex gap-2">

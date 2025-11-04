@@ -51,8 +51,8 @@ export default function ScamReportsPage() {
                 </Button>
             </div>
 
-            <div className="bg-white rounded-lg p-6 font-satoshi">
-                <div className="flex gap-4 mb-6">
+            <div className="bg-white rounded-lg p-6 font-satoshi overflow-hidden">
+                <div className="flex flex-wrap lg:flex-nowrap gap-4 mb-6">
                     <div className="relative flex-1">
                         <Input
                             placeholder="Search By Full Name"
@@ -102,88 +102,88 @@ export default function ScamReportsPage() {
                         </SelectContent>
                     </Select>
                 </div>
-
-                <Table className='overflow-x-auto noscrollbar-hidden'>
-                    <TableHeader>
-                        <TableRow className='text-gray text-sm font-normal border-none'>
-                            <TableHead>REPORT ID</TableHead>
-                            <TableHead>SUBMITTED BY</TableHead>
-                            <TableHead>TYPE</TableHead>
-                            <TableHead>EVIDENCE</TableHead>
-                            <TableHead>PLATFORM</TableHead>
-                            <TableHead>STATUS</TableHead>
-                            <TableHead className='text-left'>ACTIONS</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {scamReports.map((report, i) => (
-                            <TableRow key={i} className={`text-gray text-sm border-none ${i % 2 === 0 ? 'bg-cloudwhite' : 'bg-white'}`}>
-                                <TableCell>{report.id}</TableCell>
-                                <TableCell>{report.submittedBy}</TableCell>
-                                <TableCell>{report.type}</TableCell>
-                                <TableCell>{report.evidence}</TableCell>
-                                <TableCell>{report.platform}</TableCell>
-                                <TableCell>
-                                    <p
-                                        className={
-                                            report.status === 'Approved'
-                                                ? 'text-teal text-sm'
-                                                : report.status === 'Pending'
-                                                    ? 'text-yellow-500 text-sm'
-                                                    : 'text-red-700 text-sm'
-                                        }
-                                    >
-                                        {report.status}
-                                    </p>
-                                </TableCell>
-                                <TableCell>
-                                    <div className="flex gap-2">
-                                        <Button variant="outline" size="sm" className="text-teal text-xs border-teal">
-                                            RESOLVED
-                                        </Button>
-                                        <Button variant="outline" size="sm" className="text-red-600 border-red-600 text-xs">
-                                            DISPUTED
-                                        </Button>
-                                        <DropdownMenu>
-                                            <DropdownMenuTrigger asChild>
-                                                <Button variant="ghost" size="sm">
-                                                    <MoreVertical className="h-4 w-4" />
-                                                </Button>
-                                            </DropdownMenuTrigger>
-                                            <DropdownMenuContent className=' text-gray text-sm border-[#E7EFFE] bg-white'>
-                                                <DropdownMenuItem>
-                                                    <Image src="/assets/eye.svg" alt="fire" width={24} height={24} />
-                                                    View Details
-                                                </DropdownMenuItem>
-                                                <DropdownMenuItem>
-                                                    <Image src="/assets/tag.svg" alt="fire" width={24} height={24} />
-                                                    Tag Scam Type
-                                                </DropdownMenuItem>
-                                                <DropdownMenuItem>
-                                                    <Image src="/assets/dcheck.svg" alt="fire" width={24} height={24} />
-                                                    Approve Report
-                                                </DropdownMenuItem>
-                                                <DropdownMenuItem>
-                                                    <Image src="/assets/clear.svg" alt="fire" width={24} height={24} />
-                                                    Reject & Archive
-                                                </DropdownMenuItem>
-                                                <DropdownMenuItem>
-                                                    <Image src="/assets/que.svg" alt="fire" width={24} height={24} />
-                                                    Request More Info
-                                                </DropdownMenuItem>
-                                                <DropdownMenuItem>
-                                                    <Image src="/assets/link.svg" alt="fire" width={24} height={24} />
-                                                    Link to Existing Vendor
-                                                </DropdownMenuItem>
-                                            </DropdownMenuContent>
-                                        </DropdownMenu>
-                                    </div>
-                                </TableCell>
+                <div className="w-full overflow-x-auto noscrollbar-hidden">
+                    <Table className="min-w-[800px] w-full">
+                        <TableHeader>
+                            <TableRow className='text-gray text-sm font-normal border-none'>
+                                <TableHead>REPORT ID</TableHead>
+                                <TableHead>SUBMITTED BY</TableHead>
+                                <TableHead>TYPE</TableHead>
+                                <TableHead>EVIDENCE</TableHead>
+                                <TableHead>PLATFORM</TableHead>
+                                <TableHead>STATUS</TableHead>
+                                <TableHead className='text-left'>ACTIONS</TableHead>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-
+                        </TableHeader>
+                        <TableBody>
+                            {scamReports.map((report, i) => (
+                                <TableRow key={i} className={`text-gray text-sm border-none ${i % 2 === 0 ? 'bg-cloudwhite' : 'bg-white'}`}>
+                                    <TableCell>{report.id}</TableCell>
+                                    <TableCell>{report.submittedBy}</TableCell>
+                                    <TableCell>{report.type}</TableCell>
+                                    <TableCell>{report.evidence}</TableCell>
+                                    <TableCell>{report.platform}</TableCell>
+                                    <TableCell>
+                                        <p
+                                            className={
+                                                report.status === 'Approved'
+                                                    ? 'text-teal text-sm'
+                                                    : report.status === 'Pending'
+                                                        ? 'text-yellow-500 text-sm'
+                                                        : 'text-red-700 text-sm'
+                                            }
+                                        >
+                                            {report.status}
+                                        </p>
+                                    </TableCell>
+                                    <TableCell>
+                                        <div className="flex gap-2">
+                                            <Button variant="outline" size="sm" className="text-teal text-xs border-teal">
+                                                RESOLVED
+                                            </Button>
+                                            <Button variant="outline" size="sm" className="text-red-600 border-red-600 text-xs">
+                                                DISPUTED
+                                            </Button>
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger asChild>
+                                                    <Button variant="ghost" size="sm">
+                                                        <MoreVertical className="h-4 w-4" />
+                                                    </Button>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent className=' text-gray text-sm border-[#E7EFFE] bg-white'>
+                                                    <DropdownMenuItem>
+                                                        <Image src="/assets/eye.svg" alt="fire" width={24} height={24} />
+                                                        View Details
+                                                    </DropdownMenuItem>
+                                                    <DropdownMenuItem>
+                                                        <Image src="/assets/tag.svg" alt="fire" width={24} height={24} />
+                                                        Tag Scam Type
+                                                    </DropdownMenuItem>
+                                                    <DropdownMenuItem>
+                                                        <Image src="/assets/dcheck.svg" alt="fire" width={24} height={24} />
+                                                        Approve Report
+                                                    </DropdownMenuItem>
+                                                    <DropdownMenuItem>
+                                                        <Image src="/assets/clear.svg" alt="fire" width={24} height={24} />
+                                                        Reject & Archive
+                                                    </DropdownMenuItem>
+                                                    <DropdownMenuItem>
+                                                        <Image src="/assets/que.svg" alt="fire" width={24} height={24} />
+                                                        Request More Info
+                                                    </DropdownMenuItem>
+                                                    <DropdownMenuItem>
+                                                        <Image src="/assets/link.svg" alt="fire" width={24} height={24} />
+                                                        Link to Existing Vendor
+                                                    </DropdownMenuItem>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                        </div>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </div>
                 <div className="flex justify-between items-center mt-6">
                     <p className="text-sm text-gray-500">1-10 from 100</p>
                     <div className="flex gap-2">

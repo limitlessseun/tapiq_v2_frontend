@@ -109,7 +109,7 @@ export default function AnalyticsPage() {
             </div>
 
             {/* Charts Grid - 2x2 */}
-            <div className="grid grid-cols-2 gap-8 mb-8">
+            <div className="grid md:grid-cols-2 gap-8 mb-8">
                 {/* Chart 1: Report Trends */}
                 <Card className='border-none shadow-[0px_4px_12px_0px_#E0E8F7AD] font-satoshi'>
                     <CardHeader>

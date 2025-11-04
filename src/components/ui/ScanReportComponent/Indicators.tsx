@@ -35,9 +35,8 @@ const Indicators: React.FC<SafeTipsProps> = ({ genuine }) => {
               Safety Score:
             </p>
             <h3
-              className={`font-bold ${
-                genuine ? "text-indigo" : "text-white"
-              } px-0`}
+              className={`font-bold ${genuine ? "text-indigo" : "text-white"
+                } px-0`}
               style={{
                 fontSize: "40px",
               }}
@@ -56,9 +55,8 @@ const Indicators: React.FC<SafeTipsProps> = ({ genuine }) => {
             </p>
             <div className="flex items-end">
               <h3
-                className={`font-bold ${
-                  genuine ? "text-indigo" : "text-white"
-                }`}
+                className={`font-bold ${genuine ? "text-indigo" : "text-white"
+                  }`}
                 style={{
                   fontSize: "40px",
                 }}

@@ -68,7 +68,7 @@ export default function DashboardLayout({
                     lg:translate-x-0
                 `}
             >
-                <div className="w-24 h-24 relative mb-8">
+                <div className="w-24 h-24 relative ml-4 mb-4">
                     <Image
                         src="/assets/logo2.svg"
                         alt="TapIQ Logo"
@@ -114,7 +114,7 @@ export default function DashboardLayout({
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 p-4 sm:p-6 lg:p-8 pt-24 lg:pt-8 lg:ml-64">
+            <main className="flex-1 p-4 sm:p-6 lg:p-8 pt-28 lg:pt-8 lg:ml-64">
                 {children}
             </main>
         </div>
