@@ -4,7 +4,9 @@ import { useEffect, useState, useMemo } from "react";
 import TextArea from "@/components/ui/TextArea";
 import AnimatedModalLayout from "@/layout/animatedModalLayout";
 import { ThreeDots } from "react-loader-spinner";
+import { useRouter } from "next/navigation";
 export default function VendorDetails() {
+  const router = useRouter();
   const [showModal, setShowModal] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -84,10 +86,13 @@ export default function VendorDetails() {
           className="uppercase text-xs w-full bg-gray"
           onClick={() => {
             setShowModal(!showModal);
+            setTimeout(() => {
+              router.push("/vendor-details");
+            }, 3000);
           }}
         >
           SCAN
-        </Button>{" "}
+        </Button>
       </div>
       {showModal && (
         <AnimatedModalLayout>

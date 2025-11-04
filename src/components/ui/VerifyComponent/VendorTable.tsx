@@ -11,7 +11,6 @@ interface VendorTableProps {
 
 const VendorTable: React.FC<VendorTableProps> = ({ data }) => {
   const handleAction = (id: number) => {
-    console.log("Action clicked for vendor ID:", id);
     // Add your action logic here
   };
 
@@ -59,16 +58,18 @@ const TableItem: React.FC<TableItemProps> = ({
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
   return (
-    <div className="flex items-center justify-between border-b border-b-[#D9E6FF] border-b-solid py-4 cursor-pointer">
+    <div
+      className="flex items-center justify-between border-b border-b-[#D9E6FF] border-b-solid py-4 cursor-pointer"
+      onClick={() => {
+        router.push("/vendor-details");
+        // action(id);
+        // setShowModal(true);
+      }}
+    >
       <p className="font-medium">{vendorName}</p>
       <div className="flex items-center gap-2">
         <p className="text-sm text-gray -mb-0.5">{number} reports</p>
         <button
-          onClick={() => {
-            router.push("/vendor-details");
-            // action(id);
-            // setShowModal(true);
-          }}
           type="button"
           className="text-gray-500 hover:text-gray-700 rounded-full p-1 transition-colors duration-200"
         >

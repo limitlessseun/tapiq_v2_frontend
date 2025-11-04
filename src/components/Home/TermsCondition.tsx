@@ -86,8 +86,8 @@ export function TermsAndPrivacy() {
 
                 <div className="space-y-6">
                     {sections.map((section, index) => (
-                        <div className="bg-white rounded-lg shadow-[0px_4px_12px_0px_#E0E8F7AD] border border-white p-2">
-                            <div key={index} className="bg-gradient-to-b from-white/60 to-[#e1eafd]/60 p-6 ">
+                        <div className="bg-white rounded-lg shadow-[0px_4px_12px_0px_#E0E8F7AD] border border-white p-2" key={index}>
+                            <div className="bg-gradient-to-b from-white/60 to-[#e1eafd]/60 p-6 ">
                                 <div className="flex items-start gap-4 mb-2">
                                     <h2 className="text-sm md:text-base font-medium text-indigo uppercase">
                                         <span className="">

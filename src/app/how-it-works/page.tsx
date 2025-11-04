@@ -5,7 +5,7 @@ export default function HowItWorksPage() {
         <main className="min-h-screen">
             <HowItWorks bg="bg-white" />
             <ReportProcess />
-            <TestimonialsSection />
+            <TestimonialsSection hidden />
             <CTASection />
         </main>
     )

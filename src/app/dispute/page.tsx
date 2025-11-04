@@ -6,7 +6,7 @@ import AnimatedModalLayout from "@/layout/animatedModalLayout";
 
 
 export default function DisputePage() {
-    const [showSuccessModal, setShowSuccessModal] = useState(true);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
 
     return (
         <main className="min-h-screen">
