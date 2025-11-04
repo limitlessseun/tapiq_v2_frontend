@@ -1,4 +1,3 @@
-// ==================== FILE: app/(dashboard)/analytics/page.tsx ====================
 "use client"
 
 import { useState } from 'react'
@@ -12,7 +11,6 @@ import {
 } from '@/components/ui/select'
 import { Area, AreaChart, Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, PieChart, Pie, Cell } from 'recharts'
 
-// Sample data for charts
 const reportTrendsData = [
     { month: 'Jan', value: 42 },
     { month: 'Feb', value: 58 },
@@ -107,10 +105,7 @@ export default function AnalyticsPage() {
                     </SelectContent>
                 </Select>
             </div>
-
-            {/* Charts Grid - 2x2 */}
             <div className="grid md:grid-cols-2 gap-8 mb-8">
-                {/* Chart 1: Report Trends */}
                 <Card className='border-none shadow-[0px_4px_12px_0px_#E0E8F7AD] font-satoshi'>
                     <CardHeader>
                         <CardTitle className="flex justify-between items-center font-manrope font-bold text-indigo">
@@ -143,8 +138,6 @@ export default function AnalyticsPage() {
                         </ResponsiveContainer>
                     </CardContent>
                 </Card>
-
-                {/* Chart 2: Scam Types Distribution */}
                 <Card className='border-none shadow-[0px_4px_12px_0px_#E0E8F7AD] font-satoshi'>
                     <CardHeader>
                         <CardTitle className="flex justify-between items-center font-manrope font-bold text-indigo">
@@ -183,8 +176,6 @@ export default function AnalyticsPage() {
                         </ResponsiveContainer>
                     </CardContent>
                 </Card>
-
-                {/* Chart 3: Top Reported Categories */}
                 <Card className='border-none shadow-[0px_4px_12px_0px_#E0E8F7AD] font-satoshi'>
                     <CardHeader>
                         <CardTitle className="flex justify-between items-center font-manrope font-bold text-indigo">
@@ -234,8 +225,6 @@ export default function AnalyticsPage() {
                         </div>
                     </CardContent>
                 </Card>
-
-                {/* Chart 4: Scan Requests by Source */}
                 <Card className='border-none shadow-[0px_4px_12px_0px_#E0E8F7AD] font-satoshi'>
                     <CardHeader>
                         <CardTitle className="flex justify-between items-center font-manrope font-bold text-indigo">

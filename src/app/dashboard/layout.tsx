@@ -32,7 +32,6 @@ export default function DashboardLayout({
 
     return (
         <div className="flex md:min-h-screen bg-white font-satoshi">
-            {/* Mobile Menu Button */}
             <div className="lg:hidden fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-40 p-4 flex items-center justify-between">
                 <div className="w-16 h-16 relative">
                     <Image
@@ -51,16 +50,12 @@ export default function DashboardLayout({
                     {sidebarOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                 </Button>
             </div>
-
-            {/* Overlay for mobile */}
             {sidebarOpen && (
                 <div
                     className="fixed inset-0 bg-black/50 z-40 lg:hidden"
                     onClick={() => setSidebarOpen(false)}
                 />
             )}
-
-            {/* Sidebar */}
             <aside
                 className={`
                     w-66 bg-cloudwhite p-2 fixed h-full z-50 transition-transform duration-300 ease-in-out
@@ -112,8 +107,6 @@ export default function DashboardLayout({
                     })}
                 </nav>
             </aside>
-
-            {/* Main Content */}
             <main className="flex-1 p-4 sm:p-6 lg:p-8 pt-28 lg:pt-8 lg:ml-64">
                 {children}
             </main>
