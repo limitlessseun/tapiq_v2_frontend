@@ -8,7 +8,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="min-h-screen flex flex-col bg-linear-to-br from-[#057EB7] via-[#141986] to-[#0E1264]  md:from-[#F6F9FF] md:via-[#F6F9FF] md:to-[#F6F9FF]  text-white pt-4 md:pt-24 font-manrope">
+    <main className="min-h-screen flex flex-col bg-linear-to-br from-[#057EB7] via-[#141986] to-[#0E1264] md:from-[#F6F9FF] md:via-[#F6F9FF] md:to-[#F6F9FF] text-white pt-4 md:pt-24 font-manrope">
       <div className="hidden md:block">
         {" "}
         <Navbar />
