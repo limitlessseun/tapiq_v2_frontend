@@ -7,6 +7,7 @@ import { SelectInput } from "@/components/ui/SelectInput";
 import TextArea from "@/components/ui/TextArea";
 import TextInput from "@/components/ui/TextInput";
 import WhatThisMeans from "@/components/ui/VerifyComponent/WhatThisMeans";
+import Image from "next/image";
 
 export default function ReportVendor() {
   return (
@@ -217,6 +218,41 @@ const Step3 = () => {
           maxLength={400}
           label="Brief Description "
         />
+
+        <div className="mb-12">
+          <div className="mb-6">
+            <label className="block mb-3 text-gray font-medium">
+              Upload Screenshots/Receipts
+            </label>
+            <div className="flex gap-4">
+              {[1, 2, 3].map((item) => (
+                <div
+                  key={item}
+                  className="w-40 h-[120px] bg-white rounded-lg flex items-center justify-center cursor-pointer  transition-colors"
+                >
+                  <Image
+                    src="/assets/upload.svg"
+                    alt="alt"
+                    width={20}
+                    height={20}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label className="block mb-3 text-gray font-medium">
+              Additional Notes
+            </label>
+            <textarea
+              className="w-full h-32 p-3 bg-white rounded-lg focus:outline-none  resize-none"
+              placeholder="Explain what happened in your own words"
+              maxLength={400}
+            />
+            <div className="text-right text-sm text-gray mt-1">0/400</div>
+          </div>
+        </div>
 
         <RadioInput
           label="Has the Vendor Blocked You?"
