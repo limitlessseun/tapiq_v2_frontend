@@ -13,7 +13,6 @@ export function BottomNavigation() {
     { name: "Scan", icon: "/assets/scan.svg", href: "/scan" },
     { name: "Watchlist", icon: "/assets/watchlist.svg", href: "/watchlist" },
   ];
-  console.log(pathname);
   return (
     <div>
       {/* mobile nav */}

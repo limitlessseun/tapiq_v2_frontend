@@ -14,7 +14,7 @@ import Share from "@/components/ui/VendorDetails/Share";
 import Indicators from "@/components/ui/ScanReportComponent/Indicators";
 
 export default function VendorDetails() {
-  const [genuine, setGenuine] = useState(false);
+  const [genuine, setGenuine] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   return (

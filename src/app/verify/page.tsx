@@ -49,6 +49,8 @@ export default function Verify() {
     setTimeout(() => {
       setIsLoading(false);
     }, 500);
+
+    location.reload();
   };
 
   const handleNewSearch = () => {

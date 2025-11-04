@@ -13,11 +13,12 @@ import { useEffect, useState, useMemo } from "react";
 import Share from "@/components/ui/VendorDetails/Share";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function VendorDetails() {
   const [searchValue, setSearchValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+ const router = useRouter();
   const vendorsData = [
     { id: 1234, vendorName: "Luxury Fashion Hub", reports: 23 },
     { id: 1235, vendorName: "Tech Gadgets Inc", reports: 15 },
@@ -51,9 +52,9 @@ export default function VendorDetails() {
 
   const handleSearch = () => {
     setIsLoading(true);
-    // Simulate API call or search processing
     setTimeout(() => {
       setIsLoading(false);
+      router.push("/verify");
     }, 500);
   };
 
@@ -99,6 +100,7 @@ export default function VendorDetails() {
       image: "/assets/3.png",
     },
   ];
+ 
 
   return (
     <div className="space-y-4">

@@ -87,7 +87,7 @@ export default function VendorDetails() {
           onClick={() => {
             setShowModal(!showModal);
             setTimeout(() => {
-              router.push("/vendor-details");
+              router.push("/scan-result");
             }, 3000);
           }}
         >
