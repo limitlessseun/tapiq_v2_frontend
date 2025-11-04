@@ -1,5 +1,5 @@
 "use client"
-
+import Image from 'next/image'
 import { useState } from 'react'
 import { Search, MoreVertical } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
@@ -112,7 +112,7 @@ export default function ScamReportsPage() {
                             <TableHead>EVIDENCE</TableHead>
                             <TableHead>PLATFORM</TableHead>
                             <TableHead>STATUS</TableHead>
-                            <TableHead className='text-center'>ACTIONS</TableHead>
+                            <TableHead className='text-left'>ACTIONS</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -150,10 +150,31 @@ export default function ScamReportsPage() {
                                                     <MoreVertical className="h-4 w-4" />
                                                 </Button>
                                             </DropdownMenuTrigger>
-                                            <DropdownMenuContent>
-                                                <DropdownMenuItem>View Details</DropdownMenuItem>
-                                                <DropdownMenuItem>Edit</DropdownMenuItem>
-                                                <DropdownMenuItem>Delete</DropdownMenuItem>
+                                            <DropdownMenuContent className=' text-gray text-sm border-[#E7EFFE] bg-white'>
+                                                <DropdownMenuItem>
+                                                    <Image src="/assets/eye.svg" alt="fire" width={24} height={24} />
+                                                    View Details
+                                                </DropdownMenuItem>
+                                                <DropdownMenuItem>
+                                                    <Image src="/assets/tag.svg" alt="fire" width={24} height={24} />
+                                                    Tag Scam Type
+                                                </DropdownMenuItem>
+                                                <DropdownMenuItem>
+                                                    <Image src="/assets/dcheck.svg" alt="fire" width={24} height={24} />
+                                                    Approve Report
+                                                </DropdownMenuItem>
+                                                <DropdownMenuItem>
+                                                    <Image src="/assets/clear.svg" alt="fire" width={24} height={24} />
+                                                    Reject & Archive
+                                                </DropdownMenuItem>
+                                                <DropdownMenuItem>
+                                                    <Image src="/assets/que.svg" alt="fire" width={24} height={24} />
+                                                    Request More Info
+                                                </DropdownMenuItem>
+                                                <DropdownMenuItem>
+                                                    <Image src="/assets/link.svg" alt="fire" width={24} height={24} />
+                                                    Link to Existing Vendor
+                                                </DropdownMenuItem>
                                             </DropdownMenuContent>
                                         </DropdownMenu>
                                     </div>
