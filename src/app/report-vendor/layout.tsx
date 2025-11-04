@@ -1,0 +1,25 @@
+"use client";
+import { BottomNavigation, Navbar } from "@/components/Reusable";
+
+export default function AuthLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <main className="min-h-screen flex flex-col bg-linear-to-br from-[#057EB7] via-[#141986] to-[#0E1264] text-white  font-manrope">
+      <Navbar transparent />
+
+      <div className="max-w-[90%] mx-auto text-center pt-10 flex flex-col gap-6 ">
+        <h1 className="text-2xl md:text-3xl font-semibold  leading-tight text-center">
+          Report a vendor
+        </h1>
+        <p className="text-cloudWhite font-light">
+          Help Protect Your Community Progress{" "}
+        </p>
+      </div>
+
+      <div className="">{children}</div>
+    </main>
+  );
+}

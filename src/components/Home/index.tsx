@@ -1,0 +1,12 @@
+export { HeroSection } from "./HeroSection";
+export { FeaturesSection } from "./FeatureSection";
+export { HowItWorks } from "./HowItWorks";
+export { CommunityImpact } from "./Community";
+export { CTASection } from "./CTA";
+export { ScamSpotlight } from "./ScamSpotlight";
+export { TestimonialsSection } from "./Testimonial";
+export { AboutSection } from "./About";
+export { ReportProcess } from "./ReportProcess";
+export { Contact } from "./ContactUs";
+export { TermsAndPrivacy } from "./TermsCondition";
+export { RaiseDispute } from "./Dispute";

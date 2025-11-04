@@ -1,0 +1,10 @@
+<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect opacity="0.2" x="34.8794" y="1.89911" width="9.97033" height="24.451" rx="4.98516" fill="#185CBC"/>
+<rect opacity="0.3" x="63.3647" y="9.5683" width="9.97033" height="24.451" rx="4.98516" transform="rotate(45 63.3647 9.5683)" fill="#185CBC"/>
+<rect opacity="0.4" x="78.0845" y="35.1334" width="9.97033" height="24.451" rx="4.98516" transform="rotate(90 78.0845 35.1334)" fill="#185CBC"/>
+<rect opacity="0.5" x="70.415" y="63.619" width="9.97033" height="24.451" rx="4.98516" transform="rotate(135 70.415 63.619)" fill="#185CBC"/>
+<rect opacity="0.6" x="44.8496" y="78.3383" width="9.97033" height="24.451" rx="4.98516" transform="rotate(-180 44.8496 78.3383)" fill="#185CBC"/>
+<rect opacity="0.7" x="16.3638" y="70.6692" width="9.97033" height="24.451" rx="4.98516" transform="rotate(-135 16.3638 70.6692)" fill="#185CBC"/>
+<rect opacity="0.8" x="1.64502" y="45.1038" width="9.97033" height="24.451" rx="4.98516" transform="rotate(-90 1.64502 45.1038)" fill="#185CBC"/>
+<rect x="9.31445" y="16.6185" width="9.97033" height="24.451" rx="4.98516" transform="rotate(-45 9.31445 16.6185)" fill="#185CBC"/>
+</svg>
