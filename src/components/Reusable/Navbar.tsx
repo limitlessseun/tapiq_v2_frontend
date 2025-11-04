@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
 interface NavbarProps {
   transparent?: boolean;
@@ -12,7 +13,7 @@ interface NavbarProps {
 
 export function Navbar({ transparent = false, customBg }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
-
+  const router = useRouter();
   const menuItems = [
     { href: "/about", label: "About Us" },
     { href: "/how-it-works", label: "How It Works" },
@@ -71,7 +72,12 @@ export function Navbar({ transparent = false, customBg }: NavbarProps) {
               >
                 REPORT A VENDOR
               </Button>
-              <Button className="px-8 py-2 bg-gradient-to-br from-[#575EFF] to-[#282D99] rounded-lg text-white complex-gradient-border text-sm font-semibold">
+              <Button
+                className="px-8 py-2 bg-gradient-to-br from-[#575EFF] to-[#282D99] rounded-lg text-white complex-gradient-border text-sm font-semibold"
+                onClick={() => {
+                  router.push("/auth/login");
+                }}
+              >
                 SIGN UP
               </Button>
             </div>
@@ -148,7 +154,12 @@ export function Navbar({ transparent = false, customBg }: NavbarProps) {
               ))}
             </div>
             <div className=" mt-6 h-full px-4 flex justify-center">
-              <Button className="px-8 py-4 bg-gradient-to-br from-[#575EFF] to-[#282D99] rounded-lg text-white complex-gradient-border text-sm w-full font-semibold">
+              <Button
+                className="px-8 py-4 bg-gradient-to-br from-[#575EFF] to-[#282D99] rounded-lg text-white complex-gradient-border text-sm w-full font-semibold"
+                onClick={() => {
+                  router.push("/auth/register");
+                }}
+              >
                 SIGN UP
               </Button>
             </div>

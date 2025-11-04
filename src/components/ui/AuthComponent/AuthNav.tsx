@@ -11,7 +11,7 @@ const AuthNav = () => {
     <div className="flex items-center w-full shadow-2xl gap-0">
       {navs.map((nav) => (
         <a
-          className={`${
+          className={`cursor-pointer ${
             pathname === nav.href
               ? "bg-linear-to-r from-[#575EFF] to-[#282D99]  p-px"
               : ""

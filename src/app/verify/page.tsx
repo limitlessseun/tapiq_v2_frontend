@@ -9,9 +9,9 @@ import AnimatedModalLayout from "@/layout/animatedModalLayout";
 import { useEffect, useState, useMemo } from "react";
 
 export default function Verify() {
+  const [showModal, setShowModal] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
   const vendorsData = [
     { id: 1234, vendorName: "Luxury Fashion Hub", reports: 23 },
     { id: 1235, vendorName: "Tech Gadgets Inc", reports: 15 },
@@ -118,13 +118,73 @@ export default function Verify() {
               variant="primary"
               size="lg"
               className="uppercase text-xs w-full"
-              onClick={handleSearch}
+              onClick={() => {
+                setShowModal(true);
+              }}
             >
               Report This Vendor
             </Button>
           </div>
         </div>
       </div>
+
+      {showModal && (
+        <AnimatedModalLayout>
+          <ReportVendorModal closeModal={() => setShowModal(false)} />
+        </AnimatedModalLayout>
+      )}
     </div>
   );
 }
+
+interface ReportVendorModalProps {
+  closeModal: () => void;
+}
+
+const ReportVendorModal: React.FC<ReportVendorModalProps> = ({
+  closeModal,
+}) => {
+  return (
+    <div className="p-6 text-center flex flex-col items-center gap-2">
+      <h3 className="font-bold text-indigo">
+        Are you sure you want to add @luxurybags_ng to your Watchlist?{" "}
+      </h3>
+
+      <p className="text-gray text-sm">
+        You won’t see any current reports, but if this vendor gets flagged in
+        the future, you’ll receive real-time alerts to help you stay safe.{" "}
+      </p>
+
+      <div className="flex items-center mt-6 gap-4 w-full">
+        <div className="flex-1">
+          <Button
+            variant="outline"
+            size="lg"
+            className="uppercase text-xs w-full"
+            style={{
+              border: "1px solid",
+              borderImage: `
+                  linear-gradient(180deg, rgba(255, 255, 255, 0.8) -25.96%, rgba(255, 255, 255, 0) 100%),
+                  linear-gradient(270deg, rgba(255, 255, 255, 0) 12.54%, rgba(255, 255, 255, 0.8) 47.67%, rgba(255, 255, 255, 0) 82.8%)
+                  1
+                `,
+            }}
+            onClick={closeModal}
+          >
+            Cancel{" "}
+          </Button>
+        </div>
+        <div className="flex-1">
+          <Button
+            variant="primary"
+            size="lg"
+            className="uppercase text-xs w-full"
+            onClick={() => {}}
+          >
+            Confirm{" "}
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};

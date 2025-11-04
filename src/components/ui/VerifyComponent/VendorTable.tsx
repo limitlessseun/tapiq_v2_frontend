@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "../button";
 import AnimatedModalLayout from "@/layout/animatedModalLayout";
+import { useRouter } from "next/navigation";
 
 // Vendor data array
 
@@ -55,16 +56,18 @@ const TableItem: React.FC<TableItemProps> = ({
   id,
   action,
 }) => {
+  const router = useRouter();
   const [showModal, setShowModal] = useState(false);
   return (
-    <div className="flex items-center justify-between border-b border-b-[#D9E6FF] border-b-solid py-4">
+    <div className="flex items-center justify-between border-b border-b-[#D9E6FF] border-b-solid py-4 cursor-pointer">
       <p className="font-medium">{vendorName}</p>
       <div className="flex items-center gap-2">
         <p className="text-sm text-gray -mb-0.5">{number} reports</p>
         <button
           onClick={() => {
+            router.push("/vendor-details");
             // action(id);
-            setShowModal(true);
+            // setShowModal(true);
           }}
           type="button"
           className="text-gray-500 hover:text-gray-700 rounded-full p-1 transition-colors duration-200"

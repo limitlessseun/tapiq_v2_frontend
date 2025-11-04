@@ -52,7 +52,7 @@ export default function VendorDetails() {
     <div className="space-y-4">
       <TextArea
         placeholder="Reply to comment…"
-        value={""}
+        //value={""}
         onChange={(e) => {}}
         rows={3}
         maxLength={100}
