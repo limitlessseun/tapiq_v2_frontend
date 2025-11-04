@@ -14,7 +14,7 @@ export default function AuthLayout({
         <h1 className="text-2xl md:text-3xl font-semibold  leading-tight text-center">
           Verify a Vendor
         </h1>
-        <p className="text-cloudWhite font-light">
+        <p className="text-cloudWhite font-light font-satoshi">
           Check if a vendor has been flagged by others in our community.
         </p>
       </div>

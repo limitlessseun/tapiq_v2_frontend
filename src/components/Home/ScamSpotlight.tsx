@@ -9,7 +9,7 @@ export function ScamSpotlight() {
                     <div className="bg-white p-4 md:p-8 rounded-2xl shadow-[0px_4px_12px_0px_#E0E8F7AD]">
                         <div className="mb-6">
                             <h3 className="text-lg md:text-xl font-semibold text-indigo mb-2">Weekly Scam Spotlight</h3>
-                            <p className="md:text-lg text-gray">Highlighting the most dangerous scam of the week to stay alert.</p>
+                            <p className="md:text-lg text-gray font-satoshi">Highlighting the most dangerous scam of the week to stay alert.</p>
                         </div>
 
                         <div className="bg-cloudwhite p-6 rounded-xl mb-6">
@@ -31,7 +31,7 @@ export function ScamSpotlight() {
                     <div className="bg-white p-4 md:p-8 rounded-2xl shadow-[0px_4px_12px_0px_#E0E8F7AD] relative overflow-hidden">
                         <div className="mb-6">
                             <h3 className="text-lg md:text-xl font-semibold text-indigo mb-2">Scam alerts prevented</h3>
-                            <p className="md:text-lg text-gray">Stay ahead of scammers with our smart detection</p>
+                            <p className="md:text-lg text-gray font-satoshi">Stay ahead of scammers with our smart detection</p>
                         </div>
 
                         <div className="bg-cloudwhite p-6 rounded-xl mb-6 relative h-[260px]">

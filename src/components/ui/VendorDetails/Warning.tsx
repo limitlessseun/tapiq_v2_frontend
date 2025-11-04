@@ -15,7 +15,7 @@ const Warning: React.FC<SafeTipsProps> = ({ vendorData }) => {
     <div>
       <div className="flex flex-col items-center gap-2">
         {data.map((item, index) => (
-          <div className="bg-white p-1 rounded w-full">
+          <div className="bg-white p-1 rounded w-full font-satoshi">
             <div
               className=" rounded  bg-linear-to-br from-[#FFFFFF] to-[#E1EAFD]"
               key={index}

@@ -27,7 +27,7 @@ const SafeTips: React.FC<SafeTipsProps> = ({ vendorData }) => {
             childeren={
               <div>
                 <h3 className="font-bold text-lg mb-4">What This Means:</h3>
-                <ul className="space-y-1 pl-2">
+                <ul className="space-y-1 pl-2 font-satoshi">
                   {data2.map((item, index) => (
                     <li key={item} className="flex items-start font-light">
                       <span className="mr-2">•</span>
@@ -39,7 +39,7 @@ const SafeTips: React.FC<SafeTipsProps> = ({ vendorData }) => {
             }
           />
           <h3 className="font-bold text-indigo">Stay Safe Tips:</h3>
-          <div className="flex flex-col gap-2 py-2">
+          <div className="flex flex-col gap-2 py-2 font-satoshi">
             {data.map((item, index) => (
               <div className="bg-white p-1 rounded">
                 <div
@@ -57,7 +57,7 @@ const SafeTips: React.FC<SafeTipsProps> = ({ vendorData }) => {
           <Status />
         </div>
       ) : (
-        <div className="">
+        <div className=" font-satoshi">
           <div className=" p-1 rounded flex flex-col gap-3 bg-white">
             <div className=" rounded  bg-linear-to-br from-[#FFFFFF] to-[#E1EAFD]">
               <p className="text-sm text-gray flex items-center gap-2 px-2">

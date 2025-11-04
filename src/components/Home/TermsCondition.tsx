@@ -96,11 +96,11 @@ export function TermsAndPrivacy() {
                                         {section.title}
                                     </h2>
                                 </div>
-                                <div className="text-gray text-sm md:text-base leading-relaxed">
+                                <div className="text-gray text-sm md:text-base leading-relaxed font-satoshi">
                                     <p className="mb-2">{section.content}</p>
 
                                     {section.list && (
-                                        <ul className="space-y-3 ml-6 list-disc">
+                                        <ul className="space-y-3 ml-6 list-disc font-satoshi">
                                             {section.list.map((item, itemIndex) => (
                                                 <li key={itemIndex} className="text-gray">
                                                     {item}
@@ -109,7 +109,7 @@ export function TermsAndPrivacy() {
                                         </ul>
                                     )}
                                     {section.contact && (
-                                        <div className="mt-4 space-y-2">
+                                        <div className="mt-4 space-y-2 font-satoshi">
                                             <p className="font-semibold">Email: <span className="font-normal text-gray">{section.contact.email}</span></p>
                                             <p className="font-semibold">Phone: <span className="font-normal text-gray">{section.contact.phone}</span></p>
                                             <p className="font-semibold">Office: <span className="font-normal text-gray">{section.contact.office}</span></p>

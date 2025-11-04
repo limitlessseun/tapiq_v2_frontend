@@ -34,10 +34,10 @@ export function FAQSection({ p }: any) {
     <section className="py-16 px-6 bg-cloudwhite font-manrope">
       <div className="max-w-3xl mx-auto">
         <div className="mb-12">
-          <h2 className="text-3xl md:text-4xl font-semibold text-center mb-4">
-            FAQ
-          </h2>
-          {p && <p className="text-indigo md:text-lg text-center">{p}</p>}
+          <h2 className="text-3xl md:text-4xl font-semibold text-center mb-4">FAQ</h2>
+          {p && <p className="text-indigo md:text-lg text-center font-satoshi">
+            {p}
+          </p>}
         </div>
         <Accordion type="single" collapsible className="w-full">
           {faqs.map((faq, index) => (
@@ -49,7 +49,7 @@ export function FAQSection({ p }: any) {
               <AccordionTrigger className="text-left bg-cloudwhite rounded-lg p-4 text-indigo text-sm lg:text-base font-medium hover:no-underline [&[data-state=open]]:no-underline group">
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className="pt-4 px-4 text-gray md:text-base text-sm bg-cloudwhite rounded-b-lg">
+              <AccordionContent className="pt-4 px-4 text-gray md:text-base text-sm bg-cloudwhite rounded-b-lg font-satoshi">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>

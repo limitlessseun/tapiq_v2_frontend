@@ -14,7 +14,7 @@ export default function Login() {
         type="tel"
         placeholder="+234 ___ ___ ____"
         // //value={""}
-        onChange={() => {}}
+        onChange={() => { }}
       />
 
       <TextInput
@@ -22,14 +22,14 @@ export default function Login() {
         type="password"
         placeholder="Enter your password"
         // //value={""}
-        onChange={() => {}}
-        // error={"Password must be at least 8 characters"}
+        onChange={() => { }}
+      // error={"Password must be at least 8 characters"}
       />
 
       <div>
-        <p className="text-sm text-gray">
+        <p className="text-sm text-gray font-satoshi">
           Didn't receive the code?{" "}
-          <Button variant={"link"} className="px-0">
+          <Button variant={"link"} className="px-0 underline">
             Resend
           </Button>
         </p>
@@ -38,7 +38,7 @@ export default function Login() {
       <div>
         <SwitchInput
           checked={true}
-          onCheckedChange={() => {}}
+          onCheckedChange={() => { }}
           label="Remember Me"
         />
       </div>
@@ -53,7 +53,7 @@ export default function Login() {
         Sign In
       </Button>
       <div>
-        <p className="text-sm text-gray text-start">
+        <p className="text-sm text-gray text-start font-satoshi">
           Don’t have an account?{" "}
           <Button
             variant={"link"}

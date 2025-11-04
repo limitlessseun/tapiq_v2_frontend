@@ -21,7 +21,7 @@ const SwitchInput = React.forwardRef<HTMLButtonElement, CustomSwitchProps>(
             data-[state=checked]:bg-primary
             transition-colors duration-200
             focus:outline-none focus:ring-2 focus:ring-primary
-            disabled:cursor-not-allowed disabled:opacity-50
+            disabled:cursor-not-allowed disabled:opacity-50 font-satoshi
             ${className}
           `}
         {...props}
@@ -46,7 +46,7 @@ const SwitchInput = React.forwardRef<HTMLButtonElement, CustomSwitchProps>(
         {labelPosition === "left" && (
           <label
             htmlFor={switchId}
-            className="text-sm font-medium cursor-pointer select-none"
+            className="text-sm font-medium cursor-pointer select-none font-satoshi"
           >
             {label}
           </label>
@@ -55,7 +55,7 @@ const SwitchInput = React.forwardRef<HTMLButtonElement, CustomSwitchProps>(
         {labelPosition === "right" && (
           <label
             htmlFor={switchId}
-            className="text-sm font-medium cursor-pointer select-none text-gray"
+            className="text-sm font-medium cursor-pointer select-none text-gray font-satoshi"
           >
             {label}
           </label>

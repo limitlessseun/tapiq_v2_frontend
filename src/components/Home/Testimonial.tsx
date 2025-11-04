@@ -26,7 +26,7 @@ export function TestimonialsSection({ hidden }: any) {
                 <h1 className="text-3xl md:text-4xl lg:text-6xl font-semibold text-indigo">
                     Customer Testimonials
                 </h1>
-                <p className="text-base md:text-lg text-indigo mx-auto leading-relaxed mb-6 max-w-2xl">
+                <p className="text-base md:text-lg text-indigo mx-auto leading-relaxed mb-6 max-w-2xl font-satoshi">
                     Real experiences shared by our valued community members.
                 </p>
 
@@ -57,7 +57,7 @@ export function TestimonialsSection({ hidden }: any) {
                                         />
                                     ))}
                                 </div>
-                                <p className="text-gray text-sm md:text-base mb-4 italic text-start">"{testimonial.comment}"</p>
+                                <p className="text-gray text-sm md:text-base mb-4 italic text-start font-satoshi">"{testimonial.comment}"</p>
 
                             </div>
                         </div>

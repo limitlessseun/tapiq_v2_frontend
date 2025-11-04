@@ -15,7 +15,7 @@ export function HeroSection() {
             <br />
             BEFORE THEY START
           </h1>
-          <p className="text-lg md:text-xl lg:text-2xl mb-8 md:mb-10 lg:mb-12 text-secwhite leading-relaxed max-w-xl mx-auto md:mx-0">
+          <p className="text-lg md:text-xl lg:text-2xl mb-8 md:mb-10 lg:mb-12 text-secwhite leading-relaxed max-w-xl mx-auto md:mx-0 font-satoshi">
             Easily verify vendors, suspicious messages. Built for your safety.
           </p>
           <div className="flex gap-4 flex-col md:gap-6 max-w-md mx-auto md:mx-0">

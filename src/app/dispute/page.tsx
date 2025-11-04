@@ -25,7 +25,7 @@ export default function DisputePage() {
                     </h2>
 
                     {/* Description */}
-                    <p className="text-gray mb-6 text-sm md:text-base leading-relaxed">
+                    <p className="text-gray mb-6 text-sm md:text-base leading-relaxed font-satoshi">
                         We'll review the information and update you<br />
                         within 3—7 business days.
                         <br />

@@ -39,7 +39,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextFieldProps>(
 
     return (
       <div
-        className={`
+        className={` 
         relative  
         w-full 
         transition-all duration-200
@@ -47,7 +47,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextFieldProps>(
         ${className}
       `}
       >
-        {<label className="block mb-2">{label}</label>}
+        {<label className="block mb-2 font-satoshi">{label}</label>}
         <div className="relative">
           <input
             ref={ref}
@@ -59,7 +59,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextFieldProps>(
             className={`
               w-full h-[47px] pr-10 bg-white  shadow-sm
               focus:outline-none
-              disabled:cursor-not-allowed 
+              disabled:cursor-not-allowed font-satoshi placeholder:font-satoshi  
               placeholder:text-gray 
              focus:ring-blue-200 focus:ring-4  
               rounded-md px-3
