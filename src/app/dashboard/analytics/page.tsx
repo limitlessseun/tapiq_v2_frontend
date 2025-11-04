@@ -81,10 +81,10 @@ const topCategoriesData = [
 ]
 
 const scanSourcesData = [
-    { name: 'Website', value: 45, color: '#5946D2' },
-    { name: 'Email or Messaging Platforms', value: 30, color: '#7B6AE8' },
-    { name: 'API Requests', value: 15, color: '#A68ED9' },
-    { name: 'Mobile App', value: 10, color: '#C4AEE8' },
+    { name: 'Website', value: 45, color: '#5F5EBB' },
+    { name: 'Email or Messaging Platforms', value: 30, color: '#8560B8' },
+    { name: 'API Requests', value: 15, color: '#A164B3' },
+    { name: 'Mobile App', value: 10, color: '#B86BAD' },
 ]
 
 export default function AnalyticsPage() {
@@ -98,7 +98,7 @@ export default function AnalyticsPage() {
                     <SelectTrigger className="w-48 bg-cloudwhite text-gray font-normal text-sm">
                         <SelectValue />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className=' text-gray text-sm border-[#E7EFFE] bg-white'>
                         <SelectItem value="7days">Last 7 Days</SelectItem>
                         <SelectItem value="30days">Last 30 Days</SelectItem>
                         <SelectItem value="3months">Last 3 Months</SelectItem>
@@ -119,7 +119,7 @@ export default function AnalyticsPage() {
                                 <SelectTrigger className="w-32 bg-cloudwhite text-gray font-normal text-sm">
                                     <SelectValue />
                                 </SelectTrigger>
-                                <SelectContent>
+                                <SelectContent className=' text-gray text-sm border-[#E7EFFE] bg-white'>
                                     <SelectItem value="monthly">Monthly</SelectItem>
                                     <SelectItem value="weekly">Weekly</SelectItem>
                                 </SelectContent>
@@ -153,7 +153,7 @@ export default function AnalyticsPage() {
                                 <SelectTrigger className="w-32 bg-cloudwhite text-gray font-normal text-sm">
                                     <SelectValue />
                                 </SelectTrigger>
-                                <SelectContent>
+                                <SelectContent className=' text-gray text-sm border-[#E7EFFE] bg-white'>
                                     <SelectItem value="monthly">Monthly</SelectItem>
                                     <SelectItem value="weekly">Weekly</SelectItem>
                                 </SelectContent>
@@ -193,7 +193,7 @@ export default function AnalyticsPage() {
                                 <SelectTrigger className="w-32 bg-cloudwhite text-gray font-normal text-sm">
                                     <SelectValue />
                                 </SelectTrigger>
-                                <SelectContent>
+                                <SelectContent className=' text-gray text-sm border-[#E7EFFE] bg-white'>
                                     <SelectItem value="monthly">Monthly</SelectItem>
                                     <SelectItem value="weekly">Weekly</SelectItem>
                                 </SelectContent>
@@ -244,7 +244,7 @@ export default function AnalyticsPage() {
                                 <SelectTrigger className="w-32 bg-cloudwhite text-gray font-normal text-sm">
                                     <SelectValue />
                                 </SelectTrigger>
-                                <SelectContent>
+                                <SelectContent className=' text-gray text-sm border-[#E7EFFE] bg-white'>
                                     <SelectItem value="monthly">Monthly</SelectItem>
                                     <SelectItem value="weekly">Weekly</SelectItem>
                                 </SelectContent>

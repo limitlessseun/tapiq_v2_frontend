@@ -1,21 +1,18 @@
-// ==================== FILE: app/(dashboard)/layout.tsx ====================
 "use client"
 
 import { useState } from 'react'
-import { BarChart3, Shield, Users, Gavel, FileText, Menu, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-type Page = 'dashboard' | 'scam-reports' | 'user-management' | 'dispute-resolution' | 'analytics'
-
 const menuItems = [
-    { id: 'dashboard/' as Page, label: 'Dashboard Overview', icon: BarChart3 },
-    { id: 'dashboard/scam-reports' as Page, label: 'Scam Report Moderation', icon: Shield },
-    { id: 'dashboard/user-management/' as Page, label: 'User Management', icon: Users },
-    { id: 'dashboard/dispute-resolution/' as Page, label: 'Dispute Resolution', icon: Gavel },
-    { id: 'dashboard/analytics/' as Page, label: 'Analytics & Insights', icon: FileText },
+    { id: 'dashboard', label: 'Dashboard Overview', icon: "/assets/overview.svg", href: "/dashboard" },
+    { id: 'scam-reports', label: 'Scam Report Moderation', icon: "/assets/scam.svg", href: "/dashboard/scam-reports" },
+    { id: 'user-management', label: 'User Management', icon: "/assets/user.svg", href: "/dashboard/user-management" },
+    { id: 'dispute-resolution', label: 'Dispute Resolution', icon: "/assets/disputer.svg", href: "/dashboard/dispute-resolution" },
+    { id: 'analytics', label: 'Analytics & Insights', icon: "/assets/analytics.svg", href: "/dashboard/analytics" },
 ]
 
 export default function DashboardLayout({
@@ -25,7 +22,13 @@ export default function DashboardLayout({
 }) {
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const pathname = usePathname()
-    const currentPage = pathname.split('/').pop() as Page || 'dashboard'
+
+    const isActive = (href: string) => {
+        if (href === '/dashboard') {
+            return pathname === '/dashboard'
+        }
+        return pathname.startsWith(href)
+    }
 
     return (
         <div className="flex md:min-h-screen bg-white font-satoshi">
@@ -60,7 +63,7 @@ export default function DashboardLayout({
             {/* Sidebar */}
             <aside
                 className={`
-                    w-64 bg-cloudwhite p-4 fixed h-full z-50 transition-transform duration-300 ease-in-out
+                    w-66 bg-cloudwhite p-2 fixed h-full z-50 transition-transform duration-300 ease-in-out
                     ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
                     lg:translate-x-0
                 `}
@@ -76,24 +79,32 @@ export default function DashboardLayout({
 
                 <nav className="space-y-2">
                     {menuItems.map((item) => {
-                        const Icon = item.icon
-                        const isActive = currentPage === item.id
+                        const active = isActive(item.href)
 
                         return (
                             <Link
                                 key={item.id}
-                                href={`/${item.id === 'dashboard' ? '' : item.id}`}
+                                href={item.href}
                                 onClick={() => setSidebarOpen(false)}
                             >
                                 <Button
                                     size="lg"
-                                    variant={isActive ? 'default' : 'ghost'}
-                                    className={`w-full justify-start transition-colors py-6 my-2 ${isActive
+                                    variant={active ? 'default' : 'ghost'}
+                                    className={`w-full justify-start transition-colors py-6 my-2 group ${active
                                         ? 'bg-primary text-white hover:bg-primary/80'
                                         : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                                         }`}
                                 >
-                                    <Icon className="mr-2 h-4 w-4" />
+                                    <div className={`mr-3 transition-all duration-200 ${active ? 'filter brightness-0 invert' : 'group-hover:scale-110'
+                                        }`}>
+                                        <Image
+                                            src={item.icon}
+                                            alt={item.label}
+                                            width={20}
+                                            height={20}
+                                            className="object-contain"
+                                        />
+                                    </div>
                                     {item.label}
                                 </Button>
                             </Link>

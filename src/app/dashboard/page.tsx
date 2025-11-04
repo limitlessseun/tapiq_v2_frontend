@@ -1,5 +1,5 @@
 "use client"
-
+import Image from 'next/image'
 import { useState } from 'react'
 import { Search, FileText, Gavel } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -34,13 +34,15 @@ const watchlistData = [
     { month: 'Dec', value: 20 },
 ]
 
-const StatCard = ({ title, value, icon }: { title: string; value: string | number; icon: React.ReactNode }) => (
+const StatCard = ({ title, value, img }: { title: string; value: string | number; img: string }) => (
     <Card className='border-none bg-cloudwhite shadow-none font-satoshi'>
         <CardContent className="p-4">
             <div className="flex flex-col items-start gap-2 justify-between">
                 <p className="text-sm text-gray-500 mb-1">{title}</p>
-                <div className='flex items-center justify-between w-1/2'>
-                    <div className="text-primary bg-white p-2 rounded-full">{icon}</div>
+                <div className='flex items-center justify-between min-w-1/2'>
+                    <div className="text-primary bg-white p-2 rounded-full">
+                        <Image src={img} alt={img} width={24} height={24} />
+                    </div>
                     <p className="text-3xl font-semibold text-indigo">{value}</p>
 
                 </div>
@@ -57,22 +59,27 @@ export default function DashboardPage() {
 
             {/* Stats Grid */}
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8 font-satoshi">
-                <StatCard title="New Reports Today" value="86" icon={<FileText />} />
-                <StatCard title="Reports Awaiting Review" value="12" icon={<FileText />} />
-                <StatCard title="Total Reports Approved" value="5900" icon={<FileText />} />
-                <StatCard title="Scan Requests (24h)" value="541" icon={<Search />} />
-                <StatCard title="Total Scan Request" value="475888" icon={<Search />} />
+                <StatCard title="New Reports Today" value="86" img="/assets/doc.svg" />
+                <StatCard title="Reports Awaiting Review" value="12" img="/assets/edit.svg" />
+                <StatCard title="Total Reports Approved" value="5900" img="/assets/uploadb.svg" />
+                <StatCard title="Scan Requests (24h)" value="541" img="/assets/foldersearch.svg" />
+                <StatCard title="Total Scan Request" value="475888" img="/assets/foldercheck.svg" />
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8 font-satoshi">
-                <StatCard title="Flagged Messages" value="27" icon={<FileText />} />
-                <StatCard title="New Disputes Raised" value="4" icon={<Gavel />} />
-                <StatCard title="Dispute Resolved" value="3" icon={<Gavel />} />
-                <StatCard title="Pending Dispute" value="1" icon={<Gavel />} />
+                <StatCard title="Flagged Messages" value="27" img="/assets/flagged.svg" />
+                <StatCard title="New Disputes Raised" value="4" img="/assets/megaphone.svg" />
+                <StatCard title="Dispute Resolved" value="3" img="/assets/checked.svg" />
+                <StatCard title="Pending Dispute" value="1" img="/assets/dispute.svg" />
                 <Card className='border-none bg-cloudwhite shadow-none font-satoshi'>
                     <CardContent className="p-4">
                         <p className="text-sm text-gray-500 mb-1">Top Trending Scam Type</p>
-                        <p className="text-sm font-bold text-indigo">No delivery after payment.</p>
+                        <div className='flex items-center justify-between w-full mt-2 gap-2'>
+                            <div className="text-primary bg-white p-2 rounded-full">
+                                <Image src="/assets/fire.svg" alt="fire" width={24} height={24} />
+                            </div>
+                            <p className="text-sm font-bold text-indigo">No delivery after payment.</p>
+                        </div>
                     </CardContent>
                 </Card>
             </div>
@@ -86,7 +93,7 @@ export default function DashboardPage() {
                             <SelectTrigger className="w-32 bg-cloudwhite text-gray font-normal text-sm focus:none outline:none">
                                 <SelectValue />
                             </SelectTrigger>
-                            <SelectContent>
+                            <SelectContent className=' text-gray text-sm border-[#E7EFFE] bg-white'>
                                 <SelectItem value="fashion">Fashion</SelectItem>
                                 <SelectItem value="tech">Tech</SelectItem>
                                 <SelectItem value="food">Food</SelectItem>
@@ -119,7 +126,7 @@ export default function DashboardPage() {
                                 <SelectTrigger className="w-32 bg-cloudwhite text-gray font-normal text-sm focus:none outline:none">
                                     <SelectValue />
                                 </SelectTrigger>
-                                <SelectContent>
+                                <SelectContent className=' text-gray text-sm border-[#E7EFFE] bg-white'>
                                     <SelectItem value="monthly">Monthly</SelectItem>
                                     <SelectItem value="weekly">Weekly</SelectItem>
                                 </SelectContent>
@@ -152,7 +159,7 @@ export default function DashboardPage() {
                                 <SelectTrigger className="w-32 bg-cloudwhite text-gray font-normal text-sm focus:none outline:none">
                                     <SelectValue />
                                 </SelectTrigger>
-                                <SelectContent>
+                                <SelectContent className=' text-gray text-sm border-[#E7EFFE] bg-white'>
                                     <SelectItem value="monthly">Monthly</SelectItem>
                                     <SelectItem value="weekly">Weekly</SelectItem>
                                 </SelectContent>
