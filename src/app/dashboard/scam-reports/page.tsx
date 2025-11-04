@@ -60,7 +60,7 @@ export default function ScamReportsPage() {
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
-                        <Search className="absolute right-3 top-3 h-4 w-4 text-gray-400" />
+                        <img src="/assets/search-Icon.svg" alt="" className=" absolute right-3 top-3 h-4 w-4" />
                     </div>
                     <Select>
                         <SelectTrigger className="w-48 text-gray text-sm border-[#E7EFFE] bg-white">

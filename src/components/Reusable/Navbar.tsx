@@ -19,7 +19,7 @@ export function Navbar({ transparent = false, customBg }: NavbarProps) {
     { href: "/how-it-works", label: "How It Works" },
     { href: "/faq", label: "FAQ" },
     { href: "/contact", label: "Contact Us" },
-    { href: "/support", label: "Support" },
+    { href: "/trends", label: "Trends" },
     { href: "/dispute", label: "Raise a Dispute" },
     { href: "/terms-privacy", label: "Terms & Privacy" },
   ];

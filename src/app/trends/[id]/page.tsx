@@ -34,7 +34,7 @@ export default function TrendDetailPage() {
                                 src={trend.image}
                                 alt={trend.title}
                                 fill
-                                className="object-cover rounded-lg"
+                                className="object-contain rounded-lg"
                                 priority
                             />
                         </div>
