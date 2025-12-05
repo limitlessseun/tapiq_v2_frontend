@@ -1,6 +1,8 @@
+"use client"
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 const features = [
     {
@@ -21,6 +23,7 @@ const features = [
 ]
 
 export function AboutSection({ isImage }: any) {
+    const router = useRouter()
     return (
         <section className="py-12 md:py-24 px-6 bg-white font-manrope">
             <div className="max-w-7xl mx-auto">
@@ -84,6 +87,9 @@ export function AboutSection({ isImage }: any) {
                         </div>
                         <Button
                             className="bg-gradient-to-br from-[#575EFF] to-[#282D99] uppercase font-semibold text-base md:text-lg w-full md:w-auto px-8 py-6 complex-gradient-border text-white"
+                            onClick={() => {
+                                router.push("/about");
+                            }}
                         >
                             read more
                         </Button>
