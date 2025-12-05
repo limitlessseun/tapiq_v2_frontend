@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { Shield, CheckCircle, Zap, CreditCard, ChevronRight } from "lucide-react";
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { purchaseCredits } from '@/lib/api/subscribe.api';
 import { useSessionStore } from '@/stores/useSessionStore';
 import { Button } from '@/components/ui/button';
@@ -26,8 +26,20 @@ export default function PaymentSuccess() {
     const [error, setError] = useState<string | null>(null);
     const [amount, setAmount] = useState<number>(0);
 
+    // Refs to prevent multiple executions
+    const isProcessingRef = useRef(false);
+    const hasProcessedRef = useRef(false);
+
     useEffect(() => {
+        // Skip if already processing or has already processed
+        if (isProcessingRef.current || hasProcessedRef.current) {
+            setIsLoading(false);
+            return;
+        }
+
         const processPaymentSuccess = async () => {
+            isProcessingRef.current = true;
+
             try {
                 const sessionId = searchParams?.get('session_id');
                 const planId = searchParams?.get('plan_id');
@@ -46,24 +58,47 @@ export default function PaymentSuccess() {
                 // Handle credit purchases
                 if (type === 'credits' && creditsParam) {
                     const creditsAmount = parseInt(creditsParam);
+                    const processKey = `processed_credits_${creditsAmount}_${sessionId || planId || 'default'}`;
+
+                    // Check if we've already processed this purchase
+                    if (sessionStorage.getItem(processKey)) {
+                        console.log('Purchase already processed, skipping...');
+                        setProductType('credits');
+                        setCredits(creditsAmount);
+                        if (amountParam) setAmount(parseFloat(amountParam) / 100);
+                        setIsLoading(false);
+                        return;
+                    }
+
                     setProductType('credits');
                     setCredits(creditsAmount);
 
                     if (amountParam) {
-                        setAmount(parseFloat(amountParam) / 100); // Convert from cents to dollars
+                        setAmount(parseFloat(amountParam) / 100);
                     }
 
                     try {
+                        // Mark as processing immediately
+                        sessionStorage.setItem(processKey, 'processing');
+
                         await purchaseCredits({ credits: creditsAmount });
                         console.log('Credits purchased successfully:', creditsAmount);
+
+                        // Mark as completed
+                        sessionStorage.setItem(processKey, 'completed');
                         await refreshSession();
                     } catch (creditError: any) {
                         console.error('Failed to add credits:', creditError);
+                        // Remove processing flag on error
+                        sessionStorage.removeItem(processKey);
                     }
 
+                    // Clean up URL parameters
                     const newUrl = window.location.pathname;
                     window.history.replaceState({}, '', newUrl);
+                    hasProcessedRef.current = true;
                     setIsLoading(false);
+                    isProcessingRef.current = false;
                     return;
                 }
 
@@ -71,10 +106,26 @@ export default function PaymentSuccess() {
                 if (!sessionId && !planId) {
                     setError('No session or plan information found');
                     setIsLoading(false);
+                    isProcessingRef.current = false;
+                    return;
+                }
+
+                // Check if subscription already processed
+                const subProcessKey = `processed_sub_${sessionId || planId}`;
+                if (sessionStorage.getItem(subProcessKey)) {
+                    console.log('Subscription already processed, skipping API call');
+                    // Just update UI with URL params
+                    const fallbackPlan = searchParams?.get('plan') || 'Your';
+                    const creditsParam = searchParams?.get('credits');
+                    setPlanName(fallbackPlan);
+                    if (creditsParam) setCredits(parseInt(creditsParam));
+                    setIsLoading(false);
+                    isProcessingRef.current = false;
                     return;
                 }
 
                 // Fetch checkout session details
+                sessionStorage.setItem(subProcessKey, 'processing');
                 const response = await fetch(`/api/checkout-session${sessionId ? `?sessionId=${sessionId}` : `?planId=${planId}`}`);
 
                 if (!response.ok) {
@@ -88,6 +139,10 @@ export default function PaymentSuccess() {
                 setProductType(sessionData.productType || 'subscription');
                 setAmount(sessionData.amount / 100);
 
+                // Mark as completed
+                sessionStorage.setItem(subProcessKey, 'completed');
+
+                // Clean up URL parameters
                 const newUrl = window.location.pathname;
                 window.history.replaceState({}, '', newUrl);
 
@@ -95,6 +150,7 @@ export default function PaymentSuccess() {
                 console.error('Error processing payment success:', err);
                 setError('Failed to load purchase details');
 
+                // Fallback to URL parameters if API fails
                 const fallbackPlan = searchParams?.get('plan') || 'Your';
                 const creditsParam = searchParams?.get('credits');
                 const type = searchParams?.get('type') as 'subscription' | 'credits';
@@ -112,11 +168,36 @@ export default function PaymentSuccess() {
                 }
             } finally {
                 setIsLoading(false);
+                isProcessingRef.current = false;
+                hasProcessedRef.current = true;
             }
         };
 
         processPaymentSuccess();
+
+        // Cleanup function
+        return () => {
+            // Reset processing flag if component unmounts before completion
+            if (isProcessingRef.current) {
+                isProcessingRef.current = false;
+            }
+        };
     }, [searchParams, refreshSession]);
+
+    // Clear processing flags when user leaves the page
+    useEffect(() => {
+        const handleBeforeUnload = () => {
+            // Clear all processing flags on page unload
+            Object.keys(sessionStorage).forEach(key => {
+                if (key.startsWith('processed_')) {
+                    sessionStorage.removeItem(key);
+                }
+            });
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    }, []);
 
     if (isLoading) {
         return (
@@ -303,76 +384,10 @@ export default function PaymentSuccess() {
                             )}
                         </div>
 
-                        {/* Security Notice */}
-                        <div className="bg-gradient-to-br from-indigo/5 to-teal/5 border border-indigo/20 rounded-xl p-4">
-                            <div className="flex items-start gap-3">
-                                <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
-                                    <Shield className="w-4 h-4 text-green-500" />
-                                </div>
-                                <div>
-                                    <p className="text-green-600 text-sm font-medium font-satoshi">Secure Payment Processed</p>
-                                    <p className="text-gray-600 text-xs mt-1 font-satoshi">
-                                        Your payment was processed securely via Stripe. We never store your payment details.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
-                    {/* Additional Resources */}
-                    <div className="mt-8 bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
-                        <h3 className="font-semibold text-indigo mb-4 font-satoshi">What's Next?</h3>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            {[
-                                {
-                                    title: "Explore Features",
-                                    description: "Discover all the tools available",
-                                    href: "/features",
-                                    icon: "🔍"
-                                },
-                                {
-                                    title: "Get Started Guide",
-                                    description: "Learn how to use your new credits",
-                                    href: "/guides/get-started",
-                                    icon: "📚"
-                                },
-                                {
-                                    title: "Contact Support",
-                                    description: "Need help? We're here for you",
-                                    href: "/contact",
-                                    icon: "💬"
-                                }
-                            ].map((resource, index) => (
-                                <Link
-                                    key={index}
-                                    href={resource.href}
-                                    className="bg-cloudWhite p-4 rounded-lg hover:bg-gray-50 transition-colors group"
-                                >
-                                    <div className="flex items-center gap-3 mb-2">
-                                        <div className="text-xl">{resource.icon}</div>
-                                        <h4 className="font-semibold text-gray-900 group-hover:text-indigo transition-colors font-satoshi">
-                                            {resource.title}
-                                        </h4>
-                                    </div>
-                                    <p className="text-sm text-gray-600 font-satoshi">{resource.description}</p>
-                                    <div className="flex items-center gap-1 text-xs text-indigo mt-2 font-satoshi">
-                                        Learn more
-                                        <ChevronRight className="w-3 h-3" />
-                                    </div>
-                                </Link>
-                            ))}
-                        </div>
-                    </div>
 
-                    {/* Thank You Message */}
-                    <div className="mt-8 text-center">
-                        <p className="text-gray font-satoshi">
-                            Thank you for supporting our mission to make online commerce safer for everyone.
-                        </p>
-                        <p className="text-sm text-gray-500 mt-2 font-satoshi">
-                            If you have any questions, contact us at support@tapiq.com
-                        </p>
-                    </div>
+
                 </div>
             </div>
         </div>
