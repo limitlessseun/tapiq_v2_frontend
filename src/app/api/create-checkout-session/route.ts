@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
             productDescription = `Purchase of ${credits} verification credits for vendor scanning`;
             mode = 'payment'; // One-time payment for credits
             successUrlFinal = successUrl || `${baseUrl}/payment/success?session_id={CHECKOUT_SESSION_ID}&credits=${credits}&type=credits`;
-            cancelUrlFinal = cancelUrl || `${baseUrl}/dashboard?canceled=true`;
+            cancelUrlFinal = cancelUrl || `${baseUrl}/subscribe/dashboard?canceled=true`;
         } else {
             productName = `${planName} Plan`;
             productDescription = `Subscription to ${planName} plan`;

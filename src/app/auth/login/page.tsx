@@ -124,7 +124,7 @@ export default function Login() {
       showNotification('Sign in successful!', 'success');
       setTimeout(() => {
         router.push('/verify');
-      }, 1500);
+      }, 100);
     },
     onError: (error: any) => {
       const errorMessage =
@@ -203,15 +203,7 @@ export default function Login() {
               />
             </div>
 
-            {/* Forgot Password Link */}
-            <div>
-              <p className="text-sm text-gray font-satoshi">
-                Forgot your password?{" "}
-                <Link href="/auth/forgot-password" className="text-[#1DADB0] hover:text-teal-600 font-semibold">
-                  Reset it here
-                </Link>
-              </p>
-            </div>
+
 
             {/* Remember Me Switch */}
             <div>

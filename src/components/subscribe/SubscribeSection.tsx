@@ -106,7 +106,7 @@ export default function SubscribeSection() {
     };
 
     const handleSuccessRedirect = () => {
-        window.location.href = '/dashboard';
+        window.location.href = '/subscribe/dashboard';
     };
 
     useEffect(() => {
@@ -167,18 +167,18 @@ export default function SubscribeSection() {
                                 <div
                                     key={plan.id}
                                     className={`bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 ${plan.name === 'Pro'
-                                        ? 'border-teal transform scale-105 relative'
+                                        ? 'border-indigo transform scale-105 relative'
                                         : 'border-gray-100'
                                         }`}
                                 >
                                     {plan.name === 'Pro' && (
-                                        <div className="bg-gradient-to-r from-teal to-indigo text-white text-center py-2 rounded-t-2xl">
-                                            <span className="text-sm font-semibold font-satoshi">MOST POPULAR</span>
+                                        <div className="bg-gradient-to-b from-[#057EB7] from-[2.1%] via-[#141986] via-[50.13%] to-[#0E1264] to-[98.16%] test-white text-center py-2 rounded-t-2xl">
+                                            <span className="text-sm font-semibold font-satoshi text-white">MOST POPULAR</span>
                                         </div>
                                     )}
                                     <div className="p-6">
                                         <div className="flex items-center gap-3 mb-4">
-                                            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${plan.name === 'Free' ? 'bg-gray-100' : 'bg-gradient-to-br from-indigo/10 to-teal/10'
+                                            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${plan.name === 'Free' ? 'bg-gray-100' : 'bg-gradient-to-br from-indigo/10 to-indigo/10'
                                                 }`}>
                                                 <Zap className={`w-5 h-5 ${plan.name === 'Free' ? 'text-gray-500' : 'text-indigo'}`} />
                                             </div>
@@ -207,7 +207,7 @@ export default function SubscribeSection() {
                                                 plan.name !== 'Free' ? 'Advanced analytics' : 'Basic reports'
                                             ].map((feature, index) => (
                                                 <li key={index} className="flex items-center gap-2 text-sm text-gray font-satoshi">
-                                                    <div className="w-2 h-2 bg-teal rounded-full"></div>
+                                                    <div className="w-2 h-2 bg-indigo rounded-full"></div>
                                                     {feature}
                                                 </li>
                                             ))}
@@ -286,7 +286,7 @@ export default function SubscribeSection() {
                         </div>
 
                         {/* FAQ Section */}
-                        <div className="bg-gradient-to-r from-indigo/5 to-teal/5 rounded-2xl p-6 md:p-8">
+                        <div className="bg-gradient-to-r from-indigo/5 to-indigo/5 rounded-2xl p-6 md:p-8">
                             <h3 className="text-xl font-bold text-indigo mb-6 font-satoshi">Frequently Asked Questions</h3>
                             <div className="space-y-4">
                                 {[
@@ -322,12 +322,12 @@ export default function SubscribeSection() {
                     <div className="max-w-md mx-auto pt-8">
                         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
                             <div className="text-center mb-6">
-                                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-indigo/10 to-teal/10 flex items-center justify-center border border-indigo/20">
+                                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-indigo/10 to-indigo/10 flex items-center justify-center border border-indigo/20">
                                     <CreditCard className="w-8 h-8 text-indigo" />
                                 </div>
                                 <h2 className="text-2xl font-bold text-indigo mb-2 font-satoshi">Complete Your Subscription</h2>
                                 <p className="text-gray font-satoshi">
-                                    Activating <span className="font-semibold text-teal">{selectedPlan.name}</span> plan
+                                    Activating <span className="font-semibold text-indigo">{selectedPlan.name}</span> plan
                                 </p>
                             </div>
 
@@ -344,18 +344,18 @@ export default function SubscribeSection() {
                 {currentStage === 'success' && selectedPlan && (
                     <div className="max-w-md mx-auto pt-8">
                         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 text-center">
-                            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-green-100 to-teal/10 flex items-center justify-center border-2 border-green-200">
+                            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-green-100 to-indigo/10 flex items-center justify-center border-2 border-green-200">
                                 <CheckCircle className="w-10 h-10 text-green-500" />
                             </div>
 
                             <h2 className="text-3xl font-bold text-indigo mb-4 font-satoshi">Welcome to TapIQ!</h2>
                             <p className="text-gray mb-6 text-lg font-satoshi">
-                                Your <span className="font-semibold text-teal">{selectedPlan.name}</span> subscription is now active!
+                                Your <span className="font-semibold text-indigo">{selectedPlan.name}</span> subscription is now active!
                             </p>
 
                             <div className="bg-cloudWhite rounded-xl p-6 mb-8">
                                 <div className="text-center">
-                                    <div className="text-3xl font-bold text-teal mb-2 font-satoshi">
+                                    <div className="text-3xl font-bold text-indigo mb-2 font-satoshi">
                                         {selectedPlan.includedCredits.toLocaleString()} credits
                                     </div>
                                     <p className="text-gray font-satoshi">
@@ -466,12 +466,12 @@ function StripeCheckout({ selectedPlan, onBack, isLoading }: StripeCheckoutProps
                 />
             </div>
 
-            <div className="bg-gradient-to-br from-indigo/5 to-teal/5 border border-indigo/20 rounded-xl p-6">
+            <div className="bg-gradient-to-br from-indigo/5 to-indigo/5 border border-indigo/20 rounded-xl p-6">
                 <h4 className="font-semibold text-indigo mb-4 font-satoshi">Order Summary</h4>
                 <div className="space-y-3">
                     <div className="flex justify-between items-center">
                         <span className="text-gray font-satoshi">Plan:</span>
-                        <span className="text-teal font-bold font-satoshi">{selectedPlan.name}</span>
+                        <span className="text-indigo font-bold font-satoshi">{selectedPlan.name}</span>
                     </div>
                     <div className="flex justify-between items-center">
                         <span className="text-gray font-satoshi">Credits:</span>
@@ -482,7 +482,7 @@ function StripeCheckout({ selectedPlan, onBack, isLoading }: StripeCheckoutProps
                     <div className="border-t border-gray-200 pt-3 mt-3">
                         <div className="flex justify-between items-center">
                             <span className="text-lg font-semibold text-gray-900 font-satoshi">Total:</span>
-                            <span className="text-3xl font-bold text-teal font-satoshi">
+                            <span className="text-3xl font-bold text-indigo font-satoshi">
                                 ${selectedPlan.price}
                             </span>
                         </div>
@@ -567,7 +567,7 @@ function StripeCheckout({ selectedPlan, onBack, isLoading }: StripeCheckoutProps
                         'Bulk verification capabilities'
                     ].map((benefit, index) => (
                         <li key={index} className="flex items-center gap-2 text-sm text-gray font-satoshi">
-                            <div className="w-2 h-2 bg-teal rounded-full flex-shrink-0"></div>
+                            <div className="w-2 h-2 bg-indigo rounded-full flex-shrink-0"></div>
                             {benefit}
                         </li>
                     ))}
