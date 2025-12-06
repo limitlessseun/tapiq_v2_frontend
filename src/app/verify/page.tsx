@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { Button } from "@/components/ui/button";
 import Loader from "@/components/ui/Loader";
 import TextInput from "@/components/ui/TextInput";
@@ -8,10 +8,11 @@ import VendorTable from "@/components/ui/VerifyComponent/VendorTable";
 import AnimatedModalLayout from "@/layout/animatedModalLayout";
 import { useEffect, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { searchVendors } from "@/lib/api/verification.api";
+import { searchVendors, isPremiumResponse } from "@/lib/api/verification.api";
 import { useSessionStore } from "@/stores/useSessionStore";
 import { Notification } from "@/components/Reusable/Notification";
-import type { VendorSearchResponse, VendorResult } from '@/lib/api/verification.api';
+import type { VendorSearchResponse } from '@/lib/api/verification.api';
+import { BadgeCheck, Shield, AlertTriangle, Clock, Users, CreditCard, Phone, TrendingUp, BarChart, Banknote, History, Database, Info } from "lucide-react";
 
 export default function Verify() {
   const router = useRouter();
@@ -23,8 +24,8 @@ export default function Verify() {
     message: string;
     type: 'success' | 'error';
   } | null>(null);
-  const [searchResults, setSearchResults] = useState<VendorSearchResponse | null>(null);
-  const [selectedVendor, setSelectedVendor] = useState<VendorResult | null>(null);
+  const [vendorData, setVendorData] = useState<VendorSearchResponse | null>(null);
+  const [isPremiumUser, setIsPremiumUser] = useState(false);
 
   const showNotification = (message: string, type: 'success' | 'error') => {
     setNotification({ message, type });
@@ -34,23 +35,29 @@ export default function Verify() {
     setNotification(null);
   };
 
-  // Check for stored search results from VerificationInterface
+  // Check for stored search results
   useEffect(() => {
     const storedResults = sessionStorage.getItem('vendorResults');
     const storedQuery = sessionStorage.getItem('searchQuery');
+    const subscription = sessionStorage.getItem('searchSubscription');
 
     if (storedResults && storedQuery) {
-      const results = JSON.parse(storedResults);
-      setSearchResults(results);
-      setSearchValue(storedQuery);
+      try {
+        const results = JSON.parse(storedResults);
+        setVendorData(results);
+        setSearchValue(storedQuery);
 
-      if (results.results.length > 0) {
-        setSelectedVendor(results.results[0]);
+        // Check if user is premium
+        setIsPremiumUser(subscription === 'Pro' || subscription === 'Enterprise');
+
+        // Clear storage to avoid showing same results on refresh
+        sessionStorage.removeItem('vendorResults');
+        sessionStorage.removeItem('searchQuery');
+        sessionStorage.removeItem('searchSubscription');
+      } catch (error) {
+        console.error('Error parsing stored results:', error);
+        showNotification('Error loading vendor data', 'error');
       }
-
-      // Clear storage to avoid showing same results on refresh
-      sessionStorage.removeItem('vendorResults');
-      sessionStorage.removeItem('searchQuery');
     }
   }, []);
 
@@ -70,20 +77,22 @@ export default function Verify() {
     setIsLoading(true);
 
     try {
-      const vendorResults = await searchVendors(searchValue.trim());
-      setSearchResults(vendorResults);
+      const currentSubscription = session?.user?.subscription.name || 'Free';
+      const vendorResult = await searchVendors(searchValue.trim(), currentSubscription);
+      setVendorData(vendorResult);
+      setIsPremiumUser(currentSubscription === 'Pro' || currentSubscription === 'Enterprise');
+
+      console.log('Search result:', vendorResult);
+      console.log('Is premium response?', isPremiumResponse(vendorResult));
+      console.log('Subscription:', currentSubscription);
 
       if (typeof window !== 'undefined') {
-        sessionStorage.setItem('vendorResults', JSON.stringify(vendorResults));
+        sessionStorage.setItem('vendorResults', JSON.stringify(vendorResult));
         sessionStorage.setItem('searchQuery', searchValue.trim());
+        sessionStorage.setItem('searchSubscription', currentSubscription);
       }
 
-      if (vendorResults.totalMatches > 0) {
-        setSelectedVendor(vendorResults.results[0]);
-        showNotification(`Found ${vendorResults.totalMatches} vendor match(es)`, 'success');
-      } else {
-        showNotification('No vendors found matching your search', 'success');
-      }
+      showNotification(`Vendor information retrieved successfully`, 'success');
     } catch (error: any) {
       console.error('Search error:', error);
       const errorMessage = error.response?.data?.message || error.message || 'An error occurred during search';
@@ -95,11 +104,12 @@ export default function Verify() {
 
   const handleNewSearch = () => {
     setSearchValue("");
-    setSearchResults(null);
-    setSelectedVendor(null);
+    setVendorData(null);
+    setIsPremiumUser(false);
     if (typeof window !== 'undefined') {
       sessionStorage.removeItem('vendorResults');
       sessionStorage.removeItem('searchQuery');
+      sessionStorage.removeItem('searchSubscription');
     }
   };
 
@@ -107,21 +117,21 @@ export default function Verify() {
     setSearchValue(e.target.value);
   };
 
-  const handleViewVendorDetails = (vendor: any) => {
+  const handleViewVendorDetails = () => {
     if (!session) {
       showNotification('Please sign in to view vendor details', 'error');
       router.push(`/auth/login?callbackUrl=${encodeURIComponent('/verify')}`);
       return;
     }
 
-    // Store the selected vendor in session storage and navigate to vendor scan page
+    if (!vendorData) return;
+
+    // Store the vendor data in session storage and navigate to vendor details page
     if (typeof window !== 'undefined') {
-      sessionStorage.setItem('vendorResults', JSON.stringify({
-        searchQuery: searchValue,
-        totalMatches: 1,
-        results: [vendor]
-      }));
+      const subscription = sessionStorage.getItem('searchSubscription') || 'Free';
+      sessionStorage.setItem('vendorResults', JSON.stringify(vendorData));
       sessionStorage.setItem('searchQuery', searchValue);
+      sessionStorage.setItem('searchSubscription', subscription);
     }
     router.push('/vendor-details');
   };
@@ -133,37 +143,138 @@ export default function Verify() {
       return;
     }
 
-    if (selectedVendor) {
+    if (vendorData) {
       // Pre-fill the report form with vendor info
       if (typeof window !== 'undefined') {
-        const vendorData = {
-          businessOrVendorName: selectedVendor.businessName,
-          phoneNumber: selectedVendor.phoneNumber,
-          bankName: selectedVendor.bankName,
-          accountNumber: selectedVendor.accountNumber
+        const vendorFormData = {
+          businessOrVendorName: vendorData.businessName || vendorData.businessInfo?.businessName || '',
+          phoneNumber: vendorData.phoneNumber || vendorData.businessInfo?.phoneNumber || '',
+          bankName: vendorData.bankName || vendorData.businessInfo?.bankName || '',
+          accountNumber: vendorData.accountNumber || vendorData.businessInfo?.accountNumber || '',
+          socialMediaHandle: vendorData.socialMediaHandle || vendorData.businessInfo?.socialMediaHandle || '',
+          platform: vendorData.platform || vendorData.businessInfo?.platform || ''
         };
-        sessionStorage.setItem('prefilledVendorData', JSON.stringify(vendorData));
+        sessionStorage.setItem('prefilledVendorData', JSON.stringify(vendorFormData));
       }
     }
 
-    router.push('/report');
+    router.push('/report-vendor');
   };
 
-  // Transform API results for VendorTable
-  const tableData = useMemo(() => {
-    if (!searchResults || searchResults.results.length === 0) {
-      return [];
-    }
+  // Helper functions to get data from either structure
+  const getBusinessName = () => {
+    return vendorData?.businessName || vendorData?.businessInfo?.businessName || 'Unknown Vendor';
+  };
 
-    return searchResults.results.map((vendor, index) => ({
-      id: index + 1, // Using index as ID since API doesn't provide ID
-      vendorName: vendor.businessName || 'Unknown Vendor',
-      reports: vendor.reportsCount || 0,
-      riskLevel: vendor.riskLevel || 'Unknown',
-      status: vendor.status || 'unknown',
-      vendorData: vendor // Store full vendor data for details view
-    }));
-  }, [searchResults]);
+  const getPhoneNumber = () => {
+    return vendorData?.phoneNumber || vendorData?.businessInfo?.phoneNumber || 'Not provided';
+  };
+
+  const getBankName = () => {
+    return vendorData?.bankName || vendorData?.businessInfo?.bankName || 'Not specified';
+  };
+
+  const getAccountNumber = () => {
+    return vendorData?.accountNumber || vendorData?.businessInfo?.accountNumber || 'Not provided';
+  };
+
+  const getSocialMediaHandle = () => {
+    return vendorData?.socialMediaHandle || vendorData?.businessInfo?.socialMediaHandle;
+  };
+
+  const getPlatform = () => {
+    return vendorData?.platform || vendorData?.businessInfo?.platform;
+  };
+
+  const getRiskLevel = () => {
+    return vendorData?.riskLevel || vendorData?.riskAssessment?.level || 'Unknown';
+  };
+
+  const getReportsCount = () => {
+    return vendorData?.reportsCount || vendorData?.severityProfile?.totalReports || 0;
+  };
+
+  const getFraudScore = () => {
+    return vendorData?.fraudScore || vendorData?.fraudScoreBreakdown?.total || 0;
+  };
+
+  const getLinkedVendors = () => {
+    return vendorData?.linkedVendors || vendorData?.linkedEntities?.linkedVendorsCount || 0;
+  };
+
+  // Transform vendor data for display
+  const tableData = useMemo(() => {
+    if (!vendorData) return [];
+
+    return [{
+      id: 1,
+      vendorName: getBusinessName(),
+      reports: getReportsCount(),
+      riskLevel: getRiskLevel(),
+      status: vendorData?.status || vendorData?.verificationStatus?.status || 'unknown',
+      vendorData: vendorData // Store full vendor data for details view
+    }];
+  }, [vendorData]);
+
+  const getRiskColor = (riskLevel: string) => {
+    switch (riskLevel?.toLowerCase()) {
+      case 'very low': return 'text-green-300';
+      case 'low': return 'text-green-500';
+      case 'medium': return 'text-yellow-500';
+      case 'high': return 'text-orange-500';
+      case 'critical': return 'text-red-500';
+      default: return 'text-gray-500';
+    }
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status?.toLowerCase()) {
+      case 'under_review':
+      case 'pending': return 'bg-yellow-100 text-yellow-800';
+      case 'confirmed': return 'bg-red-100 text-red-800';
+      case 'resolved':
+      case 'verified': return 'bg-green-100 text-green-800';
+      default: return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  const getStatusText = (status: string) => {
+    switch (status?.toLowerCase()) {
+      case 'under_review': return 'Under Review';
+      case 'pending': return 'Pending';
+      case 'confirmed': return 'Confirmed';
+      case 'resolved': return 'Resolved';
+      case 'verified': return 'Verified';
+      default: return status?.replace('_', ' ') || 'Unknown';
+    }
+  };
+
+  const renderPremiumSection = (title: string, icon: React.ReactNode, children: React.ReactNode) => {
+    if (!isPremiumUser) return null;
+
+    return (
+      <div className="border-2 border-primary rounded-xl p-5 bg-gradient-to-r from-primary/5 to-transparent mb-6">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="bg-primary p-2 rounded-lg">
+            <div className="text-white">{icon}</div>
+          </div>
+          <div>
+            <h4 className="font-bold text-gray-800">{title}</h4>
+            <div className="flex items-center gap-2 mt-1">
+              <span className="text-xs px-2 py-1 bg-gradient-to-r from-primary to-teal-500 text-white rounded-full">
+                PREMIUM
+              </span>
+              <span className="text-xs text-primary font-medium">Exclusive insights</span>
+            </div>
+          </div>
+        </div>
+        {children}
+      </div>
+    );
+  };
+
+  // Check if we have premium data in the response
+  const hasPremiumData = isPremiumResponse(vendorData || {});
 
   return (
     <>
@@ -176,6 +287,16 @@ export default function Verify() {
       )}
 
       <div className="space-y-4">
+        {/* Premium User Badge */}
+        {isPremiumUser && (
+          <div className="flex justify-end mb-2">
+            <span className="px-3 py-1 bg-gradient-to-r from-primary to-teal-500 text-white text-sm rounded-full flex items-center gap-2">
+              <BadgeCheck className="w-4 h-4" />
+              Premium User
+            </span>
+          </div>
+        )}
+
         <div className="flex flex-col gap-2">
           <div className="flex w-full">
             <TextInput
@@ -194,7 +315,6 @@ export default function Verify() {
           </div>
           <Button
             variant="primary"
-
             className="uppercase text-xs"
             onClick={handleSearch}
             disabled={isLoading || !searchValue.trim()}
@@ -217,98 +337,212 @@ export default function Verify() {
           </div>
         )}
 
-        {searchResults && (
+        {vendorData && (
           <div className="text-sm text-gray-600 mb-4">
-            Found {searchResults.totalMatches} vendor(s) matching "{searchValue}"
+            Vendor information retrieved for "{searchValue}"
           </div>
         )}
 
-        {!isLoading && searchResults && searchResults.totalMatches > 0 && (
+        {!isLoading && vendorData && (
           <div className="flex flex-col gap-4">
-            {/* Vendor Selection if multiple results */}
-            {searchResults.results.length > 1 && (
-              <div className="bg-white rounded-lg p-4 border border-gray-200">
-                <h3 className="font-semibold text-gray-800 mb-3">Select Vendor</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {searchResults.results.map((vendor, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setSelectedVendor(vendor)}
-                      className={`p-3 rounded-lg border text-left transition-all ${selectedVendor === vendor
-                        ? 'border-blue-500 bg-blue-50'
-                        : 'border-gray-200 hover:border-gray-300'
-                        }`}
-                    >
-                      <div className="font-medium text-gray-900">{vendor.businessName || 'Unknown'}</div>
-                      <div className="text-sm text-gray-500">{vendor.phoneNumber || 'No phone'}</div>
-                      <div className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium mt-1 ${vendor.status === 'confirmed' ? 'bg-red-100 text-red-800' :
-                        vendor.status === 'under_review' ? 'bg-yellow-100 text-yellow-800' :
-                          'bg-gray-100 text-gray-800'
-                        }`}>
-                        {vendor.status?.replace('_', ' ') || 'unknown'}
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Show selected vendor details */}
-            {selectedVendor && (
-              <div className="bg-white rounded-lg p-4 border border-gray-200">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h3 className="font-bold text-lg text-gray-900">{selectedVendor.businessName}</h3>
-                    <p className="text-gray-600 text-sm">Risk Level:
-                      <span className={`ml-2 font-semibold ${selectedVendor.riskLevel === 'Low' ? 'text-green-600' :
-                        selectedVendor.riskLevel === 'Medium' ? 'text-yellow-600' :
-                          selectedVendor.riskLevel === 'High' ? 'text-orange-600' : 'text-red-600'
-                        }`}>
-                        {selectedVendor.riskLevel}
+            {/* Show vendor details with premium indicators */}
+            <div className="bg-white rounded-lg p-6 border border-gray-200">
+              <div className="flex justify-between items-start mb-4">
+                <div>
+                  <h3 className="font-bold text-lg text-gray-900">{getBusinessName()}</h3>
+                  <div className="flex items-center gap-4 mt-2">
+                    <div className="flex items-center gap-1">
+                      <Shield className="w-4 h-4 text-gray-400" />
+                      <span className="text-gray-600 text-sm">Risk:</span>
+                      <span className={`ml-1 font-semibold ${getRiskColor(getRiskLevel())}`}>
+                        {getRiskLevel()}
                       </span>
-                    </p>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <AlertTriangle className="w-4 h-4 text-gray-400" />
+                      <span className="text-gray-600 text-sm">Reports:</span>
+                      <span className="ml-1 font-semibold text-gray-800">
+                        {getReportsCount()}
+                      </span>
+                    </div>
                   </div>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="text-xs"
-                    onClick={() => handleViewVendorDetails(selectedVendor)}
-                  >
-                    View Details
-                  </Button>
-                </div>
 
-                <div className="grid grid-cols-2 gap-3 text-sm">
+                  {/* Status badge */}
+                  <div className={`mt-3 inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(vendorData.status || vendorData.verificationStatus?.status || '')}`}>
+                    <Clock className="w-3 h-3 mr-1" />
+                    {getStatusText(vendorData.status || vendorData.verificationStatus?.status || '')}
+                  </div>
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="text-xs"
+                  onClick={handleViewVendorDetails}
+                >
+                  View Full Details
+                </Button>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 text-sm">
+                <div className="flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-gray-400" />
                   <div>
                     <span className="text-gray-500">Phone:</span>
-                    <span className="ml-2 font-medium">{selectedVendor.phoneNumber || 'N/A'}</span>
+                    <span className="ml-2 font-medium">{getPhoneNumber()}</span>
                   </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <AlertTriangle className="w-4 h-4 text-gray-400" />
                   <div>
                     <span className="text-gray-500">Reports:</span>
-                    <span className="ml-2 font-medium">{selectedVendor.reportsCount}</span>
+                    <span className="ml-2 font-medium">{getReportsCount()}</span>
                   </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <CreditCard className="w-4 h-4 text-gray-400" />
                   <div>
                     <span className="text-gray-500">Bank:</span>
-                    <span className="ml-2 font-medium">{selectedVendor.bankName || 'N/A'}</span>
+                    <span className="ml-2 font-medium">{getBankName()}</span>
                   </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <Users className="w-4 h-4 text-gray-400" />
                   <div>
-                    <span className="text-gray-500">Account:</span>
-                    <span className="ml-2 font-medium">{selectedVendor.accountNumber || 'N/A'}</span>
+                    <span className="text-gray-500">Linked Vendors:</span>
+                    <span className="ml-2 font-medium">{getLinkedVendors()}</span>
                   </div>
                 </div>
               </div>
-            )}
+
+              {/* Additional Basic Info */}
+              <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
+                <div className="flex items-center gap-2">
+                  <BarChart className="w-4 h-4 text-gray-400" />
+                  <div>
+                    <span className="text-gray-500">Fraud Score:</span>
+                    <span className="ml-2 font-medium">{getFraudScore()}</span>
+                  </div>
+                </div>
+
+                {vendorData.evidenceStrength && (
+                  <div className="flex items-center gap-2">
+                    <Info className="w-4 h-4 text-gray-400" />
+                    <div>
+                      <span className="text-gray-500">Evidence:</span>
+                      <span className="ml-2 font-medium">{vendorData.evidenceStrength}</span>
+                    </div>
+                  </div>
+                )}
+
+                {vendorData.patterns?.commonScam && (
+                  <div className="col-span-2">
+                    <div className="flex items-center gap-2">
+                      <AlertTriangle className="w-4 h-4 text-gray-400" />
+                      <span className="text-gray-500">Common Scam:</span>
+                      <span className="ml-2 font-medium">{vendorData.patterns.commonScam}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Premium data preview (only shown if user is premium AND data exists) */}
+              {isPremiumUser && hasPremiumData && (
+                <>
+                  {vendorData.timelineAnalysis && (
+                    <div className="mt-4 p-3 bg-primary-50 border border-primary rounded-lg">
+                      <div className="flex items-center gap-2 mb-2">
+                        <TrendingUp className="w-4 h-4 text-primary" />
+                        <span className="text-sm font-medium text-primary">Trend Analysis</span>
+                        <span className="text-xs px-2 py-1 bg-primary text-white rounded-full">PREMIUM</span>
+                      </div>
+                      <div className="grid grid-cols-3 gap-2 text-center">
+                        <div>
+                          <div className="font-bold text-gray-900">{vendorData.timelineAnalysis.reportsLast7Days}</div>
+                          <div className="text-xs text-gray-600">Last 7 Days</div>
+                        </div>
+                        <div>
+                          <div className="font-bold text-gray-900">{vendorData.timelineAnalysis.reportsLast30Days}</div>
+                          <div className="text-xs text-gray-600">Last 30 Days</div>
+                        </div>
+                        <div>
+                          <div className={`font-bold ${vendorData.timelineAnalysis.trend === 'Accelerating' ? 'text-red-600' :
+                            vendorData.timelineAnalysis.trend === 'Stable' ? 'text-yellow-600' : 'text-green-600'
+                            }`}>
+                            {vendorData.timelineAnalysis.trend}
+                          </div>
+                          <div className="text-xs text-gray-600">Trend</div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {vendorData.fraudScoreBreakdown && (
+                    <div className="mt-4 p-3 bg-primary-50 border border-primary rounded-lg">
+                      <div className="flex items-center gap-2 mb-2">
+                        <BarChart className="w-4 h-4 text-primary" />
+                        <span className="text-sm font-medium text-primary">Fraud Score Breakdown</span>
+                        <span className="text-xs px-2 py-1 bg-primary text-white rounded-full">PREMIUM</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-lg font-bold text-primary">{vendorData.fraudScoreBreakdown.total}/20</span>
+                        <span className="text-sm text-gray-600">{vendorData.fraudScoreBreakdown.explanation}</span>
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+
+              {/* Non-premium trend info */}
+              {!isPremiumUser && vendorData.trend && (
+                <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                  <div className="flex items-center gap-2 mb-2">
+                    <TrendingUp className="w-4 h-4 text-yellow-600" />
+                    <span className="text-sm font-medium text-yellow-800">Activity Trend</span>
+                  </div>
+                  <div className="text-center">
+                    <div className={`text-lg font-bold ${vendorData.trend === 'Accelerating' ? 'text-red-600' :
+                      vendorData.trend === 'Stable' ? 'text-yellow-600' : 'text-green-600'
+                      }`}>
+                      {vendorData.trend}
+                    </div>
+                    <p className="text-xs text-yellow-700 mt-1">
+                      Reports show {vendorData.trend.toLowerCase()} activity pattern
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
 
             {/* Full results table */}
             <VendorTable
               data={tableData}
-              onViewDetails={(item) => handleViewVendorDetails(item.vendorData)}
+              onViewDetails={() => handleViewVendorDetails()}
+              isPremiumUser={isPremiumUser}
             />
 
             <SafeTips vendorData={tableData} />
 
+            {/* Premium Upgrade CTA (for non-premium users) */}
+            {!isPremiumUser && (
+              <div className="p-6 bg-gradient-to-r from-primary to-teal-600 rounded-2xl text-center text-white">
+                <h3 className="text-xl font-bold mb-2">Unlock Premium Insights</h3>
+                <p className="mb-4 opacity-90">
+                  Get access to detailed fraud analysis, timeline tracking, payment intelligence, and advanced risk assessments.
+                </p>
+                <button
+                  onClick={() => router.push('/subscribe')}
+                  className="bg-white text-primary px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                >
+                  Upgrade to Premium
+                </button>
+              </div>
+            )}
+
             <div className="flex items-center mt-6 gap-4">
-              <div className="">
+              <div className="flex-1">
                 <Button
                   variant="outline"
                   size="lg"
@@ -326,24 +560,21 @@ export default function Verify() {
                   New Search
                 </Button>
               </div>
-
+              <div className="flex-1">
+                <Button
+                  variant="primary"
+                  size="lg"
+                  className="uppercase text-xs w-full"
+                  onClick={handleReportVendor}
+                >
+                  Report This Vendor
+                </Button>
+              </div>
             </div>
           </div>
         )}
 
-        {!isLoading && searchResults && searchResults.totalMatches === 0 && (
-          <div className="text-center py-8">
-            <div className="text-gray-500 mb-4">No vendors found matching your search</div>
-            <Button
-              variant="outline"
-              onClick={handleNewSearch}
-            >
-              Try New Search
-            </Button>
-          </div>
-        )}
-
-        {!isLoading && !searchResults && (
+        {!isLoading && !vendorData && (
           <div className="text-center py-8 text-gray-500">
             Enter search terms above to verify a vendor
           </div>
@@ -353,7 +584,7 @@ export default function Verify() {
           <AnimatedModalLayout>
             <ReportVendorModal
               closeModal={() => setShowModal(false)}
-              vendorName={selectedVendor?.businessName || ''}
+              vendorName={getBusinessName()}
             />
           </AnimatedModalLayout>
         )}
@@ -361,6 +592,9 @@ export default function Verify() {
     </>
   );
 }
+
+// ... Rest of the code (ReportVendorModal component remains the same)
+
 
 interface ReportVendorModalProps {
   closeModal: () => void;
@@ -377,12 +611,12 @@ const ReportVendorModal: React.FC<ReportVendorModalProps> = ({
   const handleConfirm = () => {
     if (!session) {
       closeModal();
-      router.push(`/auth/login?callbackUrl=${encodeURIComponent('/report')}`);
+      router.push(`/auth/login?callbackUrl=${encodeURIComponent('/report-vendor')}`);
       return;
     }
 
     closeModal();
-    router.push('/report');
+    router.push('/report-vendor');
   };
 
   return (

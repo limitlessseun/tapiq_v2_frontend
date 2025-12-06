@@ -1,17 +1,17 @@
 import { GoAlertFill } from "react-icons/go";
-import { FaCalendarAlt } from "react-icons/fa";
 import React, { useState, useRef, useEffect } from "react";
 
 interface DatePickerProps {
   placeholder?: string;
   value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (value: string) => void; // Changed from (e: React.ChangeEvent<HTMLInputElement>) => void
   error?: string;
   disabled?: boolean;
   className?: string;
   label?: string;
   min?: string;
   max?: string;
+  maxDate?: Date; // Added maxDate prop
 }
 
 const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
@@ -26,6 +26,7 @@ const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
       error,
       min,
       max,
+      maxDate, // Added
       ...props
     },
     ref
@@ -51,7 +52,8 @@ const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
     }, []);
 
     const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      onChange?.(e);
+      const newValue = e.target.value;
+      onChange?.(newValue); // Pass just the value, not the event
       setIsOpen(false);
     };
 
@@ -59,6 +61,20 @@ const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
       if (!disabled) {
         setIsOpen(!isOpen);
       }
+    };
+
+    // Format maxDate to string for the input
+    const getMaxDateString = () => {
+      if (max) return max;
+      if (maxDate) {
+        return maxDate.toISOString().split('T')[0];
+      }
+      return '';
+    };
+
+    const handleClear = () => {
+      onChange?.(""); // Pass empty string, not an event
+      setIsOpen(false);
     };
 
     return (
@@ -72,14 +88,13 @@ const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
           ${className}
         `}
       >
-        {<label className="block mb-2">{label}</label>}
+        {label && <label className="block mb-2 text-sm font-medium text-gray-700">{label}</label>}
         <div className="relative">
           <input
             ref={ref}
             type="text"
             placeholder={placeholder}
             value={value}
-            onChange={onChange}
             disabled={disabled}
             className={`
               w-full h-[47px] pr-10 bg-white shadow-sm
@@ -88,7 +103,7 @@ const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
               placeholder:text-gray 
               focus:ring-blue-200 focus:ring-4  
               rounded-md px-3
-              ${error ? "border border-danger" : ""}
+              ${error ? "border border-danger" : "border border-gray-300"}
               cursor-pointer
             `}
             readOnly
@@ -113,7 +128,7 @@ const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
               transition-colors duration-200
             "
           >
-            <img src="/assets/calendarIconIcons.svg" className="w-5 h-5" />
+            <img src="/assets/calendarIconIcons.svg" className="w-5 h-5" alt="Calendar" />
           </button>
 
           {/* Native Date Picker Modal */}
@@ -127,10 +142,10 @@ const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
             >
               <input
                 type="date"
-                value={value}
+                value={value || ''}
                 onChange={handleDateChange}
                 min={min}
-                max={max}
+                max={getMaxDateString()}
                 className="
                   w-full h-[40px] px-3 bg-white border border-gray-300
                   focus:outline-none focus:ring-2 focus:ring-blue-200
@@ -151,14 +166,7 @@ const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
                 </button>
                 <button
                   type="button"
-                  onClick={() => {
-                    // Clear the date
-                    const event = {
-                      target: { value: "" },
-                    } as React.ChangeEvent<HTMLInputElement>;
-                    onChange?.(event);
-                    setIsOpen(false);
-                  }}
+                  onClick={handleClear}
                   className="
                     px-4 py-2 text-sm text-danger hover:text-red-700
                     transition-colors duration-200

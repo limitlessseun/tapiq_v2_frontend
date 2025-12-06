@@ -58,6 +58,7 @@ export type SignInValues = z.infer<typeof SignInSchema>;
 
 
 export const reportFormSchema = z.object({
+    Id: z.string().min(1, 'Report ID is required'),
     // Step 1: About the Vendor (North America focused)
     businessOrVendorName: z.string().min(1, 'Vendor or business name is required'),
 
@@ -195,6 +196,7 @@ export const step4Schema = reportFormSchema.pick({
 
 // Optional: Create type-safe initial values
 export const initialFormData: ReportFormData = {
+    Id: "",
     businessOrVendorName: '',
     paymentMethod: '',
     cryptoAddress: '',
@@ -225,6 +227,7 @@ export interface ReportVendorResponse {
 
 export interface ReportVendorRequest {
     // Step 1: About the Vendor
+    Id: string,
     vendorInfo: {
         businessOrVendorName: string;
 
