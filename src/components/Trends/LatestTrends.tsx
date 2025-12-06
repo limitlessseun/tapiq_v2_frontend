@@ -72,7 +72,7 @@ export default function LatestTrends() {
                 {card.description}
               </p>
               <Link
-                href={`/trends/${card.id}`}
+                href={`/trends?id=${card.id}`}
                 className="inline-flex items-center underline text-[#185CBC] font-medium hover:text-[#134a9c] transition-colors font-satoshi"
               >
                 Read now

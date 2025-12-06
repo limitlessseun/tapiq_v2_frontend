@@ -1,7 +1,10 @@
+"use client"
 import Image from "next/image"
 import { Button } from "../ui/button"
+import { useRouter } from "next/navigation";
 
 export function HowItWorks({ bg }: any) {
+    const router = useRouter()
     return (
         <section className={`py-16 px-6 font-manrope bg-cloudwhite ${bg}`}>
             <div className="w-full md:w-1/2 mx-auto">
@@ -66,6 +69,9 @@ export function HowItWorks({ bg }: any) {
                     <div className="w-full md:w-3/4 lg:w-2/3 mx-auto">
                         <Button
                             className="bg-gradient-to-br from-[#575EFF] to-[#282D99] uppercase font-semibold text-base md:text-lg w-full px-8 py-6 complex-gradient-border text-white my-6"
+                            onClick={() => {
+                                router.push(bg ? "/auth/register" : "/how-it-works");
+                            }}
                         >
                             {bg ? "Sign up" : " read more"}
                         </Button>

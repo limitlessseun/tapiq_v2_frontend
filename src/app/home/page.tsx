@@ -9,6 +9,7 @@ import {
   CTASection,
 } from "@/components/Home";
 import { FAQSection, Navbar } from "@/components/Reusable";
+import PlanSection from "@/components/Home/PlanSection";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <FeaturesSection />
       <AboutSection />
       <HowItWorks />
+      <PlanSection />
       <TestimonialsSection />
       <CommunityImpact />
       <ScamSpotlight />

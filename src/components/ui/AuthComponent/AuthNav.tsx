@@ -12,8 +12,8 @@ const AuthNav = () => {
       {navs.map((nav) => (
         <a
           className={`cursor-pointer ${pathname === nav.href
-              ? "bg-linear-to-r from-[#575EFF] to-[#282D99]  p-px"
-              : ""
+            ? "bg-linear-to-r from-[#575EFF] to-[#282D99]  p-px"
+            : ""
             }  text-transparent block flex-1 rounded-md  overflow-hidden `}
           // onClick={() => {
           //   setActive(nav.href);

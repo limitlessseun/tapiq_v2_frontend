@@ -1,9 +1,12 @@
-import LatestTrends from "@/components/Trends/LatestTrends";
+// app/trends/page.tsx
+import { Suspense } from 'react';
+import Loader from '@/components/ui/Loader';
+import TrendsContent from './TrendsContent';
 
 export default function TrendsPage() {
     return (
-        <main className="min-h-screen">
-            <LatestTrends />
-        </main>
+        <Suspense fallback={<Loader />}>
+            <TrendsContent />
+        </Suspense>
     );
 }
