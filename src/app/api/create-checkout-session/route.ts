@@ -1,11 +1,11 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
 const stripe = new Stripe("sk_test_51S511OJX1lXBUH9q4uBSEAanOT2PeN3UntVSyMLlP0pKJo3R7y3IhlLQJoX6rSQyZdiPmT34DFsBqCjH60g8XgC800AGBPDQNm", {
     apiVersion: '2025-10-29.clover', // Add API version
 });
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
     try {
         const {
             amount,
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
         // Determine product details based on type
         let productName, productDescription, mode, successUrlFinal, cancelUrlFinal;
 
-        const baseUrl = request.headers.get('origin') || 'http://localhost:3000';
+        const baseUrl = request.headers.get('origin');
 
         if (productType === 'credits') {
             productName = `${credits} Verification Credits`;
