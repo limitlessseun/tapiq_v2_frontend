@@ -61,7 +61,8 @@ export async function POST(request: Request) {
         // Determine product details based on type
         let productName, productDescription, mode, successUrlFinal, cancelUrlFinal;
 
-        const baseUrl = request.headers.get('origin');
+        const baseUrl = request.headers.get('origin') ||
+            request.headers.get('referer')?.replace(/\/[^/]*$/, '');
 
         if (productType === 'credits') {
             productName = `${credits} Verification Credits`;
