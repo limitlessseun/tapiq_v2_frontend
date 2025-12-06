@@ -1,4 +1,5 @@
 import * as Checkbox from "@radix-ui/react-checkbox";
+import { CheckIcon } from "@radix-ui/react-icons";
 import React from "react";
 
 interface CheckboxProps {
@@ -25,7 +26,9 @@ const CheckboxInput = React.forwardRef<HTMLButtonElement, CheckboxProps>(
         `}
         {...props}
       >
-        <Checkbox.Indicator className="text-white"></Checkbox.Indicator>
+        <Checkbox.Indicator className="text-white">
+          <CheckIcon className="w-4 h-4" />
+        </Checkbox.Indicator>
       </Checkbox.Root>
     );
   }

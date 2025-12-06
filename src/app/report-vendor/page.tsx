@@ -21,10 +21,15 @@ import {
   initialFormData
 } from '@/lib/schema/schema';
 import { zodValidate } from '@/lib/validator/zodValidate';
+import { Notification } from '@/components/Reusable/Notification'; // Adjust path as needed
 
 export default function ReportVendor() {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [notification, setNotification] = useState<{
+    message: string;
+    type: 'success' | 'error';
+  } | null>(null);
 
   // Payment methods for North America
   const paymentMethods = [
@@ -39,17 +44,6 @@ export default function ReportVendor() {
     { label: "Other", value: "Other" }
   ];
 
-  // Social media platforms
-  const socialPlatforms = [
-    { label: "Facebook Marketplace", value: "Facebook Marketplace" },
-    { label: "Instagram", value: "Instagram" },
-    { label: "TikTok", value: "TikTok" },
-    { label: "Snapchat", value: "Snapchat" },
-    { label: "WhatsApp", value: "WhatsApp" },
-    { label: "Telegram", value: "Telegram" },
-    { label: "Discord", value: "Discord" }
-  ];
-
   // Incident categories
   const incidentCategories = [
     { label: "Online purchase scam", value: "Online purchase scam" },
@@ -62,6 +56,14 @@ export default function ReportVendor() {
     { label: "Counterfeit product", value: "Counterfeit product" },
     { label: "Other", value: "Other" }
   ];
+
+  const showNotification = (message: string, type: 'success' | 'error') => {
+    setNotification({ message, type });
+  };
+
+  const hideNotification = () => {
+    setNotification(null);
+  };
 
   const getStepSchema = (step: number) => {
     switch (step) {
@@ -86,6 +88,8 @@ export default function ReportVendor() {
     const errors = validateStep(values);
     if (Object.keys(errors).length === 0) {
       setCurrentStep(prev => Math.min(prev + 1, 4));
+      // Clear any existing notification
+      hideNotification();
     } else {
       setErrors(errors);
       const touchedFields: any = {};
@@ -93,150 +97,198 @@ export default function ReportVendor() {
         touchedFields[field] = true;
       });
       setTouched(touchedFields);
+      // Show validation error notification
+      showNotification('Please fill all required fields before proceeding', 'error');
     }
   };
 
   const prevStep = () => {
     setCurrentStep(prev => Math.max(prev - 1, 1));
+    // Clear notification when going back
+    hideNotification();
   };
 
-  const handleSubmit = async (values: ReportFormData) => {
+  const handleSubmit = async (values: ReportFormData, { resetForm }: any) => {
     try {
       setIsSubmitting(true);
 
+      // Generate the Id
+      const generateId = () => {
+        const hexChars = '0123456789abcdef';
+        let id = '';
+        for (let i = 0; i < 24; i++) {
+          id += hexChars[Math.floor(Math.random() * 16)];
+        }
+        return id;
+      };
+
+      // Ensure Id is present in the values
+      const valuesWithId = {
+        ...values,
+        Id: values.Id || generateId() // Add Id if not already present
+      };
+
+      console.log('Submitting with Id:', valuesWithId.Id);
+
       // Final validation
-      const finalErrors = zodValidate(enhancedReportFormSchema)(values);
+      const finalErrors = zodValidate(enhancedReportFormSchema)(valuesWithId);
       if (Object.keys(finalErrors).length > 0) {
-        console.error('Form validation errors:', finalErrors);
+        console.log('Validation errors:', finalErrors);
+        showNotification('Please check the form for errors', 'error');
         return;
       }
 
       // Submit to API
-      await reportVendor(values);
+      const response = await reportVendor(valuesWithId);
+      showNotification('Report submitted successfully! Reference: ' + (response.reference || 'N/A'), 'success');
 
-      // Success - reset or redirect
+      // Success - reset form
       setCurrentStep(1);
-      alert('Report submitted successfully!');
+      resetForm();
+      setCurrentStep(1);
+      localStorage.removeItem('vendorScamReportData');
 
     } catch (error: any) {
       console.error('Failed to submit report:', error);
-      alert(error.response?.data?.message || 'Failed to submit report. Please try again.');
+      showNotification(
+        error.response?.data?.message || 'Failed to submit report. Please try again.',
+        'error'
+      );
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <Formik
-      initialValues={initialFormData}
-      validate={validateStep}
-      onSubmit={handleSubmit}
-      validateOnChange={true}
-      validateOnBlur={true}
-    >
-      {({ values, errors, touched, setFieldValue, setErrors, setTouched, handleChange, handleBlur, isSubmitting: formikSubmitting }) => (
-        <Form>
-          <div className="flex items-center justify-center gap-2 py-4">
-            {[1, 2, 3, 4].map((step) => (
-              <span
-                key={step}
-                className={`w-8 h-2 rounded-2xl ${currentStep >= step ? "bg-white" : "bg-[rgba(255,255,255,.5)]"
-                  }`}
-              ></span>
-            ))}
-          </div>
+    <>
+      {notification && (
+        <Notification
+          message={notification.message}
+          type={notification.type}
+          onClose={hideNotification}
+        />
+      )}
 
-          <div className="flex-1 bg-cloudWhite rounded-tr-3xl rounded-tl-3xl text-black py-6 px-4 md:py-10 md:px-10 w-full md:max-w-[700px] md:mx-auto">
-            {currentStep === 1 ? (
-              <Step1
-                values={values}
-                errors={errors}
-                touched={touched}
-                setFieldValue={setFieldValue}
-                handleChange={handleChange}
-                handleBlur={handleBlur}
-                paymentMethods={paymentMethods}
-              />
-            ) : currentStep === 2 ? (
-              <Step2
-                values={values}
-                errors={errors}
-                touched={touched}
-                setFieldValue={setFieldValue}
-                handleChange={handleChange}
-                handleBlur={handleBlur}
-                incidentCategories={incidentCategories}
-              />
-            ) : currentStep === 3 ? (
-              <Step3
-                values={values}
-                errors={errors}
-                touched={touched}
-                setFieldValue={setFieldValue}
-                handleChange={handleChange}
-                handleBlur={handleBlur}
-              />
-            ) : (
-              <Step4
-                values={values}
-                errors={errors}
-                touched={touched}
-                setFieldValue={setFieldValue}
-                handleChange={handleChange}
-                handleBlur={handleBlur}
-              />
-            )}
+      <Formik
+        initialValues={initialFormData}
+        validate={validateStep}
+        onSubmit={handleSubmit}
+        validateOnChange={true}
+        validateOnBlur={true}
+      >
+        {({ values, errors, touched, setFieldValue, setErrors, setTouched, handleChange, handleBlur, isSubmitting: formikSubmitting }) => (
+          <Form>
+            <div className="flex items-center justify-center gap-2 py-4">
+              {[1, 2, 3, 4].map((step) => (
+                <span
+                  key={step}
+                  className={`w-8 h-2 rounded-2xl ${currentStep >= step ? "bg-white" : "bg-[rgba(255,255,255,.5)]"
+                    }`}
+                ></span>
+              ))}
+            </div>
 
-            <div className="flex items-center mt-6 gap-4">
-              <div className="flex-1">
-                {currentStep > 1 && (
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="uppercase text-xs w-full"
-                    style={{
-                      border: "1px solid",
-                      borderImage: `
-                                                linear-gradient(180deg, rgba(255, 255, 255, 0.8) -25.96%, rgba(255, 255, 255, 0) 100%),
-                                                linear-gradient(270deg, rgba(255, 255, 255, 0) 12.54%, rgba(255, 255, 255, 0.8) 47.67%, rgba(255, 255, 255, 0) 82.8%)
-                                                1
-                                            `,
-                    }}
-                    onClick={prevStep}
-                    type="button"
-                  >
-                    back
-                  </Button>
-                )}
-              </div>
-              <div className="flex-1">
-                {currentStep < 4 ? (
-                  <Button
-                    variant="primary"
-                    size="lg"
-                    className="uppercase text-xs w-full"
-                    onClick={() => nextStep(values, setErrors, setTouched)}
-                    type="button"
-                  >
-                    Next
-                  </Button>
-                ) : (
-                  <Button
-                    variant="primary"
-                    size="lg"
-                    className="uppercase text-xs w-full"
-                    type="submit"
-                    disabled={formikSubmitting || isSubmitting}
-                  >
-                    {formikSubmitting || isSubmitting ? "Submitting..." : "Submit Report"}
-                  </Button>
-                )}
+            <div className="flex-1 bg-cloudWhite rounded-tr-3xl rounded-tl-3xl text-black py-6 px-4 md:py-10 md:px-10 w-full md:max-w-[700px] md:mx-auto">
+              {currentStep === 1 ? (
+                <Step1
+                  values={values}
+                  errors={errors}
+                  touched={touched}
+                  setFieldValue={setFieldValue}
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
+                  paymentMethods={paymentMethods}
+                  onShowNotification={showNotification}
+                />
+              ) : currentStep === 2 ? (
+                <Step2
+                  values={values}
+                  errors={errors}
+                  touched={touched}
+                  setFieldValue={setFieldValue}
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
+                  incidentCategories={incidentCategories}
+                />
+              ) : currentStep === 3 ? (
+                <Step3
+                  values={values}
+                  errors={errors}
+                  touched={touched}
+                  setFieldValue={setFieldValue}
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
+                />
+              ) : (
+                <Step4
+                  values={values}
+                  errors={errors}
+                  touched={touched}
+                  setFieldValue={setFieldValue}
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
+                />
+              )}
+
+              <div className="flex items-center mt-6 gap-4">
+                <div className="flex-1">
+                  {currentStep > 1 && (
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="uppercase text-xs w-full"
+                      style={{
+                        border: "1px solid",
+                        borderImage: `
+                          linear-gradient(180deg, rgba(255, 255, 255, 0.8) -25.96%, rgba(255, 255, 255, 0) 100%),
+                          linear-gradient(270deg, rgba(255, 255, 255, 0) 12.54%, rgba(255, 255, 255, 0.8) 47.67%, rgba(255, 255, 255, 0) 82.8%)
+                          1
+                        `,
+                      }}
+                      onClick={prevStep}
+                      type="button"
+                    >
+                      back
+                    </Button>
+                  )}
+                </div>
+                <div className="flex-1">
+                  {currentStep < 4 ? (
+                    <Button
+                      variant="primary"
+                      size="lg"
+                      className="uppercase text-xs w-full"
+                      onClick={() => nextStep(values, setErrors, setTouched)}
+                      type="button"
+                    >
+                      Next
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="primary"
+                      size="lg"
+                      className="uppercase text-xs w-full"
+                      type="submit"
+                      disabled={formikSubmitting || isSubmitting}
+                    >
+                      {formikSubmitting || isSubmitting ? (
+                        <span className="flex items-center justify-center">
+                          <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Submitting...
+                        </span>
+                      ) : "Submit Report"}
+                    </Button>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        </Form>
-      )}
-    </Formik>
+          </Form>
+        )}
+      </Formik>
+    </>
   );
 }
 
@@ -251,9 +303,10 @@ interface StepProps {
 
 interface Step1Props extends StepProps {
   paymentMethods: { label: string; value: string }[];
+  onShowNotification?: (message: string, type: 'success' | 'error') => void;
 }
 
-const Step1 = ({ values, errors, touched, setFieldValue, handleChange, handleBlur, paymentMethods }: Step1Props) => {
+const Step1 = ({ values, errors, touched, setFieldValue, handleChange, handleBlur, paymentMethods, onShowNotification }: Step1Props) => {
   const [socialMediaHandles, setSocialMediaHandles] = useState<string[]>(values.socialMediaHandles || []);
   const [newHandle, setNewHandle] = useState('');
   const [selectedPlatform, setSelectedPlatform] = useState('');
@@ -276,6 +329,8 @@ const Step1 = ({ values, errors, touched, setFieldValue, handleChange, handleBlu
       setFieldValue('socialMediaHandles', updatedHandles);
       setNewHandle('');
       setSelectedPlatform('');
+    } else {
+      onShowNotification?.('Please select a platform and enter a handle', 'error');
     }
   };
 
@@ -316,6 +371,7 @@ const Step1 = ({ values, errors, touched, setFieldValue, handleChange, handleBlu
           onBlur={handleBlur}
           name="businessOrVendorName"
           error={touched.businessOrVendorName && errors.businessOrVendorName}
+          required
         />
 
         <SelectInput
@@ -340,6 +396,7 @@ const Step1 = ({ values, errors, touched, setFieldValue, handleChange, handleBlu
             onBlur={handleBlur}
             name="cryptoAddress"
             error={touched.cryptoAddress && errors.cryptoAddress}
+            required
           />
         )}
 
@@ -353,6 +410,7 @@ const Step1 = ({ values, errors, touched, setFieldValue, handleChange, handleBlu
             onBlur={handleBlur}
             name="paymentContact"
             error={touched.paymentContact && errors.paymentContact}
+            required
           />
         )}
 
@@ -366,6 +424,7 @@ const Step1 = ({ values, errors, touched, setFieldValue, handleChange, handleBlu
             onBlur={handleBlur}
             name="paymentAppId"
             error={touched.paymentAppId && errors.paymentAppId}
+            required
           />
         )}
 
@@ -379,6 +438,7 @@ const Step1 = ({ values, errors, touched, setFieldValue, handleChange, handleBlu
             onBlur={handleBlur}
             name="bankAccountDetails"
             error={touched.bankAccountDetails && errors.bankAccountDetails}
+            required
           />
         )}
 
@@ -392,6 +452,7 @@ const Step1 = ({ values, errors, touched, setFieldValue, handleChange, handleBlu
             onBlur={handleBlur}
             name="otherPaymentDescription"
             error={touched.otherPaymentDescription && errors.otherPaymentDescription}
+            required
           />
         )}
 
@@ -480,6 +541,20 @@ interface Step2Props extends StepProps {
 }
 
 const Step2 = ({ values, errors, touched, setFieldValue, handleChange, handleBlur, incidentCategories }: Step2Props) => {
+  // Helper to get error message
+  const getErrorMessage = (field: string) => {
+    if (touched[field] && errors[field]) {
+      // If error is an array or object, convert to string
+      if (Array.isArray(errors[field])) {
+        return errors[field].join(', ');
+      } else if (typeof errors[field] === 'object') {
+        return Object.values(errors[field]).join(', ');
+      }
+      return errors[field];
+    }
+    return '';
+  };
+
   return (
     <div className="space-y-4">
       <h3 className="font-bold text-xl mb-4 text-indigo">What Happened</h3>
@@ -492,7 +567,7 @@ const Step2 = ({ values, errors, touched, setFieldValue, handleChange, handleBlu
           onChange={handleChange}
           onBlur={handleBlur}
           name="incidentCategory"
-          error={touched.incidentCategory && errors.incidentCategory}
+          error={getErrorMessage('incidentCategory')}
           required
         />
 
@@ -502,6 +577,7 @@ const Step2 = ({ values, errors, touched, setFieldValue, handleChange, handleBlu
           value={values.incidentDate}
           onChange={(value) => setFieldValue('incidentDate', value)}
           maxDate={new Date()}
+          error={getErrorMessage('incidentDate')}
         />
 
         <TextInput
@@ -513,7 +589,7 @@ const Step2 = ({ values, errors, touched, setFieldValue, handleChange, handleBlu
           onChange={handleChange}
           onBlur={handleBlur}
           name="amountLost"
-          error={touched.amountLost && errors.amountLost}
+          error={getErrorMessage('amountLost')}
         />
 
         <TextArea
@@ -525,7 +601,8 @@ const Step2 = ({ values, errors, touched, setFieldValue, handleChange, handleBlu
           name="description"
           rows={4}
           maxLength={2000}
-          error={touched.description && errors.description}
+          error={getErrorMessage('description')}
+          required
         />
 
         <div>
@@ -539,6 +616,7 @@ const Step2 = ({ values, errors, touched, setFieldValue, handleChange, handleBlu
               value={values.attemptedResolution}
               onChange={(value) => setFieldValue('attemptedResolution', value)}
               name="attemptedResolution"
+              error={getErrorMessage('attemptedResolution')}
             />
           </div>
         </div>
@@ -552,7 +630,8 @@ const Step2 = ({ values, errors, touched, setFieldValue, handleChange, handleBlu
             onBlur={handleBlur}
             name="resolutionSteps"
             rows={3}
-            error={touched.resolutionSteps && errors.resolutionSteps}
+            error={getErrorMessage('resolutionSteps')}
+            required
           />
         )}
       </div>
@@ -606,7 +685,9 @@ const Step3 = ({ values, errors, touched, setFieldValue, handleChange, handleBlu
                 className="relative w-40 h-[120px] bg-white rounded-lg flex items-center justify-center cursor-pointer transition-colors border"
               >
                 <div className="text-center">
-                  <div className="text-sm truncate px-2">{file.name}</div>
+                  <div className="text-sm truncate px-2 break-words line-clamp-2">
+                    {file.name}
+                  </div>
                   <div className="text-xs text-gray-500">
                     {(file.size / 1024).toFixed(1)} KB
                   </div>
@@ -741,13 +822,15 @@ const Step4 = ({ values, errors, touched, setFieldValue, handleChange, handleBlu
             </div>
           </div>
         </div>
-
         <div className="bg-blue-50 p-4 rounded-lg">
           <div className="flex items-start gap-3">
             <CheckboxInput
-              checked={values.userAffirmedDataAreTrue}
-              onChange={(e) => setFieldValue('userAffirmedDataAreTrue', e.target.checked)}
-              name="userAffirmedDataAreTrue"
+              checked={values.userAffirmedDataAreTrue || false}
+              onCheckedChange={(checked) => {
+                console.log('Checkbox changed to:', checked);
+                setFieldValue('userAffirmedDataAreTrue', checked);
+              }}
+              id="userAffirmedDataAreTrue"
             />
             <div>
               <p className="text-sm font-medium text-gray-900">
@@ -757,25 +840,13 @@ const Step4 = ({ values, errors, touched, setFieldValue, handleChange, handleBlu
                 I understand that TapIQ reviews submissions for completeness but does not independently verify every report.
               </p>
               {touched.userAffirmedDataAreTrue && errors.userAffirmedDataAreTrue && (
-                <p className="text-red-500 text-xs mt-1">{errors.userAffirmedDataAreTrue}</p>
+                <p className="text-red-500 text-xs mt-1">
+                  {typeof errors.userAffirmedDataAreTrue === 'string'
+                    ? errors.userAffirmedDataAreTrue
+                    : 'Please confirm the accuracy of the information'}
+                </p>
               )}
             </div>
-          </div>
-        </div>
-
-        <div className="flex items-start gap-3">
-          <CheckboxInput
-            checked={values.anonymousReport}
-            onChange={(e) => setFieldValue('anonymousReport', e.target.checked)}
-            name="anonymousReport"
-          />
-          <div>
-            <p className="text-sm font-medium text-gray-900">
-              Submit anonymously
-            </p>
-            <p className="text-xs text-gray-600 mt-1">
-              Your personal information will not be shared
-            </p>
           </div>
         </div>
 
